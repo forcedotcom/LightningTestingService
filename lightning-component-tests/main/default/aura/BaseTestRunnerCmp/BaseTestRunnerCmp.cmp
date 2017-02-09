@@ -1,0 +1,20 @@
+<aura:component extensible="true" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" >
+	<aura:attribute name="testspecs" type="String[]" required="true" default="{!$Resource.jasmineTest}"/>
+    <ltng:require scripts="{!join(',', 
+    	$Resource.jasmine + '/lib/jasmine-2.5.2/jasmine.js',
+    	$Resource.jasmine + '/lib/jasmine-2.5.2/jasmine-html.js', 
+   	 	$Resource.jasmineTapReporter,
+        $Resource.jasmineboot,  
+        $Resource.testutil,
+        v.testspecs                              
+    )}"
+    
+    styles="{!join(',', 
+    	$Resource.jasmine + '/lib/jasmine-2.5.2/jasmine.css'
+    )}"
+
+    afterScriptsLoaded="{!c.runTests}" />
+    
+    <div id="testResults"></div>
+    
+</aura:component>

@@ -1,0 +1,10 @@
+.DS_Store
+.sfdx
+.project
+.salesforce
+node_modules
+.idea
+.tern-project
+
+selenium-client-jars/
+test/artifacts

@@ -1,0 +1,5 @@
+<aura:component access="global">
+	<div id="content">
+    Hello World!
+    </div>
+</aura:component>

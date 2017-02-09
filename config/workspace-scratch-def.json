@@ -1,0 +1,10 @@
+{
+  "Company": "esalman Company",
+  "Country": "US",
+  "LastName": "esalman",
+  "Email": "esalman@salesforce.com",
+  "Edition": "Developer",
+  "OrgPreferences" : {
+    "S1DesktopEnabled" : true
+  }
+}
