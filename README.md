@@ -1,5 +1,12 @@
 # sfdx-lightning-test-service
 
+# setup
+
+brew install heroku   (see https://devcenter.heroku.com/articles/heroku-cli)
+
+heroku plugins:install salesforcedx@prerelease (plugin name will change as they come out of prerelease)
+
+# flow
 
 1- heroku force:auth:web:login -d
 
