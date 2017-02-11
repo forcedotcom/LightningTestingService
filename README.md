@@ -14,5 +14,5 @@ heroku plugins:install salesforcedx@prerelease (plugin name will change as they 
 
 3- heroku force:source:push 
 
-4- heroku force:test:run -f test/test-runner-config.json -c local -j integration 
+4- heroku force:testrunner:run  -f test/test-runner-config.json -c local -j integration 
 
