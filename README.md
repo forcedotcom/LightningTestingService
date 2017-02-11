@@ -6,13 +6,13 @@
 
 *heroku plugins:install salesforcedx@prerelease* (plugin name will change as they come out of prerelease)
 
-# scratch org flow
+# scratch org setup
 
 *heroku force:auth:web:login -d* (login to hub org)
 
 *heroku force:org:create -s -f config/workspace-scratch-def.json -a scratch1*
 
-# dev flow commands
+# dev flow 
 
 *heroku force:source:push* (push changes to scratch org)
 
