@@ -1,0 +1,3 @@
+<aura:documentation>
+	<aura:description>An example component that conditionally renders text to the DOM</aura:description>
+</aura:documentation>

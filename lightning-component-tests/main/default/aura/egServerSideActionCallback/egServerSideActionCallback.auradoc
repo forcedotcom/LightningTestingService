@@ -1,0 +1,3 @@
+<aura:documentation>
+	<aura:description>An example component that calls a server side action, but also exposes the callback as a method to be called diretly</aura:description>
+</aura:documentation>

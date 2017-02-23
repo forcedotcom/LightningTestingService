@@ -1,8 +1,8 @@
 (function(global) {
     var UNDEFINED,
-        exportObject;    
+    exportObject;    
     var run_results_tap = "";
-    
+
     if (typeof module !== "undefined" && module.exports) {
         exportObject = exports;
     } else {
@@ -32,15 +32,15 @@
 
     function setHiddenDivContent(id, content) {
         var aDiv = document.getElementById(id);          
-         
+
         if(!aDiv){            
             aDiv = document.createElement("div");
             aDiv.id = id;
             aDiv.style = "display: none;";
             document.body.appendChild(aDiv); 
         }
-            
-  		aDiv.innerHTML = content;  
+
+        aDiv.innerHTML = content;  
         return aDiv;
     }
     /**
@@ -57,19 +57,19 @@
         self.finished = false;
 
         var startTime,
-            endTime,
-            currentSuite = null,
-            totalSpecsExecuted = 0,
-            totalSpecsSkipped = 0,
-            totalSpecsDisabled = 0,
-            totalSpecsFailed = 0,
-            totalSpecsDefined,
-            // when use use fit, jasmine never calls suiteStarted / suiteDone, so make a fake one to use
-            fakeFocusedSuite = {
+        endTime,
+        currentSuite = null,
+        totalSpecsExecuted = 0,
+        totalSpecsSkipped = 0,
+        totalSpecsDisabled = 0,
+        totalSpecsFailed = 0,
+        totalSpecsDefined,
+        // when use use fit, jasmine never calls suiteStarted / suiteDone, so make a fake one to use
+        fakeFocusedSuite = {
                 id: 'focused',
                 description: 'focused specs',
                 fullName: 'focused specs'
-            };
+        };
 
         var __suites = {}, __specs = {};
         function getSuite(suite) {
@@ -142,8 +142,8 @@
             }
             endTime = new Date();
             var dur = elapsed(startTime, endTime),
-                totalSpecs = totalSpecsDefined || totalSpecsExecuted,
-                disabledSpecs = totalSpecs - totalSpecsExecuted + totalSpecsDisabled;
+            totalSpecs = totalSpecsDefined || totalSpecsExecuted,
+            disabledSpecs = totalSpecs - totalSpecsExecuted + totalSpecsDisabled;
 
             if (totalSpecsExecuted === 0) {
                 log('1..0 # All tests disabled');
@@ -162,11 +162,11 @@
             self.finished = true;
             // this is so phantomjs-testrunner.js can tell if we're done executing
             exportObject.endTime = endTime;
-            
+
             //setHiddenDivContent("run_status", "Finished: Failures="+totalSpecsFailed);
             var tapResultDiv = setHiddenDivContent("run_results_tap", run_results_tap);
-            tapResultDiv.setAttribute("data-total-count", totalSpecsExecuted);
             tapResultDiv.setAttribute("data-failure-count", totalSpecsFailed);
+            tapResultDiv.setAttribute("data-total-count", totalSpecsExecuted);
         };
     };
 })(this);

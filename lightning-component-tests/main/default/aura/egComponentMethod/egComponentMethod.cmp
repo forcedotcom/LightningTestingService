@@ -1,0 +1,5 @@
+<aura:component access="global">
+    <aura:attribute name="status" type="string"/> 
+    <aura:method name="sampleMethod" action="{!c.handleClick}"/>
+    {!v.status}
+</aura:component>

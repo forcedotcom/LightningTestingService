@@ -1,0 +1,4 @@
+<aura:component access="global">
+    Helloooooo
+    <div aura:id="greeting">{! $Label.c.greeting}</div>
+</aura:component>

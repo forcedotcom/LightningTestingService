@@ -1,0 +1,3 @@
+<aura:documentation>
+	<aura:description>A wrapper component created for testing purposes to enable testing of view/presentation component without LDS dependency</aura:description>
+</aura:documentation>
