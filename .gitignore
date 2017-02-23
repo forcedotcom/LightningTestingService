@@ -5,6 +5,7 @@
 node_modules
 .idea
 .tern-project
-
+.classpath
+.settings/
 selenium-client-jars/
 test/artifacts
