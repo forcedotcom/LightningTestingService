@@ -62,7 +62,7 @@
             "name": "integration",
 			"orgs": ["lts-default"],
             "testCommand": "run-integration-tests",
-            "before": "compile-integration-tests",
+            "before": ["compile-integration-tests"],
 			"tests": ["test.integration.IntegrationTest"]
             
         },
