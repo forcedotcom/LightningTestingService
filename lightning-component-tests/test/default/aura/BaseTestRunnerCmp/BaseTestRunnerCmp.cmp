@@ -6,7 +6,7 @@
    	 	$Resource.jasmineTapReporter,
         $Resource.jasmineboot,  
         $Resource.testutil,
-        v.testspecs                              
+        v.testspecs
     )}"
     
     styles="{!join(',', 

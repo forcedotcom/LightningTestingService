@@ -5,7 +5,7 @@ describe("Sample: Passing", function() {
 });
 
 describe("Sample: Failing", function() {
-    it("A simple failing test", function() {
+    xit("A simple failing test", function() {
         expect(true).toBe(false);
     });
 });

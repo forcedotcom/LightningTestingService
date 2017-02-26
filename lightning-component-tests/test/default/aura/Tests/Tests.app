@@ -4,5 +4,5 @@
     	$Resource.helloWorldTests, 
         $Resource.exampleTests                         
     )}"/>
-    <div aura:id="renderTestComponents"></div>
+    <div aura:id="renderTestComponents" id="renderTestComponents"></div>
 </aura:application>
