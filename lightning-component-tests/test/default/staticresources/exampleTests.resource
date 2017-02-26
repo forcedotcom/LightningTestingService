@@ -64,12 +64,12 @@ describe("Top Level Suite", function(){
         	var renderInto = document.getElementById("renderTestComponents");
         	$LightningTestUtil.getComponent("c:egServerSideActionCallback", {}, renderInto)
         		.then(function(component){
-                    var res = {getState : function(){return "SUCCESS";}, getReturnValue: function(){return [{"Name":"emad"},{"Name":"salman"}];}}; 
+                    var res = {getState : function(){return "SUCCESS";}, getReturnValue: function(){return [{"Name":"Acct 1"},{"Name":"Acct 2"}];}}; 
                     component.searchAccounts(res);
 
                     //Assert using components interface
                     expect(component.get("v.accountList").length).toBe(2);
-                    expect(component.get("v.accountList")[0]['Name']).toContain("emad");
+                    expect(component.get("v.accountList")[0]['Name']).toContain("Acct 1");
                     //Assert using dom element owned by the namespace
                     expect(component.find("accountList").getElement().children.length).toBe(2);
 
