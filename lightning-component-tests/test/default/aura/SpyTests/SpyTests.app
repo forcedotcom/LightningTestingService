@@ -3,5 +3,6 @@
     <c:BaseTestRunnerCmp testspecs="{!join(',', 
         $Resource.exampleTestsUsingSpies                         
     )}"/>
-    <div aura:id="renderTestComponents"></div>
+    
+    <div aura:id="renderTestComponents" id="renderTestComponents"></div>
 </aura:application>

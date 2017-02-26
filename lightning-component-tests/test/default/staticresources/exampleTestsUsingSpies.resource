@@ -1,4 +1,35 @@
-describe("Top Level Suite", function(){ 
+describe("Top Level Suite", function(){
+    afterEach(function() {
+        $LightningTestUtil.clearRenderedTestComponents();
+    });
+
+    describe('c:egServerSideActionCallback', function() {
+        it('spy example: invoking action callback with success response updates the attributes and UI correctly', function(done) {
+            var renderInto = document.getElementById("renderTestComponents");
+            $LightningTestUtil.getComponent("c:egServerSideActionCallback", {}, renderInto)
+                .then(function(component){
+                    var res = {getState : function(){return "SUCCESS";}, getReturnValue: function(){return [{"Name":"Acct 1"},{"Name":"Acct 2"}];}}; 
+                    spyOn($A, "enqueueAction").and.callFake(function(action) {
+                        var cb = action.getCallback("SUCCESS")
+                        cb.fn.apply(cb.s, [res]);
+                    });
+
+                    component.search();
+
+                    //Assert using components interface
+                    expect(component.get("v.accountList").length).toBe(2);
+                    expect(component.get("v.accountList")[0]['Name']).toContain("Acct 1");
+                    //Assert using dom element owned by the namespace
+                    expect(component.find("accountList").getElement().children.length).toBe(2);
+
+                    done();
+                }).catch(function(e) {
+                    done.fail(e);
+                });          
+        });
+    });
+    
+    /*
     describe('c:egServerSideActionCallback', function(){
         it('spy example: invoking action callback with success response updates the attributes and UI correctly', function(done) {
             $LightningTestUtil.getComponent("c:egServerSideActionCallback", null).then(
@@ -53,9 +84,9 @@ describe("Top Level Suite", function(){
                     });           
         });
     });
-
-
+   
     afterEach(function(done){
         $LightningTestUtil.clearRenderedTestComponents().then(function(){done();});
     });
+      */
 });
