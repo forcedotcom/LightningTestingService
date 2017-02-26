@@ -24,22 +24,17 @@
     }
 
     /**
-     * renderInto is optional and can be a DOM element or Aura component. If present, newly created component will be
-     * pushed in to that components body.
+     * renderInto is an optional DOM element. If present, newly created component will be pushed in to that elements body.
      */
     $LightningTestUtil.getComponent = function(descriptor, attributes, renderInto) {
         var callback = $A.getCallback(function(resolve){
             $A.createComponent(descriptor, attributes , function(component) {
             	cmpsToCleanup.push(component.getGlobalId());
             	if (renderInto) {
-            		var renderingContainer = renderInto;
-            		// TODO(tbliss): need better way to do type detection. for now just assume it's a DOM element
-//            		if (renderingContainer instanceof HTMLElement) {
-            			renderingContainer = $A.getComponent(renderInto);
-//            		} else if (!(renderingContainer.getElements && renderingContainer.getGlobalId)) {
-            			// not a DOM element or Aura component
-//            			throw new Error("Could not find valid component to render into: " + renderInto);
-//            		}
+            		var renderingContainer = $A.getComponent(renderInto);
+            		if (!renderingContainer) {
+            			throw new Error("Could not find valid component to render into: " + renderInto);
+            		}
                     var body = renderingContainer.get("v.body");
                     body.push(component);
                     renderingContainer.set("v.body", body);
