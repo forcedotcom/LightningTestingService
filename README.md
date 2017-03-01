@@ -2,10 +2,10 @@
 
 # cli setup
 
-# Option 1: SFDX standanlone executable
+#### Option 1: SFDX standanlone executable
 https://salesforce.quip.com/zHcMAbY3lpA8
 
-#Option 2: (having some issues)
+#### Option 2: Via Heroku CLI (having some issues)
 *brew install heroku*   (see https://devcenter.heroku.com/articles/heroku-cli)
 
 *heroku plugins:install salesforcedx*  
