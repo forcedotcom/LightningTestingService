@@ -24,3 +24,6 @@ https://salesforce.quip.com/zHcMAbY3lpA8
 
 *sfdx force:testrunner:run  -f test/test-runner-config.json -c local -j integration*  (trigger integration test run)
 
+# Force IDE 2
+Get installation link from description section of https://gus.my.salesforce.com/_ui/core/chatter/groups/GroupProfilePage?g=0F9B000000001qh
+
