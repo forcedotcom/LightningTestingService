@@ -3,7 +3,7 @@
     <ltng:require scripts="{!join(',', 
     	$Resource.jasmine + '/lib/jasmine-2.5.2/jasmine.js',
     	$Resource.jasmine + '/lib/jasmine-2.5.2/jasmine-html.js', 
-   	 	$Resource.jasmineTapReporter,
+   	 	$Resource.jasmineReporter,
         $Resource.jasmineboot,  
         $Resource.testutil,
         v.testspecs

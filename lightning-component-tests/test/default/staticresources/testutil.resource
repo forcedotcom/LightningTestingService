@@ -1,5 +1,6 @@
 (function (global){  
     global.$LightningTestUtil = function $LightningTestUtil(){};
+    global.$T = global.$LightningTestUtil;
 
     var cmpsToCleanup = [];
 

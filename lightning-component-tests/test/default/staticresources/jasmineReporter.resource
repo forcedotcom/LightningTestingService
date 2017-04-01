@@ -2,6 +2,7 @@
     var UNDEFINED,
     exportObject;    
     var run_results_tap = "";
+    var run_results_full = {"tests":[]};
 
     if (typeof module !== "undefined" && module.exports) {
         exportObject = exports;
@@ -22,12 +23,15 @@
         }
         return dupe;
     }
-    function log(str) {
+    function log(str, fullReport) {
         var con = global.console || console;
         if (con && con.log) {
             con.log(str);
         }
         run_results_tap += str+"\n";
+        if (fullReport != null) {
+        	run_results_full.tests.push(fullReport);
+        }
     }
 
     function setHiddenDivContent(id, content) {
@@ -43,14 +47,7 @@
         aDiv.innerHTML = content;  
         return aDiv;
     }
-    /**
-     * TAP (http://en.wikipedia.org/wiki/Test_Anything_Protocol) reporter.
-     * outputs spec results to the console.
-     *
-     * Usage:
-     *
-     * jasmine.getEnv().addReporter(new jasmineReporters.TapReporter());
-     */
+
     exportObject.TapReporter = function() {
         var self = this;
         self.started = false;
@@ -102,30 +99,45 @@
         };
         self.specDone = function(spec) {
             spec = getSpec(spec);
+
+            var fullReport = {};
+            fullReport.FullName =  spec._suite.description + ' : ' + spec.description;
+            fullReport.Outcome = 'Pass';
+
             var resultStr = 'ok ' + totalSpecsExecuted + ' - ' + spec._suite.description + ' : ' + spec.description;
             var failedStr = '';
+
             if (isFailed(spec)) {
                 totalSpecsFailed++;
                 resultStr = 'not ' + resultStr;
                 for (var i = 0, failure; i < spec.failedExpectations.length; i++) {
                     failure = spec.failedExpectations[i];
                     failedStr += '\n  ' + trim(failure.message);
-                    if (failure.stack && failure.stack !== failure.message) {
-                        failedStr += '\n  === STACK TRACE ===';
-                        failedStr += '\n  ' + failure.stack;
-                        failedStr += '\n  === END STACK TRACE ===';
-                    }
+//                    if (failure.stack && failure.stack !== failure.message) {
+//                        failedStr += '\n  === STACK TRACE ===';
+//                        failedStr += '\n  ' + failure.stack;
+//                        failedStr += '\n  === END STACK TRACE ===';
+//                    }
                 }
+                
+                fullReport.Outcome = 'Fail';
+                fullReport.Message = failedStr;
             }
             if (isSkipped(spec)) {
                 totalSpecsSkipped++;
-                resultStr += ' # SKIP disabled by xit or similar';
+                var skipStr = ' # SKIP disabled by xit or similar';
+                resultStr += skipStr;
+                fullReport.Outcome = 'Skip';
+                fullReport.Message = skipStr;
             }
             if (isDisabled(spec)) {
                 totalSpecsDisabled++;
-                resultStr += ' # SKIP disabled by xit, ?spec=xyz or similar';
+                var disableStr = ' # SKIP disabled by xit, ?spec=xyz or similar';
+                fullReport.Outcome = 'Disabled';
+                resultStr += disableStr;
             }
-            log(resultStr);
+
+            log(resultStr, fullReport);
         };
         self.suiteDone = function(suite) {
             suite = getSuite(suite);
@@ -167,6 +179,8 @@
             var tapResultDiv = setHiddenDivContent("run_results_tap", run_results_tap);
             tapResultDiv.setAttribute("data-failure-count", totalSpecsFailed);
             tapResultDiv.setAttribute("data-total-count", totalSpecsExecuted);
+            
+            setHiddenDivContent("run_results_full", JSON.stringify(run_results_full));
         };
     };
 })(this);
