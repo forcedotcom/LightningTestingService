@@ -1,10 +1,10 @@
 (function (global){  
-    global.$LightningTestUtil = function $LightningTestUtil(){};
-    global.$T = global.$LightningTestUtil;
+
+    global.$T = function $T(){};
 
     var cmpsToCleanup = [];
 
-    $LightningTestUtil.waitFor = function(fn, timeout, interval){
+    $T.waitFor = function(fn, timeout, interval){
         timeout = timeout || 3000;
         interval = interval || 50;
 
@@ -27,7 +27,7 @@
     /**
      * renderInto is an optional DOM element. If present, newly created component will be pushed in to that elements body.
      */
-    $LightningTestUtil.getComponent = function(descriptor, attributes, renderInto) {
+    $T.getComponent = function(descriptor, attributes, renderInto) {
         var callback = $A.getCallback(function(resolve){
             $A.createComponent(descriptor, attributes , function(component) {
             	cmpsToCleanup.push(component.getGlobalId());
@@ -48,7 +48,7 @@
         	return new Promise(callback)
         		.then(function(component) {
 	        		// TODO(tbliss): better way to wait and still return component when done?
-	        		return $LightningTestUtil.waitFor(function() {
+	        		return $T.waitFor(function() {
 	        			if(component.isRendered()) {
 	        				return component;
 	        			}
@@ -61,7 +61,7 @@
     }
 
     // TODO(tbliss): call this automatically at end of test or make test authors add afterEach() block?
-    $LightningTestUtil.clearRenderedTestComponents = function() {
+    $T.clearRenderedTestComponents = function() {
     	while (cmpsToCleanup.length) {
     		var globalId = cmpsToCleanup.shift();
     		var cmp = $A.getComponent(globalId);

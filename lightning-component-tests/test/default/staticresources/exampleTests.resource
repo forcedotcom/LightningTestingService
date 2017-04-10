@@ -1,13 +1,13 @@
 describe("Top Level Suite", function(){    
 
     afterEach(function() {
-    	$LightningTestUtil.clearRenderedTestComponents();
+    	$T.clearRenderedTestComponents();
     });
 
 	describe('c:egRenderElement', function(){
         it('renders expected data', function(done) {
         	var renderInto = document.getElementById("renderTestComponents");
-            $LightningTestUtil.getComponent("c:egRenderElement", {}, renderInto)
+            $T.getComponent("c:egRenderElement", {}, renderInto)
             	.then(function(component) {
                 	expect(document.getElementById("content").textContent).toContain("Hello World!");
                 	done();
@@ -20,7 +20,7 @@ describe("Top Level Suite", function(){
     describe('c:egClientSideAction', function(){
         it('invoking client side action via component method populates list in UI', function(done) {
         	var renderInto = document.getElementById("renderTestComponents");
-            $LightningTestUtil.getComponent("c:egClientSideAction", {}, renderInto)
+            $T.getComponent("c:egClientSideAction", {}, renderInto)
             	.then(function(component){
                     component.set("v.searchString", "salesforce");
                     expect(component.find("accountList").getElement().children.length).toBe(0);
@@ -41,14 +41,14 @@ describe("Top Level Suite", function(){
     describe('c:egServerSideActionCallback', function(){
         it('[Discouraged: brittle, slow, side-effects] invoking server side action end-to-end updates the state correctly.', function(done) {
         	var renderInto = document.getElementById("renderTestComponents");
-            $LightningTestUtil.getComponent("c:egServerSideActionCallback", {}, renderInto)
+            $T.getComponent("c:egServerSideActionCallback", {}, renderInto)
         		.then(function(component){
         			component.set("v.searchString", "United");
                     expect(component.find("accountList").getElement().children.length).toBe(0);
 
                     component.search();
 
-                    return $LightningTestUtil.waitFor(function(){
+                    return $T.waitFor(function(){
                         return component.get("v.accountList").length === 3;
                     })
         		}).then(function() {
@@ -62,7 +62,7 @@ describe("Top Level Suite", function(){
     describe('c:egServerSideActionCallback', function() {
         it('invoking action callback with success response updates the attributes and UI correctly', function(done) {
         	var renderInto = document.getElementById("renderTestComponents");
-        	$LightningTestUtil.getComponent("c:egServerSideActionCallback", {}, renderInto)
+        	$T.getComponent("c:egServerSideActionCallback", {}, renderInto)
         		.then(function(component){
                     var res = {getState : function(){return "SUCCESS";}, getReturnValue: function(){return [{"Name":"Acct 1"},{"Name":"Acct 2"}];}}; 
                     component.searchAccounts(res);
@@ -91,7 +91,7 @@ describe("Top Level Suite", function(){
                     objectAtr:{"key1":"value1"}
             };
             var renderInto = document.getElementById("renderTestComponents");
-            $LightningTestUtil.getComponent("c:egAttributeTypes",attributes, renderInto)
+            $T.getComponent("c:egAttributeTypes",attributes, renderInto)
             .then(function(component){
                 expect(component.find("stringAtrAuraId").getElement().innerHTML).toContain(attributes.stringAtr);
                 expect(component.get("v.integerAtr")).toBe(attributes.integerAtr);
@@ -107,7 +107,7 @@ describe("Top Level Suite", function(){
         var attributes = {"content":"textContent"};
         it('setting a component facet and validating the output', function(done) {
         	var renderInto = document.getElementById("renderTestComponents");
-            $LightningTestUtil.getComponent("c:egFacet", attributes, renderInto)
+            $T.getComponent("c:egFacet", attributes, renderInto)
 	            .then(function(component){
 	                expect(component.find("cmpUnderTest").find("AuraComponentAtrId").getElement().innerHTML).toContain(attributes.content);
 	                done();
@@ -120,7 +120,7 @@ describe("Top Level Suite", function(){
     describe('c:egGlobalValueProvider', function(){
         it('custom label shows up at correct place', function(done) {
         	var renderInto = document.getElementById("renderTestComponents");
-            $LightningTestUtil.getComponent("c:egGlobalValueProvider", {}, renderInto)
+            $T.getComponent("c:egGlobalValueProvider", {}, renderInto)
             .then(function(component){
                 var greetingLabelVal = $A.get("$Label.c.greeting");
                 expect(greetingLabelVal).toBeTruthy(greetingLabelVal);
@@ -134,7 +134,7 @@ describe("Top Level Suite", function(){
 
     describe('c:egConditionalUI', function() {        
         it('component renders only the portion of UI based on a conditional', function(done) {
-            $LightningTestUtil.getComponent("c:egConditionalUI", null)
+            $T.getComponent("c:egConditionalUI", null)
 	            .then(function(component) {
 	                expect(component.find("trueDiv")).toBeTruthy(); 
 	                expect(component.find("falseDiv")).toBeFalsy();    
@@ -150,7 +150,7 @@ describe("Top Level Suite", function(){
 
     describe('c:egEventHandling', function() {           
         it('component handles a component and application level event', function(done) {
-            $LightningTestUtil.getComponent("c:egEventHandling", null)
+            $T.getComponent("c:egEventHandling", null)
             .then(function(component){
                 var cmpEvent = component.getEvent("sampleEvent");
                 cmpEvent.setParams({"data":"component event fired"});
@@ -170,7 +170,7 @@ describe("Top Level Suite", function(){
 
     describe('c:egLdsTestWrapper', function(){            
         it('view component (which be used used by a wrapper using LDS) works well for success usecase', function(done) {
-            $LightningTestUtil.getComponent("c:egLdsTestWrapper", null)
+            $T.getComponent("c:egLdsTestWrapper", null)
             .then(function(component){
                 component.find("worker").find("contactFirstName").set("v.value", "John");
                 component.find("worker").find("contactLastName").set("v.value", "Doe");

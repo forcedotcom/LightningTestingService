@@ -1,4 +1,4 @@
-# sfdx-lightning-test-service
+# lightning-component-tests
 
 # cli setup
 

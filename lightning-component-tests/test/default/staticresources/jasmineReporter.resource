@@ -96,13 +96,16 @@
             spec = getSpec(spec);
             totalSpecsExecuted++;
             spec._suite = currentSuite;
+            this.specStartingTime = Date.now();
         };
         self.specDone = function(spec) {
             spec = getSpec(spec);
 
             var fullReport = {};
-            fullReport.FullName =  spec._suite.description + ' : ' + spec.description;
+            fullReport.FullName =  spec._suite.description;
+            fullReport.Description = spec.description;
             fullReport.Outcome = 'Pass';
+            fullReport.RunTime = Date.now() - this.specStartingTime;
 
             var resultStr = 'ok ' + totalSpecsExecuted + ' - ' + spec._suite.description + ' : ' + spec.description;
             var failedStr = '';
@@ -113,11 +116,6 @@
                 for (var i = 0, failure; i < spec.failedExpectations.length; i++) {
                     failure = spec.failedExpectations[i];
                     failedStr += '\n  ' + trim(failure.message);
-//                    if (failure.stack && failure.stack !== failure.message) {
-//                        failedStr += '\n  === STACK TRACE ===';
-//                        failedStr += '\n  ' + failure.stack;
-//                        failedStr += '\n  === END STACK TRACE ===';
-//                    }
                 }
                 
                 fullReport.Outcome = 'Fail';
