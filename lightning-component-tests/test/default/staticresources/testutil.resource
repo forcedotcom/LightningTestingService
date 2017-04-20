@@ -4,6 +4,14 @@
 
     var cmpsToCleanup = [];
 
+    /**
+     * Waits for the function to finish executing.
+     * 
+     * @param {function} fn The function to be executed.
+     * @param {?number} timeout The total timeout for the wait.
+     * @param {?number} interval The interval.
+     * @returns {Promise} The wait result.
+     */
     $T.waitFor = function(fn, timeout, interval){
         timeout = timeout || 3000;
         interval = interval || 50;
@@ -25,7 +33,14 @@
     }
 
     /**
-     * renderInto is an optional DOM element. If present, newly created component will be pushed in to that elements body.
+     * Creates the Lightning component, adds it to the list of components to be cleared,
+     * and render it into the specified DOM element.
+     * 
+     * @param {string} descriptor The descriptor of the component to be rendered.
+     * @param {Object.<string, Object>} attributes The attributes to be set to the component.
+     * @param {string} renderInto An optional DOM element. If present, newly created component 
+     *                            will be pushed in to that elements body.
+     * @returns {Promise} component creation or rendering result, depending on whether renderInto is specified
      */
     $T.getComponent = function(descriptor, attributes, renderInto) {
         var callback = $A.getCallback(function(resolve){
@@ -60,6 +75,9 @@
         }
     }
 
+    /**
+     * Clears the components registered to cmpsToCleanup list.
+     */
     // TODO(tbliss): call this automatically at end of test or make test authors add afterEach() block?
     $T.clearRenderedTestComponents = function() {
     	while (cmpsToCleanup.length) {

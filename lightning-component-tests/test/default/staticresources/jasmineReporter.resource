@@ -1,7 +1,18 @@
+/**
+ * A sample reporter connected to Jasmine. This records information in various test run stages,
+ * then add formatted test result to the DOM for other tools (e.g. SFDX) to grab.
+ */
 (function(global) {
     var UNDEFINED,
     exportObject;    
+    
+    /** Test result in TAP format (https://en.wikipedia.org/wiki/Test_Anything_Protocol) */
     var run_results_tap = "";
+    
+    /**
+     * Test result for SFDX. This needs to be in format interpretable by SFDX lightning test run command.
+     * Available fields include(case sensitive): FullName, Description, Outcome (Pass/Fail/Skip/Disabled), Message, Runtime
+     */
     var run_results_full = {"tests":[]};
 
     if (typeof module !== "undefined" && module.exports) {
@@ -15,7 +26,9 @@
     function isFailed(obj) { return obj.status === "failed"; }
     function isSkipped(obj) { return obj.status === "pending"; }
     function isDisabled(obj) { return obj.status === "disabled"; }
-    function extend(dupe, obj) { // performs a shallow copy of all props of `obj` onto `dupe`
+    
+    /** performs a shallow copy of all props of `obj` onto `dupe` */
+    function extend(dupe, obj) {
         for (var prop in obj) {
             if (obj.hasOwnProperty(prop)) {
                 dupe[prop] = obj[prop];
@@ -23,17 +36,31 @@
         }
         return dupe;
     }
-    function log(str, fullReport) {
+    
+    /**
+     * Adds the test spec result to the full report.
+     *
+     * @param {string} tapReport TAP test result for the spec. 
+     * @param {string} fullReport Full test result for the spec.
+     */
+    function log(tapReport, fullReport) {
         var con = global.console || console;
         if (con && con.log) {
-            con.log(str);
+            con.log(tapReport);
         }
-        run_results_tap += str+"\n";
+        run_results_tap += tapReport + "\n";
         if (fullReport != null) {
         	run_results_full.tests.push(fullReport);
         }
     }
 
+	/**
+	 * Writes test result into a invisible div.
+	 * This is called twice, once for tap result, another for full result.
+	 *
+	 * @param {string} id The id of the div.
+	 * @param {string} The test result.
+	 */  
     function setHiddenDivContent(id, content) {
         var aDiv = document.getElementById(id);          
 
@@ -48,7 +75,7 @@
         return aDiv;
     }
 
-    exportObject.TapReporter = function() {
+    exportObject.Reporter = function() {
         var self = this;
         self.started = false;
         self.finished = false;
@@ -61,7 +88,7 @@
         totalSpecsDisabled = 0,
         totalSpecsFailed = 0,
         totalSpecsDefined,
-        // when use use fit, jasmine never calls suiteStarted / suiteDone, so make a fake one to use
+        // when use fit, jasmine never calls suiteStarted / suiteDone, so make a fake one to use
         fakeFocusedSuite = {
                 id: 'focused',
                 description: 'focused specs',
@@ -82,7 +109,6 @@
             self.started = true;
             totalSpecsDefined = summary && summary.totalSpecsDefined || NaN;
             startTime = exportObject.startTime = new Date();
-            //setHiddenDivContent("run_status", "Started: Total="+totalSpecsDefined);
         };
         self.suiteStarted = function(suite) {
             suite = getSuite(suite);
