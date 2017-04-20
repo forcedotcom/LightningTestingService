@@ -1,24 +1,24 @@
 describe("Top Level Suite", function(){    
 
     afterEach(function() {
-    	// Since all the specs renders components in the same div,
-    	// we want to clear it out and the end of each spec.
-    	// $T provides test utils.
+        // Since all the specs renders components in the same div,
+        // we want to clear it out and the end of each spec.
+        // $T provides test utils.
     	$T.clearRenderedTestComponents();
     });
 
 	describe('c:egRenderElement', function(){
-		// We encourage you to have the code for c:egRenderElement side by side
-		// when reading through this spec.
+	    // We encourage you to have the code for c:egRenderElement side by side
+	    // when reading through this spec.
         it('renders expected data', function(done) {
-        	// Defines where the component should be rendered during the test.
-        	// You can also update Tests.app and define your own DOM element.
+            // Defines where the component should be rendered during the test.
+            // You can also update Tests.app and define your own DOM element.
         	var renderInto = document.getElementById("renderTestComponents");
 
-        	// Renders c:egRenderElement Lightning component into the renderInto div.
-        	// The second param is the list of attributes.
+            // Renders c:egRenderElement Lightning component into the renderInto div.
+            // The second param is the list of attributes.
             $T.getComponent("c:egRenderElement", {}, renderInto)
-            	// The 'component' here is the instance of c:egRenderElement  
+                // The 'component' here is the instance of c:egRenderElement  
             	.then(function(component) {
                 	expect(document.getElementById("content").textContent).toContain("Hello World!");
                 	done();
@@ -76,7 +76,7 @@ describe("Top Level Suite", function(){
         	var renderInto = document.getElementById("renderTestComponents");
         	$T.getComponent("c:egServerSideActionCallback", {}, renderInto)
         		.then(function(component){
-        			// Mocking out the server side action response 
+        		    // Mocking out the server side action response 
                     var res = {getState : function(){return "SUCCESS";}, getReturnValue: function(){return [{"Name":"Acct 1"},{"Name":"Acct 2"}];}}; 
                     component.searchAccounts(res);
 
@@ -135,7 +135,7 @@ describe("Top Level Suite", function(){
         	var renderInto = document.getElementById("renderTestComponents");
             $T.getComponent("c:egGlobalValueProvider", {}, renderInto)
             .then(function(component){
-            	// You can reference custom label from your test
+                // You can reference custom label from your test
                 var greetingLabelVal = $A.get("$Label.c.greeting");
                 expect(greetingLabelVal).toBeTruthy(greetingLabelVal);
                 expect(component.find("greeting").getElement().textContent).toBe(greetingLabelVal); 
