@@ -84,9 +84,5 @@ describe("Top Level Suite", function(){
                     });           
         });
     });
-   
-    afterEach(function(done){
-        $LightningTestUtil.clearRenderedTestComponents().then(function(){done();});
-    });
-      */
+    */
 });

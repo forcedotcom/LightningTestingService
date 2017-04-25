@@ -4,35 +4,35 @@ describe("Top Level Suite", function(){
         // Since all the specs renders components in the same div,
         // we want to clear it out and the end of each spec.
         // $T provides test utils.
-    	$T.clearRenderedTestComponents();
+        $T.clearRenderedTestComponents();
     });
 
-	describe('c:egRenderElement', function(){
-	    // We encourage you to have the code for c:egRenderElement side by side
-	    // when reading through this spec.
+    describe('c:egRenderElement', function(){
+        // We encourage you to have the code for c:egRenderElement side by side
+        // when reading through this spec.
         it('renders expected data', function(done) {
             // Defines where the component should be rendered during the test.
             // You can also update Tests.app and define your own DOM element.
-        	var renderInto = document.getElementById("renderTestComponents");
+            var renderInto = document.getElementById("renderTestComponents");
 
             // Renders c:egRenderElement Lightning component into the renderInto div.
             // The second param is the list of attributes.
             $T.getComponent("c:egRenderElement", {}, renderInto)
                 // The 'component' here is the instance of c:egRenderElement  
-            	.then(function(component) {
-                	expect(document.getElementById("content").textContent).toContain("Hello World!");
-                	done();
+                .then(function(component) {
+                    expect(document.getElementById("content").textContent).toContain("Hello World!");
+                    done();
                 }).catch(function(e) {
-                	done.fail(e);
+                    done.fail(e);
                 });
         });
     });
 
     describe('c:egClientSideAction', function(){
         it('invoking client side action via component method populates list in UI', function(done) {
-        	var renderInto = document.getElementById("renderTestComponents");
+            var renderInto = document.getElementById("renderTestComponents");
             $T.getComponent("c:egClientSideAction", {}, renderInto)
-            	.then(function(component){
+                .then(function(component){
                     component.set("v.searchString", "salesforce");
                     expect(component.find("accountList").getElement().children.length).toBe(0);
                     // Invoke js functions in component's client side controller through aura:method
@@ -45,7 +45,7 @@ describe("Top Level Suite", function(){
 
                     done();
                 }).catch(function(e) {
-                	done.fail(e);
+                    done.fail(e);
                 });
         });
     });
@@ -75,8 +75,8 @@ describe("Top Level Suite", function(){
         it('invoking action callback with success response updates the attributes and UI correctly', function(done) {
         	var renderInto = document.getElementById("renderTestComponents");
         	$T.getComponent("c:egServerSideActionCallback", {}, renderInto)
-        		.then(function(component){
-        		    // Mocking out the server side action response 
+        	   .then(function(component){
+                    // Mocking out the server side action response 
                     var res = {getState : function(){return "SUCCESS";}, getReturnValue: function(){return [{"Name":"Acct 1"},{"Name":"Acct 2"}];}}; 
                     component.searchAccounts(res);
 
@@ -119,7 +119,7 @@ describe("Top Level Suite", function(){
     describe('c:egFacet', function(){    
         var attributes = {"content":"textContent"};
         it('setting a component facet and validating the output', function(done) {
-        	var renderInto = document.getElementById("renderTestComponents");
+            var renderInto = document.getElementById("renderTestComponents");
             $T.getComponent("c:egFacet", attributes, renderInto)
 	            .then(function(component){
 	                expect(component.find("cmpUnderTest").find("AuraComponentAtrId").getElement().innerHTML).toContain(attributes.content);
@@ -192,7 +192,7 @@ describe("Top Level Suite", function(){
                 expect(component.get("v.closeQuickActionFired")).toBe(true);
                 done();
             }).catch(function(e) {
-            	done.fail(e);
+                done.fail(e);
             }); 
         });
     });
