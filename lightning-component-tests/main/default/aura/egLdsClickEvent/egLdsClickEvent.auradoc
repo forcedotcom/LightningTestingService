@@ -1,0 +1,3 @@
+<aura:documentation>
+	<aura:description>Event for clicking the lightning:button in egLdsView component.</aura:description>
+</aura:documentation>
