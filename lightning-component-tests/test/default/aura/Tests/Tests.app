@@ -2,7 +2,8 @@
     
     <c:BaseTestRunnerCmp testspecs="{!join(',', 
     	$Resource.helloWorldTests,
-		$Resource.exampleTests
+		$Resource.exampleTests,
+		$Resource.lightningDataServiceTests
     )}"/>
     <div aura:id="renderTestComponents" id="renderTestComponents"></div>
 </aura:application>
