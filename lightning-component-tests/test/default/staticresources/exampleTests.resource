@@ -72,7 +72,7 @@ describe("Top Level Suite", function(){
     });
 
     describe('c:egServerSideActionCallback', function() {
-        it('invoking action callback with success response updates the attributes and UI correctly', function(done) {
+        it('invoking action callback directly with success response updates the attributes and UI correctly', function(done) {
         	var renderInto = document.getElementById("renderTestComponents");
         	$T.getComponent("c:egServerSideActionCallback", {}, renderInto)
         	   .then(function(component){
@@ -90,6 +90,32 @@ describe("Top Level Suite", function(){
                 }).catch(function(e) {
                 	done.fail(e);
                 });          
+        });
+    });
+
+    describe('c:egServerSideActionCallback', function() {
+        it('invoking action callback with mocked (jasmine spy) success action response updates the attributes and UI correctly', function(done) {
+            var renderInto = document.getElementById("renderTestComponents");
+            $T.getComponent("c:egServerSideActionCallback", {}, renderInto)
+                .then(function(component){
+                    var res = {getState : function(){return "SUCCESS";}, getReturnValue: function(){return [{"Name":"Acct 1"},{"Name":"Acct 2"}];}};
+                    spyOn($A, "enqueueAction").and.callFake(function(action) {
+                        var cb = action.getCallback("SUCCESS")
+                        cb.fn.apply(cb.s, [res]);
+                    });
+
+                    component.search();
+
+                    //Assert using components interface
+                    expect(component.get("v.accountList").length).toBe(2);
+                    expect(component.get("v.accountList")[0]['Name']).toContain("Acct 1");
+                    //Assert using dom element owned by the namespace
+                    expect(component.find("accountList").getElement().children.length).toBe(2);
+
+                    done();
+                }).catch(function(e) {
+                    done.fail(e);
+                });
         });
     });
 
