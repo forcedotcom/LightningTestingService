@@ -9,6 +9,7 @@
  */
 
 (function() {
+
     /**
      * ## Require &amp; Instantiate
      *
@@ -69,7 +70,7 @@
     if(!document.getElementById('JasmineHtmlTestResults')){
         var resultsDiv = document.createElement("div"); 
         resultsDiv.id = 'JasmineHtmlTestResults';
-        document.body.append(resultsDiv);
+        document.body.appendChild(resultsDiv);
     }
     var htmlReporter = new jasmine.HtmlReporter({
         env: env,
