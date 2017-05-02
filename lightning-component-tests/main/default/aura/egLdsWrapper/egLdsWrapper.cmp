@@ -1,21 +1,16 @@
 <aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId">
-    <aura:attribute name="account" type="Object"/>
-    <aura:attribute name="accountError" type="String"/>
-    <aura:attribute name="newContactError" type="String" access="private"/>
-    <aura:attribute name="newContact" type="Object" access="private"/>
-        
-     <force:recordPreview aura:id="accountRecordLoader"
-      recordId="{!v.recordId}"
-      fields="Name,BillingCity,BillingState"
-      targetRecord="{!v.account}"
-      targetError="{!v.accountError}"
-      />
-    
-    <force:recordPreview aura:id="contactRecordCreator"
-        layoutType="FULL"
-        targetRecord="{!v.newContact}"
-        targetError="{!v.newContactError}"
-        />
-    
-    <c:egLdsView aura:id="worker" account="{!v.account}" accountError="{!v.accountError}" newContactError="{!v.newContactError}" newContact="{!v.newContact}" createrec="{!c.handleCreateRec}" saverec="{!c.handleSaveRec}"/>
+    <aura:attribute name="account" type="Object" />
+    <aura:attribute name="accountError" type="String" />
+    <aura:attribute name="newContactError" type="String" access="private" />
+    <aura:attribute name="newContact" type="Object" access="private" />
+
+    <force:recordPreview aura:id="accountRecordLoader" recordId="{!v.recordId}" fields="Name,BillingCity,BillingState"
+        targetRecord="{!v.account}" targetError="{!v.accountError}" />
+
+    <force:recordPreview aura:id="contactRecordCreator" layoutType="FULL" targetRecord="{!v.newContact}"
+        targetError="{!v.newContactError}" />
+
+    <c:egLdsView aura:id="worker" account="{!v.account}" accountError="{!v.accountError}"
+        newContactError="{!v.newContactError}" newContact="{!v.newContact}" createrec="{!c.handleCreateRec}"
+        saverec="{!c.handleSaveRec}" />
 </aura:component>

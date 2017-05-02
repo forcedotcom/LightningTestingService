@@ -18,13 +18,13 @@ describe("Top Level Suite", function(){
             // Renders c:egRenderElement Lightning component into the renderInto div.
             // The second param is the list of attributes.
             $T.getComponent("c:egRenderElement", {}, renderInto)
-                // The 'component' here is the instance of c:egRenderElement  
-                .then(function(component) {
-                    expect(document.getElementById("content").textContent).toContain("Hello World!");
-                    done();
-                }).catch(function(e) {
-                    done.fail(e);
-                });
+            // The 'component' here is the instance of c:egRenderElement  
+            .then(function(component) {
+                expect(document.getElementById("content").textContent).toContain("Hello World!");
+                done();
+            }).catch(function(e) {
+                done.fail(e);
+            });
         });
     });
 
@@ -32,64 +32,64 @@ describe("Top Level Suite", function(){
         it('invoking client side action via component method populates list in UI', function(done) {
             var renderInto = document.getElementById("renderTestComponents");
             $T.getComponent("c:egClientSideAction", {}, renderInto)
-                .then(function(component){
-                    component.set("v.searchString", "salesforce");
-                    expect(component.find("accountList").getElement().children.length).toBe(0);
-                    // Invoke js functions in component's client side controller through aura:method
-                    component.searchAccounts();
-                    //Assert using components interface
-                    expect(component.get("v.accountList").length).toBe(10);
-                    expect(component.get("v.accountList")[0]).toContain("salesforce");
-                    //Assert using dom element owned by the namespace
-                    expect(component.find("accountList").getElement().children.length).toBe(10);
+            .then(function(component){
+                component.set("v.searchString", "salesforce");
+                expect(component.find("accountList").getElement().children.length).toBe(0);
+                // Invoke js functions in component's client side controller through aura:method
+                component.searchAccounts();
+                //Assert using components interface
+                expect(component.get("v.accountList").length).toBe(10);
+                expect(component.get("v.accountList")[0]).toContain("salesforce");
+                //Assert using dom element owned by the namespace
+                expect(component.find("accountList").getElement().children.length).toBe(10);
 
-                    done();
-                }).catch(function(e) {
-                    done.fail(e);
-                });
+                done();
+            }).catch(function(e) {
+                done.fail(e);
+            });
         });
     });
 
     describe('c:egServerSideActionCallback', function(){
         it('[Discouraged: brittle, slow, side-effects] invoking server side action end-to-end updates the state correctly.', function(done) {
-        	var renderInto = document.getElementById("renderTestComponents");
+            var renderInto = document.getElementById("renderTestComponents");
             $T.getComponent("c:egServerSideActionCallback", {}, renderInto)
-        		.then(function(component){
-        			component.set("v.searchString", "United");
-                    expect(component.find("accountList").getElement().children.length).toBe(0);
+            .then(function(component){
+                component.set("v.searchString", "United");
+                expect(component.find("accountList").getElement().children.length).toBe(0);
 
-                    component.search();
+                component.search();
 
-                    return $T.waitFor(function(){
-                        return component.get("v.accountList").length === 3;
-                    })
-        		}).then(function() {
-                	done();
-            	}).catch(function(e) {
-                	done.fail(e);
-                });  
+                return $T.waitFor(function(){
+                    return component.get("v.accountList").length === 3;
+                })
+            }).then(function() {
+                done();
+            }).catch(function(e) {
+                done.fail(e);
+            });  
         });
     });
 
     describe('c:egServerSideActionCallback', function() {
         it('invoking action callback directly with success response updates the attributes and UI correctly', function(done) {
-        	var renderInto = document.getElementById("renderTestComponents");
-        	$T.getComponent("c:egServerSideActionCallback", {}, renderInto)
-        	   .then(function(component){
-                    // Mocking out the server side action response 
-                    var res = {getState : function(){return "SUCCESS";}, getReturnValue: function(){return [{"Name":"Acct 1"},{"Name":"Acct 2"}];}}; 
-                    component.searchAccounts(res);
+            var renderInto = document.getElementById("renderTestComponents");
+            $T.getComponent("c:egServerSideActionCallback", {}, renderInto)
+            .then(function(component){
+                // Mocking out the server side action response 
+                var res = {getState : function(){return "SUCCESS";}, getReturnValue: function(){return [{"Name":"Acct 1"},{"Name":"Acct 2"}];}}; 
+                component.searchAccounts(res);
 
-                    //Assert using components interface
-                    expect(component.get("v.accountList").length).toBe(2);
-                    expect(component.get("v.accountList")[0]['Name']).toContain("Acct 1");
-                    //Assert using dom element owned by the namespace
-                    expect(component.find("accountList").getElement().children.length).toBe(2);
+                //Assert using components interface
+                expect(component.get("v.accountList").length).toBe(2);
+                expect(component.get("v.accountList")[0]['Name']).toContain("Acct 1");
+                //Assert using dom element owned by the namespace
+                expect(component.find("accountList").getElement().children.length).toBe(2);
 
-                    done();
-                }).catch(function(e) {
-                	done.fail(e);
-                });          
+                done();
+            }).catch(function(e) {
+                done.fail(e);
+            });          
         });
     });
 
@@ -97,32 +97,32 @@ describe("Top Level Suite", function(){
         it('invoking action callback with mocked (jasmine spy) success action response updates the attributes and UI correctly', function(done) {
             var renderInto = document.getElementById("renderTestComponents");
             $T.getComponent("c:egServerSideActionCallback", {}, renderInto)
-                .then(function(component){
-                    var res = {getState : function(){return "SUCCESS";}, getReturnValue: function(){return [{"Name":"Acct 1"},{"Name":"Acct 2"}];}};
-                    spyOn($A, "enqueueAction").and.callFake(function(action) {
-                        var cb = action.getCallback("SUCCESS")
-                        cb.fn.apply(cb.s, [res]);
-                    });
-
-                    component.search();
-
-                    //Assert using components interface
-                    expect(component.get("v.accountList").length).toBe(2);
-                    expect(component.get("v.accountList")[0]['Name']).toContain("Acct 1");
-                    //Assert using dom element owned by the namespace
-                    expect(component.find("accountList").getElement().children.length).toBe(2);
-
-                    done();
-                }).catch(function(e) {
-                    done.fail(e);
+            .then(function(component){
+                var res = {getState : function(){return "SUCCESS";}, getReturnValue: function(){return [{"Name":"Acct 1"},{"Name":"Acct 2"}];}};
+                spyOn($A, "enqueueAction").and.callFake(function(action) {
+                    var cb = action.getCallback("SUCCESS")
+                    cb.fn.apply(cb.s, [res]);
                 });
+
+                component.search();
+
+                //Assert using components interface
+                expect(component.get("v.accountList").length).toBe(2);
+                expect(component.get("v.accountList")[0]['Name']).toContain("Acct 1");
+                //Assert using dom element owned by the namespace
+                expect(component.find("accountList").getElement().children.length).toBe(2);
+
+                done();
+            }).catch(function(e) {
+                done.fail(e);
+            });
         });
     });
 
     describe('c:egAttributeTypes', function() {
         it('setting component attributes of various types and validating values', function(done) {
             var attributes = {
-            		stringAtr:"string value", 
+                    stringAtr:"string value", 
                     integerAtr:20, 
                     dateAtr:new Date(),
                     sobjectAtr:{"sObjectType":"Contact", "FirstName":"Marc" , "LastName":"Benioff"},
@@ -137,7 +137,7 @@ describe("Top Level Suite", function(){
                 expect(component.get("v.objectAtrStringified")).toBe(JSON.stringify(attributes.objectAtr));
                 done();
             }).catch(function(e) {
-            	done.fail(e);
+                done.fail(e);
             });
         });
     });
@@ -147,18 +147,18 @@ describe("Top Level Suite", function(){
         it('setting a component facet and validating the output', function(done) {
             var renderInto = document.getElementById("renderTestComponents");
             $T.getComponent("c:egFacet", attributes, renderInto)
-	            .then(function(component){
-	                expect(component.find("cmpUnderTest").find("AuraComponentAtrId").getElement().innerHTML).toContain(attributes.content);
-	                done();
-	            }).catch(function(e) {
-                	done.fail(e);
-                }); 
+            .then(function(component){
+                expect(component.find("cmpUnderTest").find("AuraComponentAtrId").getElement().innerHTML).toContain(attributes.content);
+                done();
+            }).catch(function(e) {
+                done.fail(e);
+            }); 
         });
     });
 
     describe('c:egGlobalValueProvider', function(){
         it('custom label shows up at correct place', function(done) {
-        	var renderInto = document.getElementById("renderTestComponents");
+            var renderInto = document.getElementById("renderTestComponents");
             $T.getComponent("c:egGlobalValueProvider", {}, renderInto)
             .then(function(component){
                 // You can reference custom label from your test
@@ -167,7 +167,7 @@ describe("Top Level Suite", function(){
                 expect(component.find("greeting").getElement().textContent).toBe(greetingLabelVal); 
                 done();
             }).catch(function(e) {
-            	done.fail(e);
+                done.fail(e);
             }); 
         });
     });
@@ -175,16 +175,16 @@ describe("Top Level Suite", function(){
     describe('c:egConditionalUI', function() {
         it('component renders only the portion of UI based on a conditional', function(done) {
             $T.getComponent("c:egConditionalUI", null)
-	            .then(function(component) {
-	                expect(component.find("trueDiv")).toBeTruthy(); 
-	                expect(component.find("falseDiv")).toBeFalsy();
-	                component.find("toggleButton").getEvent("press").fire();
-	                expect(component.find("trueDiv")).toBeFalsy();
-	                expect(component.find("falseDiv")).toBeTruthy();                 
-	                done();
-	            }).catch(function(e) {
-                	done.fail(e);
-                });
+            .then(function(component) {
+                expect(component.find("trueDiv")).toBeTruthy(); 
+                expect(component.find("falseDiv")).toBeFalsy();
+                component.find("toggleButton").getEvent("press").fire();
+                expect(component.find("trueDiv")).toBeFalsy();
+                expect(component.find("falseDiv")).toBeTruthy();                 
+                done();
+            }).catch(function(e) {
+                done.fail(e);
+            });
         });
     });
 
@@ -203,7 +203,7 @@ describe("Top Level Suite", function(){
                 expect(component.get("v.message")).toBe("application event fired");
                 done();
             }).catch(function(e) {
-            	done.fail(e);
+                done.fail(e);
             }); 
         });
     });

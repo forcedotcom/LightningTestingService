@@ -1,10 +1,10 @@
 <aura:component access="global">
-    <ui:button aura:id="toggleButton" label="press me" press="{!c.toggle}"/>
-    <aura:attribute name="truthy" type="boolean" default="true"/>
+    <ui:button aura:id="toggleButton" label="press me" press="{!c.toggle}" />
+    <aura:attribute name="truthy" type="boolean" default="true" />
     <aura:if isTrue="{!v.truthy}">
         <div aura:id="trueDiv">Salesforce</div>
-    <aura:set attribute="else">
-        <div aura:id="falseDiv">Lightning</div>
-    </aura:set>
-  </aura:if> 
+        <aura:set attribute="else">
+            <div aura:id="falseDiv">Lightning</div>
+        </aura:set>
+    </aura:if>
 </aura:component>

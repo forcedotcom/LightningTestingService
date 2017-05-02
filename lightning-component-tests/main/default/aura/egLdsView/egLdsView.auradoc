@@ -1,5 +1,5 @@
 <aura:documentation>
-	<aura:description>
+    <aura:description>
 	A presentation component that contains view logic without have direct dependency on LDS. This pattern tries to explore ways to decouple presentation 
 	logic from server/integration logic. Some of the decoupling showcased was also needed because currently (docuemented dev preview limitation) LDS can
 	only be used inside lightning experience.

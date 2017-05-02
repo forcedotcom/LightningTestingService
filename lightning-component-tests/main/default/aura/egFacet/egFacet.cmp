@@ -1,7 +1,7 @@
 <aura:component access="global">
-	<aura:attribute name="content" type="String"/>   
+    <aura:attribute name="content" type="String" />
     <c:egAttributeTypes aura:id="cmpUnderTest">
-    	<aura:set attribute="AuraComponentAtr">
+        <aura:set attribute="AuraComponentAtr">
             {!v.content}
         </aura:set>
     </c:egAttributeTypes>

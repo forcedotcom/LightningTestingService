@@ -45,33 +45,33 @@
     $T.getComponent = function(descriptor, attributes, renderInto) {
         var callback = $A.getCallback(function(resolve){
             $A.createComponent(descriptor, attributes , function(component) {
-            	cmpsToCleanup.push(component.getGlobalId());
-            	if (renderInto) {
-            		var renderingContainer = $A.getComponent(renderInto);
-            		if (!renderingContainer) {
-            			throw new Error("Could not find valid component to render into: " + renderInto);
-            		}
+                cmpsToCleanup.push(component.getGlobalId());
+                if (renderInto) {
+                    var renderingContainer = $A.getComponent(renderInto);
+                    if (!renderingContainer) {
+                        throw new Error("Could not find valid component to render into: " + renderInto);
+                    }
                     var body = renderingContainer.get("v.body");
                     body.push(component);
                     renderingContainer.set("v.body", body);
-            	}
-            	resolve(component);
+                }
+                resolve(component);
             });
         });
 
         if (renderInto) {
-        	return new Promise(callback)
-        		.then(function(component) {
-	        		// TODO(tbliss): better way to wait and still return component when done?
-	        		return $T.waitFor(function() {
-	        			if(component.isRendered()) {
-	        				return component;
-	        			}
-	        			return false;
-	        		});
-        		});
+            return new Promise(callback)
+            .then(function(component) {
+                // TODO(tbliss): better way to wait and still return component when done?
+                return $T.waitFor(function() {
+                    if(component.isRendered()) {
+                        return component;
+                    }
+                    return false;
+                });
+            });
         } else {
-        	return new Promise(callback);
+            return new Promise(callback);
         }
     }
 
@@ -80,12 +80,12 @@
      */
     // TODO(tbliss): call this automatically at end of test or make test authors add afterEach() block?
     $T.clearRenderedTestComponents = function() {
-    	while (cmpsToCleanup.length) {
-    		var globalId = cmpsToCleanup.shift();
-    		var cmp = $A.getComponent(globalId);
-    		// TODO(tbliss): destroy removes the DOM and nothing relevant is returned from Component API 
-    		//               but still lingering references in v.body -- do we care?
-    		cmp.destroy();
-    	}
+        while (cmpsToCleanup.length) {
+            var globalId = cmpsToCleanup.shift();
+            var cmp = $A.getComponent(globalId);
+            // TODO(tbliss): destroy removes the DOM and nothing relevant is returned from Component API 
+            //               but still lingering references in v.body -- do we care?
+            cmp.destroy();
+        }
     }
 })(this);
