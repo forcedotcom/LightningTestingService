@@ -67,9 +67,10 @@
      * ## Reporters
      * The `HtmlReporter` builds all of the HTML UI for the runner page. This reporter paints the dots, stars, and x's for specs, as well as all spec names and all failures (if any).
      */
-    if(!document.getElementById('JasmineHtmlTestResults')){
+    var testResultsElementId = 'jasmineHtmlTestResults';
+    if(!document.getElementById(testResultsElementId)){
         var resultsDiv = document.createElement("div"); 
-        resultsDiv.id = 'JasmineHtmlTestResults';
+        resultsDiv.id = testResultsElementId;
         document.body.appendChild(resultsDiv);
     }
     var htmlReporter = new jasmine.HtmlReporter({
@@ -78,7 +79,7 @@
         onThrowExpectationsClick: function() { queryString.navigateWithNewParam("throwFailures", !env.throwingExpectationFailures()); },
         onRandomClick: function() { queryString.navigateWithNewParam("random", !env.randomTests()); },
         addToExistingQueryString: function(key, value) { return queryString.fullStringWithNewParam(key, value); },
-        getContainer: function() { return document.getElementById('JasmineHtmlTestResults'); },
+        getContainer: function() { return document.getElementById(testResultsElementId); },
         createElement: function() { return document.createElement.apply(document, arguments); },
         createTextNode: function() { return document.createTextNode.apply(document, arguments); },
         timer: new jasmine.Timer()

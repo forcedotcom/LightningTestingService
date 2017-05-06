@@ -1,4 +1,4 @@
-<aura:component access="global">
+<aura:component>
     <ui:button aura:id="toggleButton" label="press me" press="{!c.toggle}" />
     <aura:attribute name="truthy" type="boolean" default="true" />
     <aura:if isTrue="{!v.truthy}">

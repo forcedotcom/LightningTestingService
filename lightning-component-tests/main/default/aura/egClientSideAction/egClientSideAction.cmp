@@ -1,6 +1,6 @@
-<aura:component access="global">
-    <aura:attribute name="searchString" type="string" access="global" />
-    <aura:attribute name="accountList" type="string[]" access="global" />
+<aura:component>
+    <aura:attribute name="searchString" type="string"/>
+    <aura:attribute name="accountList" type="string[]"/>
     <aura:method name="searchAccounts" action="{!c.search}" />
     <div id="content">
         <lightning:input label="Account Name" name="search" value="{!v.searchString}" />

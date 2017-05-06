@@ -1,7 +1,9 @@
 <aura:component extensible="true"
-    implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes"
-    access="global">
+    implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes">
     <aura:attribute name="testspecs" type="String[]" required="true" default="{!$Resource.jasmineTest}" />
+
+    <aura:dependency resource="markup://c:*" />
+
     <ltng:require
         scripts="{!join(',', 
     	$Resource.jasmine + '/lib/jasmine-2.5.2/jasmine.js',

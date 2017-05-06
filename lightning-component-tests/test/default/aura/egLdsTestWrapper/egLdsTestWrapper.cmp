@@ -1,4 +1,4 @@
-<aura:component access="global">
+<aura:component>
     <aura:attribute name="closeQuickActionFired" type="boolean" default="false" />
     <aura:handler event="force:closeQuickAction" action="{!c.closeQuickActionFired}" />
 

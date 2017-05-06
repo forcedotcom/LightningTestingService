@@ -1,8 +1,8 @@
 (function (global){  
-
     global.$T = function $T(){};
 
     var cmpsToCleanup = [];
+    var contexualRunner;
 
     /**
      * Waits for the function to finish executing.
@@ -33,6 +33,17 @@
     }
 
     /**
+     * Runs provided function within a closure to allow interaction with lightning API (e.g. avoid accessCheck errors) 
+     * with proper context   
+     */
+    $T.run = function(fn){
+        if(!contexualRunner){
+            throw new Error("callback is not set");
+        }
+        contexualRunner(fn);
+    }
+
+    /**
      * Creates the Lightning component, adds it to the list of components to be cleared,
      * and render it into the specified DOM element.
      * 
@@ -43,26 +54,32 @@
      * @returns {Promise} component creation or rendering result, depending on whether renderInto is specified
      */
     $T.getComponent = function(descriptor, attributes, renderInto) {
-        var callback = $A.getCallback(function(resolve){
-            $A.createComponent(descriptor, attributes , function(component) {
-                cmpsToCleanup.push(component.getGlobalId());
-                if (renderInto) {
-                    var renderingContainer = $A.getComponent(renderInto);
-                    if (!renderingContainer) {
-                        throw new Error("Could not find valid component to render into: " + renderInto);
+        var callback = function(resolve, reject){
+            $T.run(function(){
+                $A.createComponent(descriptor, attributes , function(component, status, error) {
+                    if(status === "SUCCESS"){
+                        cmpsToCleanup.push(component.getGlobalId());
+                        if (renderInto) {
+                            var renderingContainer = $A.getComponent(renderInto);
+                            if (!renderingContainer) {
+                                throw new Error("Could not find valid component to render into: " + renderInto);
+                            }
+                            var body = renderingContainer.get("v.body");
+                            body.push(component);
+                            renderingContainer.set("v.body", body);
+                        }
+                        resolve(component);
                     }
-                    var body = renderingContainer.get("v.body");
-                    body.push(component);
-                    renderingContainer.set("v.body", body);
-                }
-                resolve(component);
+                    else{
+                        reject(error);
+                    }
+                });
             });
-        });
+        };
 
         if (renderInto) {
             return new Promise(callback)
             .then(function(component) {
-                // TODO(tbliss): better way to wait and still return component when done?
                 return $T.waitFor(function() {
                     if(component.isRendered()) {
                         return component;
@@ -78,14 +95,18 @@
     /**
      * Clears the components registered to cmpsToCleanup list.
      */
-    // TODO(tbliss): call this automatically at end of test or make test authors add afterEach() block?
     $T.clearRenderedTestComponents = function() {
         while (cmpsToCleanup.length) {
             var globalId = cmpsToCleanup.shift();
             var cmp = $A.getComponent(globalId);
-            // TODO(tbliss): destroy removes the DOM and nothing relevant is returned from Component API 
-            //               but still lingering references in v.body -- do we care?
             cmp.destroy();
         }
+    }
+
+    /**
+     * [Internal Only] used by test runner component to allow execution of test code within a closure
+     */
+    $T._setContexualRunner = function(fn){
+        contexualRunner = fn;
     }
 })(this);

@@ -1,5 +1,4 @@
-describe("Top Level Suite", function(){    
-
+describe("Top Level Suite", function(){
     afterEach(function() {
         // Since all the specs renders components in the same div,
         // we want to clear it out and the end of each spec.
@@ -14,13 +13,26 @@ describe("Top Level Suite", function(){
             // Defines where the component should be rendered during the test.
             // You can also update Tests.app and define your own DOM element.
             var renderInto = document.getElementById("renderTestComponents");
-
             // Renders c:egRenderElement Lightning component into the renderInto div.
             // The second param is the list of attributes.
             $T.getComponent("c:egRenderElement", {}, renderInto)
             // The 'component' here is the instance of c:egRenderElement  
             .then(function(component) {
                 expect(document.getElementById("content").textContent).toContain("Hello World!");
+                done();
+            }).catch(function(e) {
+                done.fail(e);
+            });
+        });
+    });
+
+
+    describe('c:egComponentMethod', function() {
+        it("invoking a method on component's interface updates the attribute value", function(done) {
+            $T.getComponent("c:egComponentMethod", null)
+            .then(function(component) {
+                component.sampleMethod();
+                expect(component.get("v.status")).toBe("sampleMethod invoked");
                 done();
             }).catch(function(e) {
                 done.fail(e);
@@ -42,8 +54,8 @@ describe("Top Level Suite", function(){
                 expect(component.get("v.accountList")[0]).toContain("salesforce");
                 //Assert using dom element owned by the namespace
                 expect(component.find("accountList").getElement().children.length).toBe(10);
-
                 done();
+
             }).catch(function(e) {
                 done.fail(e);
             });
@@ -57,9 +69,7 @@ describe("Top Level Suite", function(){
             .then(function(component){
                 component.set("v.searchString", "United");
                 expect(component.find("accountList").getElement().children.length).toBe(0);
-
                 component.search();
-
                 return $T.waitFor(function(){
                     return component.get("v.accountList").length === 3;
                 })
@@ -79,13 +89,11 @@ describe("Top Level Suite", function(){
                 // Mocking out the server side action response 
                 var res = {getState : function(){return "SUCCESS";}, getReturnValue: function(){return [{"Name":"Acct 1"},{"Name":"Acct 2"}];}}; 
                 component.searchAccounts(res);
-
                 //Assert using components interface
                 expect(component.get("v.accountList").length).toBe(2);
                 expect(component.get("v.accountList")[0]['Name']).toContain("Acct 1");
                 //Assert using dom element owned by the namespace
                 expect(component.find("accountList").getElement().children.length).toBe(2);
-
                 done();
             }).catch(function(e) {
                 done.fail(e);
@@ -103,15 +111,12 @@ describe("Top Level Suite", function(){
                     var cb = action.getCallback("SUCCESS")
                     cb.fn.apply(cb.s, [res]);
                 });
-
                 component.search();
-
                 //Assert using components interface
                 expect(component.get("v.accountList").length).toBe(2);
                 expect(component.get("v.accountList")[0]['Name']).toContain("Acct 1");
                 //Assert using dom element owned by the namespace
                 expect(component.find("accountList").getElement().children.length).toBe(2);
-
                 done();
             }).catch(function(e) {
                 done.fail(e);
@@ -180,7 +185,7 @@ describe("Top Level Suite", function(){
                 expect(component.find("falseDiv")).toBeFalsy();
                 component.find("toggleButton").getEvent("press").fire();
                 expect(component.find("trueDiv")).toBeFalsy();
-                expect(component.find("falseDiv")).toBeTruthy();                 
+                expect(component.find("falseDiv")).toBeTruthy();
                 done();
             }).catch(function(e) {
                 done.fail(e);
@@ -196,10 +201,11 @@ describe("Top Level Suite", function(){
                 cmpEvent.setParams({"data":"component event fired"});
                 cmpEvent.fire()
                 expect(component.get("v.message")).toBe("component event fired");
-
-                var appEvent = $A.get("e.c:egApplicationEvent");
-                appEvent.setParams({"data":"application event fired"});
-                appEvent.fire()
+                $T.run(function(){
+                    var appEvent = $A.get("e.c:egApplicationEvent");
+                    appEvent.setParams({"data":"application event fired"});
+                    appEvent.fire();
+                });
                 expect(component.get("v.message")).toBe("application event fired");
                 done();
             }).catch(function(e) {
