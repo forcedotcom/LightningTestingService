@@ -1,8 +1,7 @@
 describe("Top Level Suite", function(){
     afterEach(function() {
-        // Since all the specs renders components in the same div,
-        // we want to clear it out and the end of each spec.
-        // $T provides test utils.
+        // Since all the specs render components in the same div,
+        // we want to clear it out at the end of each spec.
         $T.clearRenderedTestComponents();
     });
 
@@ -25,7 +24,6 @@ describe("Top Level Suite", function(){
             });
         });
     });
-
 
     describe('c:egComponentMethod', function() {
         it("invoking a method on component's interface updates the attribute value", function(done) {
