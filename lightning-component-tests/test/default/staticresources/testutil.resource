@@ -36,7 +36,7 @@
      * Runs provided function within a closure to allow interaction with lightning API (e.g. avoid accessCheck errors) 
      * with proper context   
      */
-    $T.run = function(fn){
+    var runInsideCallbackClosure = function(fn){
         if(!contexualRunner){
             throw new Error("callback is not set");
         }
@@ -55,7 +55,7 @@
      */
     $T.getComponent = function(descriptor, attributes, renderInto) {
         var callback = function(resolve, reject){
-            $T.run(function(){
+            runInsideCallbackClosure(function(){
                 $A.createComponent(descriptor, attributes , function(component, status, error) {
                     if(status === "SUCCESS"){
                         cmpsToCleanup.push(component.getGlobalId());
@@ -90,6 +90,28 @@
         } else {
             return new Promise(callback);
         }
+    }
+
+    /**
+     * Fire an application level event. Takes care of lightning lifecycle related setup needed to successfully interact (e.g. accessChecks) with an application event.
+     * @param {string} eventName Name of application event (e.g. c:myAppEvt)
+     * @param {Object.<string, Object>} eventArgs The event attributes
+     * 
+     * @returns {Boolean} A boolean value indicating whether an application level event with specified name was found and fired or not
+      */
+    $T.fireApplicationEvent = function(eventName, eventArgs){
+        var eventFired = false;
+        runInsideCallbackClosure(function(){
+            var appEvent = $A.get("e."+eventName);
+            if(appEvent){
+                if(eventArgs){
+                    appEvent.setParams(eventArgs);
+                }
+                appEvent.fire();
+                eventFired = true;
+            }
+        });
+        return eventFired;
     }
 
     /**

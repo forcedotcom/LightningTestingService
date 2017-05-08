@@ -199,11 +199,7 @@ describe("Top Level Suite", function(){
                 cmpEvent.setParams({"data":"component event fired"});
                 cmpEvent.fire()
                 expect(component.get("v.message")).toBe("component event fired");
-                $T.run(function(){
-                    var appEvent = $A.get("e.c:egApplicationEvent");
-                    appEvent.setParams({"data":"application event fired"});
-                    appEvent.fire();
-                });
+                $T.fireApplicationEvent("c:egApplicationEvent", {"data":"application event fired"});
                 expect(component.get("v.message")).toBe("application event fired");
                 done();
             }).catch(function(e) {
