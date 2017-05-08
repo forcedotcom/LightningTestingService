@@ -1,6 +1,11 @@
-# lightning-component-tests
+# Lightning Component Tests
+## Project Goal
+Showcase reusable functional test patterns (testing eventing, renderering, callbacks etc.) for Lightning Components using Jasmine (a popular open-sourced javascript testing framework). 
 
-# cli setup
+Integration between Lightning and Jasmine showcased in this repo will also be made avaialble as an unmanaged package. Developers building Lightning Components will be able to focus on authoring tests for their customizations by using the package in conjunction with SFDX integration (for streamlined dev and CI workflow).
+
+# Setup and Dev Workflow
+## cli setup
 
 #### Option 1: SFDX standanlone executable
 https://salesforce.quip.com/zHcMAbY3lpA8
@@ -10,13 +15,13 @@ https://salesforce.quip.com/zHcMAbY3lpA8
 
 *heroku plugins:install salesforcedx*  
 
-# scratch org setup
+## scratch org setup
 
 *sfdx force:auth:web:login -d*  (login to hub org)
 
 *sfdx force:org:create -s -f config/workspace-scratch-def.json -a scratch1*
 
-# dev flow 
+## dev flow 
 
 *sfdx force:source:push*  (push changes to scratch org)
 
@@ -26,6 +31,6 @@ https://salesforce.quip.com/zHcMAbY3lpA8
 
 *sfdx force:testrunner:run  -f test/test-runner-config.json -c local -j integration*  (trigger integration test run)
 
-# Force IDE 2
+## Force IDE 2
 Get installation link from description section of https://gus.my.salesforce.com/_ui/core/chatter/groups/GroupProfilePage?g=0F9B000000001qh
 
