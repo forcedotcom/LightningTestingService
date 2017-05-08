@@ -4,17 +4,16 @@
 
     <aura:dependency resource="markup://c:*" />
 
-    <ltng:require
-        scripts="{!join(',', 
-    	$Resource.jasmine + '/lib/jasmine-2.5.2/jasmine.js',
-    	$Resource.jasmine + '/lib/jasmine-2.5.2/jasmine-html.js', 
-   	 	$Resource.jasmineReporter,
-        $Resource.jasmineboot,  
+    <ltng:require scripts="{!join(',', 
+        $Resource.jasmine + '/lib/jasmine-2.6.1/jasmine.js',
+        $Resource.jasmine + '/lib/jasmine-2.6.1/jasmine-html.js',
+        $Resource.jasmineReporter,
+        $Resource.jasmineboot,
         $Resource.testutil,
         v.testspecs
     )}"
         styles="{!join(',', 
-    	$Resource.jasmine + '/lib/jasmine-2.5.2/jasmine.css'
+        $Resource.jasmine + '/lib/jasmine-2.6.1/jasmine.css'
     )}"
         afterScriptsLoaded="{!c.runTests}" />
 
