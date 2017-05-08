@@ -1,3 +1,7 @@
+/**
+ * This test util aims to reduce the boiler plate code needed in the test specs by providing helper methods for common test patterns.
+ * Tests reference the helper methods via '$T'.
+ */
 (function (global){  
     global.$T = function $T(){};
 
@@ -30,17 +34,6 @@
                 }
             })();
         });
-    }
-
-    /**
-     * Runs provided function within a closure to allow interaction with lightning API (e.g. avoid accessCheck errors) 
-     * with proper context   
-     */
-    var runInsideCallbackClosure = function(fn){
-        if(!contexualRunner){
-            throw new Error("callback is not set");
-        }
-        contexualRunner(fn);
     }
 
     /**
@@ -98,7 +91,7 @@
      * @param {Object.<string, Object>} eventArgs The event attributes
      * 
      * @returns {Boolean} A boolean value indicating whether an application level event with specified name was found and fired or not
-      */
+     */
     $T.fireApplicationEvent = function(eventName, eventArgs){
         var eventFired = false;
         runInsideCallbackClosure(function(){
@@ -130,5 +123,16 @@
      */
     $T._setContexualRunner = function(fn){
         contexualRunner = fn;
+    }
+
+    /**
+     * Runs provided function within a closure to allow interaction with lightning API (e.g. avoid accessCheck errors) 
+     * with proper context   
+     */
+    var runInsideCallbackClosure = function(fn){
+        if(!contexualRunner){
+            throw new Error("callback is not set");
+        }
+        contexualRunner(fn);
     }
 })(this);

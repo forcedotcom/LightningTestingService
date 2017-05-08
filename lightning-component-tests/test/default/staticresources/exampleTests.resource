@@ -1,14 +1,24 @@
-describe("Top Level Suite", function(){
+/**
+ * This suite contains examples to showcase reusable test-patterns
+ */
+describe("Lightning Component Tests Examples", function(){
     afterEach(function() {
-        // Since all the specs render components in the same div,
+        // Since specs render components in the same div,
         // we want to clear it out at the end of each spec.
         $T.clearRenderedTestComponents();
     });
 
+    /**
+     * Component under test: 'c:egRenderElement':
+     * This test creates a component, adds it to the body, waits for the rendering to complete 
+     * and ensures that the expected content has been added to the DOM
+     * NOTE: As the Test and component under test are in same locker (same namespace), test is able to see the DOM owned
+     * by the component.
+     */
     describe('c:egRenderElement', function(){
         // We encourage you to have the code for c:egRenderElement side by side
         // when reading through this spec.
-        it('renders expected data', function(done) {
+        it('Creating the component and rendering it shows expected data', function(done) {
             // Defines where the component should be rendered during the test.
             // You can also update Tests.app and define your own DOM element.
             var renderInto = document.getElementById("renderTestComponents");
@@ -25,6 +35,10 @@ describe("Top Level Suite", function(){
         });
     });
 
+    /**
+     * Component under test: 'c:egComponentMethod'
+     * This test validates that calling a method on component's interface causes expected state change.
+     */
     describe('c:egComponentMethod', function() {
         it("invoking a method on component's interface updates the attribute value", function(done) {
             $T.getComponent("c:egComponentMethod", null)
@@ -38,6 +52,11 @@ describe("Top Level Suite", function(){
         });
     });
 
+    /**
+     * Component under test: 'c:egClientSideAction'
+     * This test sets an attribute value, invokes a method and validates that the interaction results
+     * in expected state and rendering updates.
+     */
     describe('c:egClientSideAction', function(){
         it('invoking client side action via component method populates list in UI', function(done) {
             var renderInto = document.getElementById("renderTestComponents");
@@ -60,6 +79,13 @@ describe("Top Level Suite", function(){
         });
     });
 
+    /**
+     * Component under test: 'c:egServerSideActionCallback'
+     * This test shows how to validate a server side action end-to-end. The test interacts with the component 
+     * to cause a server side action to be invoked, and then then waits for the action callback to update 
+     * component state as expected.
+     * This is discouraged because invoking the server actions is time consuming (test may timeout) and can have side effects.
+     */
     describe('c:egServerSideActionCallback', function(){
         it('[Discouraged: brittle, slow, side-effects] invoking server side action end-to-end updates the state correctly.', function(done) {
             var renderInto = document.getElementById("renderTestComponents");
@@ -79,6 +105,11 @@ describe("Top Level Suite", function(){
         });
     });
 
+    /**
+     * Component under test: 'c:egServerSideActionCallback'
+     * This test shows how server-side action callbacks could be validated in isolation by exposing the logic in
+     * callback viq a component method and having the test use it for interaction
+     */
     describe('c:egServerSideActionCallback', function() {
         it('invoking action callback directly with success response updates the attributes and UI correctly', function(done) {
             var renderInto = document.getElementById("renderTestComponents");
@@ -99,6 +130,11 @@ describe("Top Level Suite", function(){
         });
     });
 
+    /**
+     * Component under test: 'c:egServerSideActionCallback'
+     * This test shows how server side action callbacks could be validated by mocking the server side actions via jasmine spies.
+     * This approach relies on jasmine's mocking capabilities and eliminates the need for restructuring component code for testability.
+     */
     describe('c:egServerSideActionCallback', function() {
         it('invoking action callback with mocked (jasmine spy) success action response updates the attributes and UI correctly', function(done) {
             var renderInto = document.getElementById("renderTestComponents");
@@ -122,6 +158,10 @@ describe("Top Level Suite", function(){
         });
     });
 
+    /**
+     * Component under test: 'c:egAttributeTypes'
+     * This test shows how to interact with various attribute types from a test spec
+     */
     describe('c:egAttributeTypes', function() {
         it('setting component attributes of various types and validating values', function(done) {
             var attributes = {
@@ -145,6 +185,10 @@ describe("Top Level Suite", function(){
         });
     });
 
+    /**
+     * Component under test: 'c:egFacet'
+     * This test shows how to interact with facets from a test spec. Note the use of component IDs. 
+     */
     describe('c:egFacet', function(){    
         var attributes = {"content":"textContent"};
         it('setting a component facet and validating the output', function(done) {
@@ -159,6 +203,11 @@ describe("Top Level Suite", function(){
         });
     });
 
+    /**
+     * Component under test: 'c:egGlobalValueProvider'
+     * This test shows how to interact with global value providers by programmatically getting reference to a 
+     * custom label and validating that its value is being displayed by the component
+     */
     describe('c:egGlobalValueProvider', function(){
         it('custom label shows up at correct place', function(done) {
             var renderInto = document.getElementById("renderTestComponents");
@@ -175,6 +224,10 @@ describe("Top Level Suite", function(){
         });
     });
 
+    /**
+     * Component under test: 'c:egConditionalUI'
+     * This test shows to validate conditional UI by using component's interface
+     */
     describe('c:egConditionalUI', function() {
         it('component renders only the portion of UI based on a conditional', function(done) {
             $T.getComponent("c:egConditionalUI", null)
@@ -191,6 +244,10 @@ describe("Top Level Suite", function(){
         });
     });
 
+    /**
+     * Component under test: 'c:egEventHandling'
+     * This test shows how to validate component's handling of component and application level events
+     */
     describe('c:egEventHandling', function() {
         it('component handles a component and application level event', function(done) {
             $T.getComponent("c:egEventHandling", null)
@@ -208,6 +265,9 @@ describe("Top Level Suite", function(){
         });
     });
 
+    /**
+     * Component under test: 'c:egLdsTestWrapper'
+     */
     describe('c:egLdsTestWrapper', function(){            
         it('view component (which be used used by a wrapper using Lightning Data Service) works well for success usecase', function(done) {
             $T.getComponent("c:egLdsTestWrapper", null)
