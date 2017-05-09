@@ -24,6 +24,8 @@ Integration between Lightning and Jasmine showcased in this repo will also be ma
 sfdx force:auth:web:login -d
 </code>
 
+* Customize scratch org [config](/config/workspace-scratch-def.json) by specifying company name, email address etc.
+
 * Create a Scratch Org and set it as default
 <code>
 sfdx force:org:create -s -f config/workspace-scratch-def.json -a scratch1

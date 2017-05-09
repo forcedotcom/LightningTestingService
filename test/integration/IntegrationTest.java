@@ -18,7 +18,6 @@ public class IntegrationTest extends BaseSalesforceTest {
     	String appUrl = "/c/tests.app"; 
     	
     	this.login(appUrl);
-    	//driver.get("https://locker1-dev-ed.mobile02.blitz.salesforce.com?un=esalman@locker.1&pw=123456&startURL=/c/tests.app");
     	new WebDriverWait(driver, 30).withMessage("Request for component test execution failed.").until(ExpectedConditions.urlContains(appUrl));
     	
     	WebDriverWait wait = new WebDriverWait(driver, longWait);
@@ -27,8 +26,6 @@ public class IntegrationTest extends BaseSalesforceTest {
     	String failureCount = e.getAttribute("data-failure-count");
     	String totalCount = e.getAttribute("data-total-count");
     	Assert.assertEquals(failureCount+"/"+totalCount+" component tests failed. Visit "+appUrl+" for details.","0", failureCount);
-    	//Assert.assertEquals(failureCount+" component test(s) failed. Run results, \n"+ e.getAttribute("innerHTML"), "0", failureCount);
-    	
     }
 
     
