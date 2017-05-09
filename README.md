@@ -10,7 +10,7 @@ Integration between Lightning and Jasmine showcased in this repo will also be ma
 ## Getting Started
 ##### Sample wrapper test application: [Test.app](lightning-component-tests/test/default/aura/Tests/Tests.app)
 ##### Example Lightning component tests: [exampleTests.resource](lightning-component-tests/test/default/staticresources/exampleTests.resource)
-##### Directory containing sample [Ccmponents](lightning-component-tests/main/default/aura) under test
+##### Directory containing sample [components](lightning-component-tests/main/default/aura) under test
 
 # Setup and Dev Workflow
 ## cli setup
