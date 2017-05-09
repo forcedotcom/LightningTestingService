@@ -12,33 +12,42 @@ Integration between Lightning and Jasmine showcased in this repo will also be ma
 ##### Example Lightning component tests: [exampleTests.resource](lightning-component-tests/test/default/staticresources/exampleTests.resource)
 ##### Directory containing sample [components](lightning-component-tests/main/default/aura) under test
 
-# Setup and Dev Workflow
-## cli setup
+## Dev Workflow
+### Prerequisites
+* SFDX CLI 
+* Environment Hub Setup for SFDX CLI
+* Force IDE 2
 
-#### Option 1: SFDX standanlone executable
-https://salesforce.quip.com/zHcMAbY3lpA8
+### Scratch Org Creation
+* Login to hub org
+<code>
+sfdx force:auth:web:login -d
+</code>
 
-#### Option 2: Via Heroku CLI (having some issues)
-*brew install heroku*   (see https://devcenter.heroku.com/articles/heroku-cli)
+* Create a Scratch Org and set it as default
+<code>
+sfdx force:org:create -s -f config/workspace-scratch-def.json -a scratch1
+</code>
 
-*heroku plugins:install salesforcedx*  
+### Pushing Metadata to Scratch Org
+* Push metadata to scratch org
+<code>
+sfdx force:source:push 
+</code>
 
-## scratch org setup
-
-*sfdx force:auth:web:login -d*  (login to hub org)
-
-*sfdx force:org:create -s -f config/workspace-scratch-def.json -a scratch1*
-
-## dev flow 
-
-*sfdx force:source:push*  (push changes to scratch org)
-
-*sfdx force:org:open*  (login to scratch org)
+* Login to scratch org
+<code>
+sfdx force:org:open
+</code>
 
 * For a manual run, visit one of the test apps (e.g. /c/Tests.app)
+![sample run](/doc-resources/SampleTestRun.png)
 
-*sfdx force:testrunner:run  -f test/test-runner-config.json -c local -j integration*  (trigger integration test run)
+* For Automated run, use special purpose sfdx cli command (coming soon) or execute as an integration test,
+<code>
+sfdx force:testrunner:run  -f test/test-runner-config.json -c local -j integration
+</code>
 
-## Force IDE 2
-Get installation link from description section of https://gus.my.salesforce.com/_ui/core/chatter/groups/GroupProfilePage?g=0F9B000000001qh
-
+### Debugging Tests
+* Browser Dev Tools can be used to step through and debugging issues
+![sample debugging](/doc-resources/SampleDebugging.png)
