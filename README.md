@@ -7,6 +7,11 @@ Integration between Lightning and Jasmine showcased in this repo will also be ma
 ## Metadata Visualization and Runtime Flowchart
 ![metadata visualization and runtime flowchart](doc-resources/metadata-visualization-and-runtime-flowchart.png)
 
+## Getting Started
+##### Sample wrapper test application [Test.app](lightning-component-tests/test/default/aura/Tests/Tests.app)
+##### Example Lightning Component Tests [exampleTests.resource](lightning-component-tests/test/default/staticresources/exampleTests.resource)
+##### Sample [Components](lightning-component-tests/main/default/aura) Under Test
+
 # Setup and Dev Workflow
 ## cli setup
 
