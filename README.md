@@ -50,6 +50,13 @@ sfdx force:org:open
 sfdx force:testrunner:run  -f test/test-runner-config.json -c local -j integration
 </code>
 
+### [Alternative] Pushing Metadata to Developer Edition Org
+If you do not have environment-hub setup and would like to give this repo a try, it is possible to push the metadata to a developer edition org instead,
+<code>
+sfdx force:auth:web:login -s
+sfdx force:source:push -f
+</code>
+
 ### Debugging Tests
 * Browser Dev Tools can be used to debug
 ![sample debugging](/doc-resources/SampleDebugging.png)
