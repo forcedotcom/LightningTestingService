@@ -49,5 +49,5 @@ sfdx force:testrunner:run  -f test/test-runner-config.json -c local -j integrati
 </code>
 
 ### Debugging Tests
-* Browser Dev Tools can be used to step through and debugging issues
+* Browser Dev Tools can be used to debug
 ![sample debugging](/doc-resources/SampleDebugging.png)
