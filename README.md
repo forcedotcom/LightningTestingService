@@ -1,31 +1,53 @@
-# lightning-component-tests
+# Lightning Component Tests
+## Project Goal
+Showcase reusable functional test patterns (testing eventing, renderering, callbacks etc.) for Lightning Components using Jasmine (a popular open-sourced javascript testing framework). 
 
-# cli setup
+Integration between Lightning and Jasmine showcased in this repo will also be made avaialble as an unmanaged package. Developers building Lightning Components will be able to focus on authoring tests for their customizations by using the package in conjunction with SFDX integration (for streamlined dev and CI workflow).
 
-#### Option 1: SFDX standanlone executable
-https://salesforce.quip.com/zHcMAbY3lpA8
+## Metadata Visualization and Runtime Flowchart
+![metadata visualization and runtime flowchart](doc-resources/metadata-visualization-and-runtime-flowchart.png)
 
-#### Option 2: Via Heroku CLI (having some issues)
-*brew install heroku*   (see https://devcenter.heroku.com/articles/heroku-cli)
+## Getting Started
+##### Sample wrapper test application: [Test.app](lightning-component-tests/test/default/aura/Tests/Tests.app)
+##### Example Lightning component tests: [exampleTests.resource](lightning-component-tests/test/default/staticresources/exampleTests.resource)
+##### Directory containing sample [components](lightning-component-tests/main/default/aura) under test
 
-*heroku plugins:install salesforcedx*  
+## Dev Workflow
+### Prerequisites
+* SFDX CLI 
+* Environment Hub Setup for SFDX CLI
+* Force IDE 2
 
-# scratch org setup
+### Scratch Org Creation
+* Login to hub org
+<code>
+sfdx force:auth:web:login -d
+</code>
 
-*sfdx force:auth:web:login -d*  (login to hub org)
+* Create a Scratch Org and set it as default
+<code>
+sfdx force:org:create -s -f config/workspace-scratch-def.json -a scratch1
+</code>
 
-*sfdx force:org:create -s -f config/workspace-scratch-def.json -a scratch1*
+### Pushing Metadata to Scratch Org
+* Push metadata to scratch org
+<code>
+sfdx force:source:push 
+</code>
 
-# dev flow 
-
-*sfdx force:source:push*  (push changes to scratch org)
-
-*sfdx force:org:open*  (login to scratch org)
+* Login to scratch org
+<code>
+sfdx force:org:open
+</code>
 
 * For a manual run, visit one of the test apps (e.g. /c/Tests.app)
+![sample run](/doc-resources/SampleTestRun.png)
 
-*sfdx force:testrunner:run  -f test/test-runner-config.json -c local -j integration*  (trigger integration test run)
+* For Automated run, use special purpose sfdx cli command (coming soon) or execute as an integration test,
+<code>
+sfdx force:testrunner:run  -f test/test-runner-config.json -c local -j integration
+</code>
 
-# Force IDE 2
-Get installation link from description section of https://gus.my.salesforce.com/_ui/core/chatter/groups/GroupProfilePage?g=0F9B000000001qh
-
+### Debugging Tests
+* Browser Dev Tools can be used to debug
+![sample debugging](/doc-resources/SampleDebugging.png)
