@@ -5,6 +5,9 @@
     <!-- Bring down all the component (and their dependencies) in org's namespace. 
     Done as an optimization to avoid server round trips when tests try to create components on the fly-->
     <aura:dependency resource="markup://c:*" />
+    
+    <!-- Placeholder div for jasmine test results  -->
+    <div id="jasmineHtmlTestResults"/>
 
     <!-- Pull in jasmine, utils and the test specs specified by the consuming wrapper test app  -->
     <ltng:require scripts="{!join(',', 

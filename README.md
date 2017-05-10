@@ -24,6 +24,8 @@ Integration between Lightning and Jasmine showcased in this repo will also be ma
 sfdx force:auth:web:login -d
 </code>
 
+* Customize scratch org [config](/config/workspace-scratch-def.json) by specifying company name, email address etc.
+
 * Create a Scratch Org and set it as default
 <code>
 sfdx force:org:create -s -f config/workspace-scratch-def.json -a scratch1
@@ -47,6 +49,13 @@ sfdx force:org:open
 <code>
 sfdx force:testrunner:run  -f test/test-runner-config.json -c local -j integration
 </code>
+
+### [Alternative] Pushing Metadata to Developer Edition Org
+If you do not have environment-hub setup and would like to give this repo a try, it is possible to push the metadata to a developer edition org instead,
+<pre><code>
+sfdx force:auth:web:login -s
+sfdx force:source:push -f
+</code></pre>
 
 ### Debugging Tests
 * Browser Dev Tools can be used to debug
