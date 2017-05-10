@@ -7,15 +7,15 @@
     },
 
     reloadRecord : function(cmp, event, helper) {
-    	helper.reloadRecord(cmp);
+        helper.reloadRecord(cmp);
     },
 
     saveRecord : function(cmp, event, helper) {
-    	helper.saveRecord(cmp);
+        helper.saveRecord(cmp);
     },
 
     deleteRecord : function(cmp, event, helper) {
-    	helper.deleteRecord(cmp);
+        helper.deleteRecord(cmp);
     },
 
     handleRecordUpdate : function(cmp, event) {
@@ -46,17 +46,17 @@
      * For testing purpose only (as you cannot get the getElement() of the component for other namespaces)
      */
     clickLightningBtn : function(cmp, event, helper) {
-    	var button = event.getParam("btnName");
-    	if(button === "create") {
-    		helper.createRecord(cmp);
-    	} else if(button === "reload") {
-    		helper.reloadRecord(cmp);
-    	} else if(button === "save") {
-    		helper.saveRecord(cmp);
-    	} else if(button === "delete") {
-    		helper.deleteRecord(cmp);
-    	} else {
-    		// do nothing
-    	}
+        var button = event.getParam("btnName");
+        if(button === "create") {
+            helper.createRecord(cmp);
+        } else if(button === "reload") {
+            helper.reloadRecord(cmp);
+        } else if(button === "save") {
+            helper.saveRecord(cmp);
+        } else if(button === "delete") {
+            helper.deleteRecord(cmp);
+        } else {
+            // do nothing
+        }
     }
 })
