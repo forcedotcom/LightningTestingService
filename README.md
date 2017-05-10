@@ -2,7 +2,7 @@
 ## Project Goal
 Showcase reusable functional test patterns (testing eventing, renderering, callbacks etc.) for Lightning Components using Jasmine (a popular open-sourced javascript testing framework). 
 
-Integration between Lightning and Jasmine showcased in this repo will also be made avaialble as an unmanaged package. Developers building Lightning Components will be able to focus on authoring tests for their customizations by using the package in conjunction with SFDX integration (for streamlined dev and CI workflow).
+Integration between Lightning and Jasmine showcased in this repo will also be made available as an unmanaged package. Developers building Lightning Components will be able to focus on authoring tests for their customizations by using the package in conjunction with SFDX integration (for streamlined dev and CI workflow).
 
 ## Metadata Visualization and Runtime Flowchart
 ![metadata visualization and runtime flowchart](doc-resources/metadata-visualization-and-runtime-flowchart.png)
