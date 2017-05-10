@@ -1,7 +1,0 @@
-<aura:event type="component" description="Event template">
-    <aura:attribute name="entityApiName" type="String" />
-    <aura:attribute name="recordTypeId" type="String" />
-    <aura:attribute name="defaultFieldValues" type="Object" />
-    <aura:attribute name="skipCache" type="boolean" />
-
-</aura:event>

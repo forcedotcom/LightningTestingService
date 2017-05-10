@@ -264,22 +264,4 @@ describe("Lightning Component Tests Examples", function(){
             }); 
         });
     });
-
-    /**
-     * Component under test: 'c:egLdsTestWrapper'
-     */
-    describe('c:egLdsTestWrapper', function(){            
-        it('view component (which be used used by a wrapper using Lightning Data Service) works well for success usecase', function(done) {
-            $T.getComponent("c:egLdsTestWrapper", null)
-            .then(function(component){
-                component.find("worker").find("contactFirstName").set("v.value", "John");
-                component.find("worker").find("contactLastName").set("v.value", "Doe");
-                component.find("worker").find("saveContact").get("e.press").fire()
-                expect(component.get("v.closeQuickActionFired")).toBe(true);
-                done();
-            }).catch(function(e) {
-                done.fail(e);
-            }); 
-        });
-    });
 });
