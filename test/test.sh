@@ -10,7 +10,7 @@ fi
 # Setup base org info file
 echo '{
     "Company": "HEROKU-CI",
-    "Email": "t.dvornik@salesforce.com",
+    "Email": "myEmail@myCompany.com",
     "Country": "US",
     "LastName": "Heroku CI",
     "EnableTokenEncryption": false

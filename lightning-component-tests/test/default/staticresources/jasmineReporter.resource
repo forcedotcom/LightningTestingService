@@ -5,10 +5,10 @@
 (function(global) {
     var UNDEFINED,
     exportObject;    
-    
+
     /** Test result in TAP format (https://en.wikipedia.org/wiki/Test_Anything_Protocol) */
     var run_results_tap = "";
-    
+
     /**
      * Test result for SFDX. This needs to be in format interpretable by SFDX lightning test run command.
      * Available fields include(case sensitive): FullName, Description, Outcome (Pass/Fail/Skip/Disabled), Message, Runtime
@@ -26,7 +26,7 @@
     function isFailed(obj) { return obj.status === "failed"; }
     function isSkipped(obj) { return obj.status === "pending"; }
     function isDisabled(obj) { return obj.status === "disabled"; }
-    
+
     /** performs a shallow copy of all props of `obj` onto `dupe` */
     function extend(dupe, obj) {
         for (var prop in obj) {
@@ -36,7 +36,7 @@
         }
         return dupe;
     }
-    
+
     /**
      * Adds the test spec result to the full report.
      *
@@ -50,17 +50,17 @@
         }
         run_results_tap += tapReport + "\n";
         if (fullReport != null) {
-        	run_results_full.tests.push(fullReport);
+            run_results_full.tests.push(fullReport);
         }
     }
 
-	/**
-	 * Writes test result into a invisible div.
-	 * This is called twice, once for tap result, another for full result.
-	 *
-	 * @param {string} id The id of the div.
-	 * @param {string} The test result.
-	 */  
+    /**
+     * Writes test result into a invisible div.
+     * This is called twice, once for tap result, another for full result.
+     *
+     * @param {string} id The id of the div.
+     * @param {string} The test result.
+     */  
     function setHiddenDivContent(id, content) {
         var aDiv = document.getElementById(id);          
 
@@ -143,7 +143,7 @@
                     failure = spec.failedExpectations[i];
                     failedStr += '\n  ' + trim(failure.message);
                 }
-                
+
                 fullReport.Outcome = 'Fail';
                 fullReport.Message = failedStr;
             }
@@ -203,7 +203,7 @@
             var tapResultDiv = setHiddenDivContent("run_results_tap", run_results_tap);
             tapResultDiv.setAttribute("data-failure-count", totalSpecsFailed);
             tapResultDiv.setAttribute("data-total-count", totalSpecsExecuted);
-            
+
             setHiddenDivContent("run_results_full", JSON.stringify(run_results_full));
         };
     };

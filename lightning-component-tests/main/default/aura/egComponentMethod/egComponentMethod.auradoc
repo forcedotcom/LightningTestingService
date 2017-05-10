@@ -1,3 +1,3 @@
 <aura:documentation>
-	<aura:description>An example component that exposes a method on component's interface</aura:description>
+    <aura:description>An example component that exposes a method on component's interface</aura:description>
 </aura:documentation>

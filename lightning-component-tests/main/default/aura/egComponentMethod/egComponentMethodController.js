@@ -1,5 +1,5 @@
 ({
-	handleClick : function(component, event, helper) {
-        component.set("v.status", "Success!")
+    sampleMethodHandler : function(component, event, helper) {
+        component.set("v.status", "sampleMethod invoked");
 	}
 })

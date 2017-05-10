@@ -1,6 +1,6 @@
-<aura:component access="global" controller="egServerSideActionController">
-    <aura:attribute name="searchString" type="string" access="global"/>
-    <aura:attribute name="accountList" type="account[]" access="global"/>
+<aura:component controller="egServerSideActionController">
+    <aura:attribute name="searchString" type="string"/>
+    <aura:attribute name="accountList" type="account[]"/>
     
     <aura:handler event="force:closeQuickAction" action="{!closeQuickActionFired}"/>
 

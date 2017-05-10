@@ -1,8 +1,12 @@
+/**
+ * This test util aims to reduce the boiler plate code needed in the test specs by providing helper methods for common test patterns.
+ * Tests reference the helper methods via '$T'.
+ */
 (function (global){  
-
     global.$T = function $T(){};
 
     var cmpsToCleanup = [];
+    var contexualRunner;
 
     /**
      * Waits for the function to finish executing.
@@ -43,49 +47,92 @@
      * @returns {Promise} component creation or rendering result, depending on whether renderInto is specified
      */
     $T.getComponent = function(descriptor, attributes, renderInto) {
-        var callback = $A.getCallback(function(resolve){
-            $A.createComponent(descriptor, attributes , function(component) {
-            	cmpsToCleanup.push(component.getGlobalId());
-            	if (renderInto) {
-            		var renderingContainer = $A.getComponent(renderInto);
-            		if (!renderingContainer) {
-            			throw new Error("Could not find valid component to render into: " + renderInto);
-            		}
-                    var body = renderingContainer.get("v.body");
-                    body.push(component);
-                    renderingContainer.set("v.body", body);
-            	}
-            	resolve(component);
+        var callback = function(resolve, reject){
+            runInsideCallbackClosure(function(){
+                $A.createComponent(descriptor, attributes , function(component, status, error) {
+                    if(status === "SUCCESS"){
+                        cmpsToCleanup.push(component.getGlobalId());
+                        if (renderInto) {
+                            var renderingContainer = $A.getComponent(renderInto);
+                            if (!renderingContainer) {
+                                throw new Error("Could not find valid component to render into: " + renderInto);
+                            }
+                            var body = renderingContainer.get("v.body");
+                            body.push(component);
+                            renderingContainer.set("v.body", body);
+                        }
+                        resolve(component);
+                    }
+                    else{
+                        reject(error);
+                    }
+                });
             });
-        });
+        };
 
         if (renderInto) {
-        	return new Promise(callback)
-        		.then(function(component) {
-	        		// TODO(tbliss): better way to wait and still return component when done?
-	        		return $T.waitFor(function() {
-	        			if(component.isRendered()) {
-	        				return component;
-	        			}
-	        			return false;
-	        		});
-        		});
+            return new Promise(callback)
+            .then(function(component) {
+                return $T.waitFor(function() {
+                    if(component.isRendered()) {
+                        return component;
+                    }
+                    return false;
+                });
+            });
         } else {
-        	return new Promise(callback);
+            return new Promise(callback);
         }
+    }
+
+    /**
+     * Fire an application level event. Takes care of lightning lifecycle related setup needed to successfully interact (e.g. accessChecks) with an application event.
+     * @param {string} eventName Name of application event (e.g. c:myAppEvt)
+     * @param {Object.<string, Object>} eventArgs The event attributes
+     * 
+     * @returns {Boolean} A boolean value indicating whether an application level event with specified name was found and fired or not
+     */
+    $T.fireApplicationEvent = function(eventName, eventArgs){
+        var eventFired = false;
+        runInsideCallbackClosure(function(){
+            var appEvent = $A.get("e."+eventName);
+            if(appEvent){
+                if(eventArgs){
+                    appEvent.setParams(eventArgs);
+                }
+                appEvent.fire();
+                eventFired = true;
+            }
+        });
+        return eventFired;
     }
 
     /**
      * Clears the components registered to cmpsToCleanup list.
      */
-    // TODO(tbliss): call this automatically at end of test or make test authors add afterEach() block?
     $T.clearRenderedTestComponents = function() {
-    	while (cmpsToCleanup.length) {
-    		var globalId = cmpsToCleanup.shift();
-    		var cmp = $A.getComponent(globalId);
-    		// TODO(tbliss): destroy removes the DOM and nothing relevant is returned from Component API 
-    		//               but still lingering references in v.body -- do we care?
-    		cmp.destroy();
-    	}
+        while (cmpsToCleanup.length) {
+            var globalId = cmpsToCleanup.shift();
+            var cmp = $A.getComponent(globalId);
+            cmp.destroy();
+        }
+    }
+
+    /**
+     * [Internal Only] used by test runner component to allow execution of test code within a closure
+     */
+    $T._setContexualRunner = function(fn){
+        contexualRunner = fn;
+    }
+
+    /**
+     * Runs provided function within a closure to allow interaction with lightning API (e.g. avoid accessCheck errors) 
+     * with proper context   
+     */
+    var runInsideCallbackClosure = function(fn){
+        if(!contexualRunner){
+            throw new Error("callback is not set");
+        }
+        contexualRunner(fn);
     }
 })(this);

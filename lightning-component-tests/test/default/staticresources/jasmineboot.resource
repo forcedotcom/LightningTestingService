@@ -67,13 +67,19 @@
      * ## Reporters
      * The `HtmlReporter` builds all of the HTML UI for the runner page. This reporter paints the dots, stars, and x's for specs, as well as all spec names and all failures (if any).
      */
+    var testResultsElementId = 'jasmineHtmlTestResults';
+    if(!document.getElementById(testResultsElementId)){
+        var resultsDiv = document.createElement("div"); 
+        resultsDiv.id = testResultsElementId;
+        document.body.appendChild(resultsDiv);
+    }
     var htmlReporter = new jasmine.HtmlReporter({
         env: env,
         onRaiseExceptionsClick: function() { queryString.navigateWithNewParam("catch", !env.catchingExceptions()); },
         onThrowExpectationsClick: function() { queryString.navigateWithNewParam("throwFailures", !env.throwingExpectationFailures()); },
         onRandomClick: function() { queryString.navigateWithNewParam("random", !env.randomTests()); },
         addToExistingQueryString: function(key, value) { return queryString.fullStringWithNewParam(key, value); },
-        getContainer: function() { return document.getElementById('testResults'); },
+        getContainer: function() { return document.getElementById(testResultsElementId); },
         createElement: function() { return document.createElement.apply(document, arguments); },
         createTextNode: function() { return document.createTextNode.apply(document, arguments); },
         timer: new jasmine.Timer()
@@ -84,7 +90,6 @@
      */
     env.addReporter(jasmineInterface.jsApiReporter);
     env.addReporter(htmlReporter);
-    window.htmlReporter = htmlReporter;
 
     /**
      * Filter which specs will be run by matching the start of the full name against the `spec` query param.
@@ -107,4 +112,11 @@
         return destination;
     }
 
+    window.jasmine.lightningIntegration = {
+            execute : function(){
+                htmlReporter.initialize();
+                jasmine.getEnv().addReporter(new jasmineReporters.Reporter());
+                jasmine.getEnv().execute();
+            }
+    };
 }());
