@@ -1,7 +1,9 @@
 <aura:documentation>
     <aura:description>
-    A presentation component that contains view logic without have direct dependency on LDS. This pattern tries to explore ways to decouple presentation 
-    logic from server/integration logic. Some of the decoupling showcased was also needed because currently (docuemented dev preview limitation) LDS can
-    only be used inside lightning experience.
+    A complex component with extensive opportunities for testing.
+
+    This is a presentation component that contains view logic without have direct dependency on Lighting Data Service (LDS). This pattern explores ways to decouple presentation logic from server/integration logic.
+
+    Some of the decoupling illustrated is necessary because LDS can currently only be used inside Lightning Experience. (This is a documented limitation of the LDS beta.)
     </aura:description>
 </aura:documentation>
