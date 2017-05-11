@@ -1,3 +1,3 @@
 <aura:documentation>
-    <aura:description>An example component that updates UI based on the processing done by a client-side action</aura:description>
+    <aura:description>An example component that updates the user interface based on processing done by a client-side action.</aura:description>
 </aura:documentation>

@@ -1,3 +1,3 @@
 <aura:documentation>
-    <aura:description>An example component that handles a component and an application level event</aura:description>
+    <aura:description>An example component that handles events: one application-level event and one component-level event.</aura:description>
 </aura:documentation>
