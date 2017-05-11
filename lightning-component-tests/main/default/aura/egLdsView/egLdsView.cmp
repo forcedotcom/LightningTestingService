@@ -1,103 +1,48 @@
-<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId">
+<aura:component access="global" implements="force:lightningQuickActionWithoutHeader, force:hasRecordId">
 
-    <aura:attribute name="account" type="Object" />
-    <aura:attribute name="accountError" type="String" />
+    <aura:attribute name="_recordId" type="String" />
+    <aura:attribute name="record" type="Object" />
+    <aura:attribute name="recordTemplate" type="Object" />
+    <aura:attribute name="error" type="Object" />
+    <aura:attribute name="mode" type="String" default="VIEW" />
+    <aura:attribute name="fetch" type="Boolean" default="false" />
+    <aura:attribute name="logMessage" type="String" description="Message to verify/assert for different operations." />
+    <aura:attribute name="isCallbackCalled" type="Boolean" default="false"
+        description="Attribute to determine is action callback is called or not." />
 
-    <aura:attribute name="newContact" type="Object" />
-    <aura:attribute name="newContactError" type="String" />
-    <aura:attribute name="hasErrors" type="Boolean"
-        description="Indicate whether there were failures when validating the contact." />
+    <aura:registerEvent name="ldsClickEvent" type="c:egLdsClickEvent" />
 
     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
-    <aura:registerEvent name="createrec" type="c:egCreateRecordEvent" />
-    <aura:registerEvent name="saverec" type="c:egSaveRecordEvent" />
-    <aura:registerEvent name="showToast" type="force:showToast" />
-    <aura:registerEvent name="closeQuickAction" type="force:closeQuickAction" />
-    <aura:registerEvent name="refreshView" type="force:refreshView" />
+    <aura:handler event="c:egLdsClickEvent" action="{!c.clickLightningBtn}" />
 
+    <h3 class="slds-section__title">Lightning Data Service Example</h3>
 
-    <aura:method name="createRecordHandler" action="{!c.createRecordHandler}" />
-    <aura:method name="saveRecordHandler" action="{!c.saveRecordHandler}">
+    <force:recordData aura:id="recordDataCreate" layoutType="FULL" targetRecord="{!v.recordTemplate}"
+        targetError="{!v.error}" recordUpdated="{!c.handleRecordTemplate}" />
 
-        <aura:attribute name="saveResult" type="Object" />
-    </aura:method>
+    <lightning:button aura:id="createRecordBtn" label="CreateRecord" onclick="{!c.createRecord}" />
+    
+    <aura:if isTrue="{!v.fetch}">
+        <lightning:button aura:id="reloadRecordBtn" label="ReloadRecord" onclick="{!c.reloadRecord}" />
+        <lightning:button aura:id="saveRecordBtn" label="EditAndSaveRecord" onclick="{!c.saveRecord}" />
+        <lightning:button aura:id="deleteRecordBtn" label="DeleteRecord" onclick="{!c.deleteRecord}" />
 
-    <!-- Display a header with details about the account -->
-    <div class="slds-page-header" role="banner">
-        <p class="slds-text-heading--label">{!v.account.Name}</p>
-        <h1 class="slds-page-header__title slds-m-right--small slds-truncate slds-align-left">Create New Contact</h1>
-    </div>
+        <force:recordData aura:id="recordDataCmp" recordId="{!v._recordId}" layoutType="FULL" mode="{!v.mode}"
+            targetRecord="{!v.record}" targetError="{!v.error}" recordUpdated="{!c.handleRecordUpdate}" />
 
-    <!-- Display Lightning Data Service errors, if any -->
-    <aura:if isTrue="{!not(empty(v.accountError))}">
-        <div class="recordError">
-            <ui:message title="Error" severity="error" closable="true">
-                {!v.accountError}
-            </ui:message>
-        </div>
-    </aura:if>
-    <aura:if isTrue="{!not(empty(v.newContactError))}">
-        <div class="recordError">
-            <ui:message title="Error" severity="error" closable="true">
-                {!v.newContactError}
-            </ui:message>
-        </div>
+        <p> Account Name: <ui:outputText aura:id="accName" value="{!v.record.fields.Name.value}" class="slds-page-header__title slds-truncate slds-align-middle" /></p>
+        <p> Account Industry: <ui:outputText aura:id="accIndustry" value="{!v.record.fields.Industry.value}" class="slds-text-body--small page-header__info" /></p>
+        <p> Account Type: <ui:outputText aura:id="accType" value="{!v.record.fields.Type.value}" class="slds-text-body--small page-header__info" /></p>
+        <br />
     </aura:if>
 
-    <!-- Display form validation errors, if any -->
-    <aura:if isTrue="{!v.hasErrors}">
-        <div class="formValidationError">
-            <ui:message title="Error" severity="error" closable="true">
-                The new contact can't be saved because it's not valid.
-                Please review and correct the errors in the form.
-            </ui:message>
+    <aura:if isTrue="{! !empty(v.error)}">
+        <div class="slds-box slds-theme--error">
+            <p><ui:outputText value="{!v.error}" /></p>
         </div>
     </aura:if>
-
-    <!-- Display the new contact form -->
-    <div class="slds-form--stacked">
-
-        <div class="slds-form-element">
-            <label class="slds-form-element__label" for="contactFirstName">First Name: </label>
-            <div class="slds-form-element__control">
-                <ui:inputText class="slds-input" aura:id="contactFirstName" value="{!v.newContact.FirstName}"
-                    required="true" />
-            </div>
-        </div>
-        <div class="slds-form-element">
-            <label class="slds-form-element__label" for="contactLastName">Last Name: </label>
-            <div class="slds-form-element__control">
-                <ui:inputText class="slds-input" aura:id="contactLastName" value="{!v.newContact.LastName}"
-                    required="true" />
-            </div>
-        </div>
-
-        <div class="slds-form-element">
-            <label class="slds-form-element__label" for="contactTitle">Title: </label>
-            <div class="slds-form-element__control">
-                <ui:inputText class="slds-input" aura:id="contactTitle" value="{!v.newContact.Title}" />
-            </div>
-        </div>
-
-        <div class="slds-form-element">
-            <label class="slds-form-element__label" for="contactPhone">Phone Number: </label>
-            <div class="slds-form-element__control">
-                <ui:inputPhone class="slds-input" aura:id="contactPhone" value="{!v.newContact.Phone}" required="true" />
-            </div>
-        </div>
-        <div class="slds-form-element">
-            <label class="slds-form-element__label" for="contactEmail">Email: </label>
-            <div class="slds-form-element__control">
-                <ui:inputEmail class="slds-input" aura:id="contactEmail" value="{!v.newContact.Email}" />
-            </div>
-        </div>
-
-        <div class="slds-form-element">
-            <ui:button label="Cancel" press="{!c.handleCancel}" class="slds-button slds-button--neutral" />
-            <ui:button aura:id="saveContact" label="Save Contact" press="{!c.handleSaveContact}"
-                class="slds-button slds-button--brand" />
-        </div>
-
-    </div>
+    <br />
+    <br />
+    <p><ui:outputText aura:id="logMessage" value="{!v.logMessage}" class="slds-text-heading--small" /></p>
 
 </aura:component>

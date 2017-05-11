@@ -1,3 +1,0 @@
-<aura:documentation>
-    <aura:description>A wrapper component created to decouple LDS dependency from view/presentation logic</aura:description>
-</aura:documentation>
