@@ -40,11 +40,10 @@ describe('Lightning Data Service Tests Examples (c:egLdsView)', function(){
     /**
      * This test validates that force:recordData create method and LDS is notifying component with updated data.
      */
-    it('create the record', function() {
-        var that = this;
+    it('create record', function() {
         // createRecord method in helper is creating record with ADSTestAccount using force:recordData and record will be loaded after save
-        expect(document.getElementById("accName").outerText).toContain("ADSTestAccount");
-        expect(document.getElementById("logMessage").outerText).toBe("Record has been loaded.");
+        expect(this.component.find("accName").get("v.value")).toContain("ADSTestAccount");
+        expect(this.component.find("logMessage").get("v.value")).toBe("Record has been loaded.");
     });
 
 
@@ -58,7 +57,7 @@ describe('Lightning Data Service Tests Examples (c:egLdsView)', function(){
         return $T.waitFor(function(){
             return that.component.get("v.isCallbackCalled") === true;
         }, defaultTimeout).then(function() {
-            expect(document.getElementById("logMessage").outerText).toBe("Record has been loaded.");
+            expect(that.component.find("logMessage").get("v.value")).toBe("Record has been loaded.");
             done();
         }).catch(function(e) {
             done.fail(e);
@@ -85,7 +84,7 @@ describe('Lightning Data Service Tests Examples (c:egLdsView)', function(){
             return $T.waitFor(function(){
                 return that.component.get("v.isCallbackCalled") === true;
             }, defaultTimeout).then(function() {
-                expect(document.getElementById("accName").outerText).toBe("Account Name: UpdatedRecordNameFromTest");
+                expect(that.component.find("logMessage").get("v.value")).toBe("Account Name: UpdatedRecordNameFromTest");
                 done();
             }).catch(function(e) {
                 done.fail(e);
@@ -106,7 +105,7 @@ describe('Lightning Data Service Tests Examples (c:egLdsView)', function(){
         return $T.waitFor(function(){
             return that.component.get("v.isCallbackCalled") === true;
         }, defaultTimeout).then(function() {
-            expect(document.getElementById("logMessage").outerText).toBe("Record has been removed.");
+            expect(that.component.find("logMessage").get("v.value")).toBe("Record has been removed.");
             done();
         }).catch(function(e) {
             done.fail(e);
@@ -120,6 +119,6 @@ describe('Lightning Data Service Tests Examples (c:egLdsView)', function(){
         var that = this;
         // lightning data service will fire the event with ERROR type when there is an actual error, to test ui behavior mocking the event 
         that.component.find("recordDataCmp").getEvent("recordUpdated").setParams({"changeType":"ERROR"}).fire();
-        expect(document.getElementById("logMessage").outerText).toBe("There is some error while loading/updating record.");
+        expect(that.component.find("logMessage").get("v.value")).toBe("There is some error while loading/updating record.");
     });
 });
