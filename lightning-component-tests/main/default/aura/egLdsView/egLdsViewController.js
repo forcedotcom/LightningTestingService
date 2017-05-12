@@ -1,9 +1,6 @@
 ({
-    doInit : function(cmp, event, helper){
-    },
-
-    createRecord : function(cmp, event, helper) {
-        helper.createRecord(cmp);
+    getNewRecord : function(cmp, event, helper) {
+        helper.getNewRecord(cmp);
     },
 
     reloadRecord : function(cmp, event, helper) {
@@ -35,28 +32,6 @@
             cmp.set("v.logMessage", "There is some error while loading/updating record.");
         } else {
             // you should not get any other type than these 4 (as of Summer '17)
-        }
-    },
-
-    handleRecordTemplate : function(cmp, event, helper) {
-        //handle the recordUpdated event
-    },
-
-    /**
-     * For testing purpose only (as you cannot get the getElement() of the component for other namespaces)
-     */
-    clickLightningBtn : function(cmp, event, helper) {
-        var button = event.getParam("btnName");
-        if(button === "create") {
-            helper.createRecord(cmp);
-        } else if(button === "reload") {
-            helper.reloadRecord(cmp);
-        } else if(button === "save") {
-            helper.saveRecord(cmp);
-        } else if(button === "delete") {
-            helper.deleteRecord(cmp);
-        } else {
-            // do nothing
         }
     }
 })
