@@ -37,6 +37,6 @@
     </aura:if>
     <br />
     <br />
-    <p><ui:outputText aura:id=logMessage value="{!v.logMessage}" class="slds-text-heading--small" /></p>
+    <p><ui:outputText aura:id="logMessage" value="{!v.logMessage}" class="slds-text-heading--small" /></p>
 
 </aura:component>
