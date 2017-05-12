@@ -1,5 +1,5 @@
 ({
-    createRecord : function(cmp) {
+    getNewRecord : function(cmp) {
         var recordDataCreate = cmp.find("recordDataCreate");
         // call getNewRecord of force:recordData
         recordDataCreate.getNewRecord("Account", null, true, function() {
@@ -21,21 +21,16 @@
     reloadRecord : function(cmp) {
         cmp.find("recordDataCmp").reloadRecord(false, function(){
             // verify record is reloaded. callback will be called after recordUpdated event is fired
-            cmp.set("v.logMessage", cmp.get("v.logMessage") + " After reloadRecord.");
             cmp.set("v.isCallbackCalled", true);
         });
     },
 
     saveRecord : function(cmp) {
-        cmp.set("v.mode", "EDIT");
         var recordDataCmp = cmp.find("recordDataCmp");
-        recordDataCmp.reloadRecord(false, function(){
-            var record = cmp.get("v.record");
-            record.fields.Name.value = "UpdatedRecordName";
-            recordDataCmp.saveRecord(function(){
-                // verify record is saved. callback will be called after recordUpdated event is fired
-                cmp.set("v.logMessage", cmp.get("v.logMessage") + " After saveRecord.");
-                cmp.set("v.mode", "VIEW");
+        recordDataCmp.saveRecord(function(){
+            // verify record is saved. callback will be called after recordUpdated event is fired
+            cmp.set("v.mode", "VIEW");
+            cmp.find("recordDataCmp").reloadRecord(false, function(){
                 cmp.set("v.isCallbackCalled", true);
             });
         });
@@ -44,7 +39,6 @@
     deleteRecord : function(cmp) {
         cmp.find("recordDataCmp").deleteRecord(function(){
             // verify record is deleted. callback will be called after recordUpdated event is fired
-            cmp.set("v.logMessage", cmp.get("v.logMessage") + " After deleteRecord.");
             cmp.set('v.fetch', "false");
             cmp.set("v.isCallbackCalled", true);
         });
