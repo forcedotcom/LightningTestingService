@@ -84,7 +84,7 @@ describe('Lightning Data Service Tests Examples (c:egLdsView)', function(){
             return $T.waitFor(function(){
                 return that.component.get("v.isCallbackCalled") === true;
             }, defaultTimeout).then(function() {
-                expect(that.component.find("logMessage").get("v.value")).toBe("Account Name: UpdatedRecordNameFromTest");
+                expect(that.component.find("accName").get("v.value")).toBe("UpdatedRecordNameFromTest");
                 done();
             }).catch(function(e) {
                 done.fail(e);
