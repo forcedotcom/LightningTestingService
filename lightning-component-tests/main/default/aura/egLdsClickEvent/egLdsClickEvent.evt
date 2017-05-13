@@ -1,3 +1,0 @@
-<aura:event type="APPLICATION" description="Event template" access="GLOBAL">
-    <aura:attribute name="btnName" type="string"/>
-</aura:event>
