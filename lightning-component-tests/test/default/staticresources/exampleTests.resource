@@ -99,7 +99,7 @@ describe("Lightning Component Testing Examples", function(){
      * invoking server actions is time consuming (the spec can timeout), and can have side effects.
      */
     describe('c:egServerSideActionCallback', function(){
-        xit('[Discouraged: brittle, slow, side-effects] receives server data when server-side action is invoked', function(done) {
+        it('[Discouraged: brittle, slow, side-effects] receives server data when server-side action is invoked', function(done) {
             var renderInto = document.getElementById("renderTestComponents");
             $T.getComponent("c:egServerSideActionCallback", {}, renderInto)
             .then(function(component){
