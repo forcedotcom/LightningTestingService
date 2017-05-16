@@ -1,3 +1,7 @@
 <aura:documentation>
-    <aura:description>An example component that conditionally renders text to its body (and the DOM). Visibility can be toggled via a button with a client-side action.</aura:description>
+    <aura:description>
+        <p>An example component that conditionally renders text to its body (and
+           the DOM). Visibility can be toggled via a button that references a
+           client-side action.</p>
+    </aura:description>
 </aura:documentation>
