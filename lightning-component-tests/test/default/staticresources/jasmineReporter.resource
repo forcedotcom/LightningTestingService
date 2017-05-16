@@ -67,7 +67,8 @@
         if(!aDiv){            
             aDiv = document.createElement("div");
             aDiv.id = id;
-            aDiv.style = "display: none;";
+            //aDiv.style = "display:none;";
+            aDiv.style.display = "none";
             document.body.appendChild(aDiv); 
         }
 
