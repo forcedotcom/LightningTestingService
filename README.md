@@ -7,7 +7,7 @@ Automated tests are the best way to achieve predictable, repeatable assessments 
 
 ## About the Pilot Program
 
-We provide the Lightning Testing Service (LTS) to selected customers through a pilot program that requires agreement to specific terms and conditions. To be nominated to participate in the program, contact Salesforce. Pilot programs are subject to change, and we can’t guarantee acceptance. LTS isn’t generally available unless or until Salesforce announces its general availability in documentation or in press releases or public statements. We can’t guarantee general availability within any particular time frame or at all. Make your purchase decisions only on the basis of generally available products and features.
+> We provide the Lightning Testing Service (LTS) to selected customers through a pilot program that requires agreement to specific terms and conditions. To be nominated to participate in the program, contact Salesforce. Pilot programs are subject to change, and we can’t guarantee acceptance. LTS isn’t generally available unless or until Salesforce announces its general availability in documentation or in press releases or public statements. We can’t guarantee general availability within any particular time frame or at all. Make your purchase decisions only on the basis of generally available products and features.
 
 The LTS pilot is intended to be used with the Summer ’17 release of Salesforce. You can evaluate LTS prior to rollout to customer instances by [signing up for a Summer ’17 pre-release org](https://www.salesforce.com/form/signup/prerelease-summer-17.jsp).
 
@@ -24,7 +24,7 @@ During the pilot program there are two ways you can use the Lightning Testing Se
 
 Write your tests using a JavaScript testing framework of your choosing. We provide an easy-to-use wrapper for [Jasmine](https://jasmine.github.io/). A simple Jasmine test looks like the following:
 
-```JavaScript
+```js
 /**
  * This is a 'hello world' Jasmine test spec file
  */
@@ -92,12 +92,14 @@ Note that the Force.com IDE 2 is a beta version of the Force.com IDE that is onl
 Once installed, you can run your tests from the command line using the sfdx tool. For example:
 
 ```bash
-sfdx force:lightning:test:run
+sfdx force:auth:web:login -s     # connect to your DE org
+sfdx force:source:push           # push local source to the DE org
+sfdx force:lightning:test:run    # run the test suite
 ```
 
-When you run this command in a connected workspace you should see something like the following:
+When you run the `force:lightning:test:run` command in a connected workspace you should see something like the following:
 
-[TK: screenshot of test output]
+![Console output from a successful test suite execution using sfdx](doc-resources/lts_sfdx_test_run_output.png)
 
 This tells you that the command line tools are working, and connected to your development org.
 
