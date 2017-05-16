@@ -1,3 +1,5 @@
 <aura:documentation>
-    <aura:description>An example component with attributes of various types.</aura:description>
+    <aura:description>
+        <p>An example component with attributes of various types.</p>
+    </aura:description>
 </aura:documentation>

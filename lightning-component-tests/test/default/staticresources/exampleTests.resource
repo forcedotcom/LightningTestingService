@@ -26,7 +26,7 @@ describe("Lightning Component Testing Examples", function(){
     describe('c:egRenderElement', function(){
         // We encourage you to have the code for c:egRenderElement side by side
         // when reading through this spec.
-        it('Creating the component and rendering it shows expected data', function(done) {
+        it('renders specific static text', function(done) {
             // Define where the component should be rendered during the test.
             // You can update Tests.app to define your own DOM element.
             var renderInto = document.getElementById("renderTestComponents");
@@ -51,7 +51,7 @@ describe("Lightning Component Testing Examples", function(){
      * causes the expected state change.
      */
     describe('c:egComponentMethod', function() {
-        it("Invoking a method on component's interface updates the attribute value", function(done) {
+        it("updates an attribute value when a method is invoked on the component's interface", function(done) {
             $T.getComponent("c:egComponentMethod", null)
             .then(function(component) {
                 component.sampleMethod();
@@ -69,7 +69,7 @@ describe("Lightning Component Testing Examples", function(){
      * the interaction results in expected state and rendering updates.
      */
     describe('c:egClientSideAction', function(){
-        it('Invoking client-side action via component method populates list in UI', function(done) {
+        it('adds items to a list when the client-side action is invoked', function(done) {
             var renderInto = document.getElementById("renderTestComponents");
             $T.getComponent("c:egClientSideAction", {}, renderInto)
             .then(function(component){
@@ -99,7 +99,7 @@ describe("Lightning Component Testing Examples", function(){
      * invoking server actions is time consuming (the spec can timeout), and can have side effects.
      */
     describe('c:egServerSideActionCallback', function(){
-        it('[Discouraged: brittle, slow, side-effects] Invoking server-side action end-to-end updates the state correctly.', function(done) {
+        xit('[Discouraged: brittle, slow, side-effects] receives server data when server-side action is invoked', function(done) {
             var renderInto = document.getElementById("renderTestComponents");
             $T.getComponent("c:egServerSideActionCallback", {}, renderInto)
             .then(function(component){
@@ -123,7 +123,7 @@ describe("Lightning Component Testing Examples", function(){
      * callback via a component method, and then having the spec use the callback directly for interaction
      */
     describe('c:egServerSideActionCallback', function() {
-        it('Invoking action callback directly with success response updates the attributes and UI correctly', function(done) {
+        it('updates with provided data when action callback is invoked directly', function(done) {
             var renderInto = document.getElementById("renderTestComponents");
             $T.getComponent("c:egServerSideActionCallback", {}, renderInto)
             .then(function(component){
@@ -149,7 +149,7 @@ describe("Lightning Component Testing Examples", function(){
      * But it eliminates the need for restructuring component production code for testability.
      */
     describe('c:egServerSideActionCallback', function() {
-        it('Invoking action callback with mocked (jasmine spy) success action response updates the attributes and UI correctly', function(done) {
+        it('updates with provided data when invoked via a mocked server action using Jasmine spies', function(done) {
             var renderInto = document.getElementById("renderTestComponents");
             $T.getComponent("c:egServerSideActionCallback", {}, renderInto)
             .then(function(component){
@@ -176,7 +176,7 @@ describe("Lightning Component Testing Examples", function(){
      * This spec shows how to interact with various attribute types from a test spec.
      */
     describe('c:egAttributeTypes', function() {
-        it('Setting component attributes of various types and validating values', function(done) {
+        it('sets component attributes of various types and values', function(done) {
             var attributes = {
                     stringAtr:"string value",
                     integerAtr:20,
@@ -204,7 +204,7 @@ describe("Lightning Component Testing Examples", function(){
      */
     describe('c:egFacet', function(){
         var attributes = {"content":"textContent"};
-        it('setting a component facet and validating the output', function(done) {
+        it('renders the expected content when used as a facet', function(done) {
             var renderInto = document.getElementById("renderTestComponents");
             $T.getComponent("c:egFacet", attributes, renderInto)
             .then(function(component){
@@ -223,7 +223,7 @@ describe("Lightning Component Testing Examples", function(){
      * displayed by the component.
      */
     describe('c:egGlobalValueProvider', function(){
-        it('Custom label shows up at correct place', function(done) {
+        it('renders a custom label', function(done) {
             var renderInto = document.getElementById("renderTestComponents");
             $T.getComponent("c:egGlobalValueProvider", {}, renderInto)
             .then(function(component){
@@ -244,7 +244,7 @@ describe("Lightning Component Testing Examples", function(){
      * This spec shows to validate conditional UI by using the component's interface.
      */
     describe('c:egConditionalUI', function() {
-        it('Component renders only the portion of UI based on a conditional', function(done) {
+        it('renders only the "truthy" (conditional) portion of the user interface', function(done) {
             $T.getComponent("c:egConditionalUI", null)
             .then(function(component) {
                 expect(component.find("trueDiv")).toBeTruthy();
@@ -265,7 +265,7 @@ describe("Lightning Component Testing Examples", function(){
      * application-level events.
      */
     describe('c:egEventHandling', function() {
-        it('Component handles component- and application-level events', function(done) {
+        it('handles component- and application-level events', function(done) {
             $T.getComponent("c:egEventHandling", null)
             .then(function(component){
                 var cmpEvent = component.getEvent("sampleEvent");

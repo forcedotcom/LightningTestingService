@@ -1,3 +1,6 @@
 <aura:documentation>
-    <aura:description>An example component that outputs a custom level using the $Label global value provider.</aura:description>
+    <aura:description>
+        <p>An example component that outputs a custom label using the $Label global
+           value provider.</p>
+    </aura:description>
 </aura:documentation>

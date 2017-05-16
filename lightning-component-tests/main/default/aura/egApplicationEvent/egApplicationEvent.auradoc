@@ -1,3 +1,5 @@
 <aura:documentation>
-    <aura:description>An application-level event for use in example components.</aura:description>
+    <aura:description>
+        <p>An application-level event for use in example components.</p>
+    </aura:description>
 </aura:documentation>
