@@ -11,7 +11,7 @@ Automated tests are the best way to achieve predictable, repeatable assessments 
 
 The LTS pilot is intended to be used with the Summer ’17 release of Salesforce. You can evaluate LTS prior to rollout to customer instances by [signing up for a Summer ’17 pre-release org](https://www.salesforce.com/form/signup/prerelease-summer-17.jsp).
 
-The LTS supports testing using standard JavaScript test frameworks. During the pilot program we’re providing an easy-to-use wrapper for using Jasmine. If you’d like to use an alternative test framework, you’ll have to roll it yourself. (See [Next Steps](#next-steps) for some details.) We look forward to your feedback about Jasmine, and other test frameworks you have experience with.
+The LTS supports testing using standard JavaScript test frameworks. During the pilot program we’re providing an easy-to-use wrapper for using [Jasmine](https://jasmine.github.io/). If you’d like to use an alternative test framework, you’ll have to roll it yourself. (See [Next Steps](#next-steps) for some details.) We look forward to your feedback about Jasmine, and other test frameworks you have experience with.
 
 If you’re a part of the official, limited pilot for LTS, please provide feedback through the pilot forum and review meetings. If you’re not a part of the official pilot, we’d still love your feedback. Please log a support case and specify that you’re providing feedback to the LTS pilot.
 
@@ -54,14 +54,15 @@ Installing the LTS package is just like [installing any other unmanaged package]
 
 The LTS package installs the following items:
 
- * Example test suite static resource
-    - Jasmine framework and wrapper
-    - LTS test utilities
-    - Example tests
+ * Example test suites
+     - Jasmine JavaScript files in archive static resources
  * Example components to be tested
-    - Test runner component
-    - Wrapper test app
-    - Components to be tested
+     - Components, an Apex class, and a custom label
+ * LTS infrastructure
+     - Jasmine framework and wrapper
+     - LTS test utilities
+     - Test runner component
+     - Wrapper test app
 
 Once installed, you can run the example test suite by going to the following URL in your org:
 <code><em>yourInstance</em>/c/Tests.app</code>
@@ -77,6 +78,7 @@ This page tells you that the package is correctly installed and LTS is working i
 The LTS plug-in for Salesforce DX allows you to use the sfdx command line tool to perform automated testing as part of your development process, including automated process such as continuous integration.
 
 ### Prerequisites
+
 To install and use the LTS plug-in for Salesforce DX, you must first do the following.
 
  * Join the Salesforce DX pilot program and install the Salesforce DX command line interface (CLI) tool `sfdx`
@@ -89,7 +91,7 @@ Note that the Force.com IDE 2 is a beta version of the Force.com IDE that is onl
 
 [TK: instructions forthcoming]
 
-Once installed, you can run your tests from the command line using the sfdx tool. For example:
+Once installed, you can run your tests from the command line using the `sfdx` tool. For example:
 
 ```bash
 sfdx force:auth:web:login -s     # connect to your DE org
@@ -137,7 +139,7 @@ There are three test suites included in the LTS package:
  * `exampleTests.resource` — The example test suite that’s worth your time to review.
  * `lightningDataServiceTests.resource` — Some examples specific to testing LDS-based components.
 
-The remainder of the static resources are infrastructure used by the LTS, and won’t be described here.
+The remainder of the static resources are infrastructure used by the LTS. They're _briefly_ described in [Use Another JavaScript Test Framework](#use-another-javascript-test-framework).
 
 The `exampleTests.resource` is a single JavaScript file containing a complete test suite. It’s a single file for convenience in delivery and exploration. Your own test suites can include many such files. `exampleTests.resource` is copiously commented. For the pilot program, the code and comments serve as the official documentation for how to write tests.
 
@@ -147,4 +149,17 @@ A separate document, [Testing Lightning Components with the Lightning Testing Se
 
 ## Use Another JavaScript Test Framework
 
-Here’s how we did it with Jasmine, you can use these items to create your own wrapper for your favorite test framework. [TK: details]
+The Lightning Testing Service provides a way to use standard JavaScript test frameworks with your Lightning components. For the LTS pilot we've provided the example test suite implemented in [Jasmine](https://jasmine.github.io/). Jasmine is one of several well-regarded test frameworks, and if you haven't chosen one already, we recommend you start with it.
+
+If you'd prefer to use another test framework, either because you've already selected one, or because you find something more to your taste, you can use it with the LTS instead. During the pilot that's a little more work. Please do tell us which frameworks you're using, so we can consider them for later versions of the LTS.
+
+All of the packaged pieces of the LTS are included in the project repository, in the [lightning-component-tests/test/default](https://github.com/forcedotcom/LightningComponentTests/tree/master/lightning-component-tests/test/default) directory. The pieces you'll need to modify or replace are the following items.
+
+ * `Tests.app` -- The front end of the LTS, this simple app includes the test runner component, and a list of test suites to feed it.
+ * `BaseTestRunnerCmp` -- The test runner component for Jasmine. It includes references to the required Jasmine library, which it loads along with the test spec resources, and then fires the test runner.
+ * `jasmine.resource` -- The Jasmine library, unmodified.
+ * `jasmineboot.resource` -- A JavaScript IIFE that launches Jasmine in the LTS context.
+ * `jasmineReporter.resource` -- Another JavaScript IIFE used to adapt Jasmine's results into formats expected by LTS and Salesforce DX.
+ * `testutil.resource` -- A collection of utilities for use within your test specs. They provide Lightning component-specific functions that make it easier to test your custom components from a test context.
+
+If you're already experienced with setting up another test framework, adapting the pilot Jasmine examples should take you a day or two, but not longer. We'd be thrilled to hear more about your adventures with Mocha and other JavaScript test frameworks!
