@@ -17,17 +17,17 @@
 				cmp.set("v.accountList", response.getReturnValue());
             }
             else if (state === "INCOMPLETE") {
-                console.log("Action INCOMPLETE");
+                $A.log("Action INCOMPLETE");
             }
             else if (state === "ERROR") {
                 var errors = response.getError();
                 if (errors) {
                     if (errors[0] && errors[0].message) {
-                        console.log("Error message: " + 
+                        $A.log("Error message: " + 
                                  errors[0].message);
                     }
                 } else {
-                    console.log("Unknown error");
+                    $A.log("Unknown error");
                 }
             }
         }
