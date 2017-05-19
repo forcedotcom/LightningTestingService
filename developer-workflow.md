@@ -85,7 +85,7 @@ The ```-f``` flag forces all local changes to be pushed to the DE org. Be carefu
 
 For a manual test run, visit the appropriate test app, for example, <code><em>yourInstance</em>/c/Tests.app</code>.
 
-![Sample test run](doc-resources/SampleTestRun.png)
+![Sample test run](doc-resources/lts_test_suite_page_success.png)
 
 For automated test runs, use the Salesforce DX CLI tool.
 
@@ -103,4 +103,4 @@ sfdx force:lightning:test:run --help
 
 When a test fails, is it a bug in your software implementation, or a bug in the test itself? Use your standard browser-based JavaScript debugging tools to investigate the behavior of both your production code and your test code.
 
-![Sample debugging session](doc-resources/SampleDebugging.png)
+![Sample debugging session](doc-resources/lts_browser_debugging_example.png)
