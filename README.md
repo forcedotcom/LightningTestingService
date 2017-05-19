@@ -49,7 +49,7 @@ There are two stages of installing the LTS. First install the unmanaged package.
 Installing the LTS package is just like [installing any other unmanaged package](https://help.salesforce.com/articleView?id=distribution_installing_packages.htm&language=en&type=0).
 
 1. Log in to your org. We recommend that you create a new DE org for evaluating the LTS.
-2. Go to the package installation URL: [https://login.salesforce.com/packaging/installPackage.apexp?p0=04t460000010zIs](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t460000010zIs)
+2. Go to the project [Releases](https://github.com/forcedotcom/LightningComponentTests/releases) page, and click the package installation URL for the latest release.
 3. Authenticate again with the credentials for your DE org.
 4. Follow the normal package installation prompts. We recommend installing the package for admins only.
 
