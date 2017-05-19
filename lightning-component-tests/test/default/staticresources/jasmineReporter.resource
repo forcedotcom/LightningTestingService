@@ -11,7 +11,7 @@
 
     /**
      * Test result for SFDX. This needs to be in format interpretable by SFDX lightning test run command.
-     * Available fields include(case sensitive): FullName, Description, Outcome (Pass/Fail/Skip/Disabled), Message, Runtime
+     * Available fields include(case sensitive): FullName, Outcome (Pass/Fail/Skip/Disabled), Message, Runtime
      */
     var run_results_full = {"tests":[]};
 
@@ -129,8 +129,7 @@
             spec = getSpec(spec);
 
             var fullReport = {};
-            fullReport.FullName =  spec._suite.description;
-            fullReport.Description = spec.description;
+            fullReport.FullName =  spec._suite.description + ' : ' + spec.description;
             fullReport.Outcome = 'Pass';
             fullReport.RunTime = Date.now() - this.specStartingTime;
 
