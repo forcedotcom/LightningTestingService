@@ -1,62 +1,104 @@
-# Lightning Component Tests
-## Project Goal
-Showcase reusable functional test patterns (testing eventing, renderering, callbacks etc.) for Lightning Components using Jasmine (a popular open-sourced javascript testing framework). 
+# Lightning Testing Service
 
-Integration between Lightning and Jasmine showcased in this repo will also be made available as an unmanaged package. Developers building Lightning Components will be able to focus on authoring tests for their customizations by using the package in conjunction with SFDX integration (for streamlined dev and CI workflow).
+The Lightning Testing Service, or LTS, is a set of tools and services that let you create test suites for your Lightning components using standard JavaScript test frameworks like Jasmine.
 
-## Metadata Visualization and Runtime Flowchart
-![metadata visualization and runtime flowchart](doc-resources/metadata-visualization-and-runtime-flowchart.png)
+If you haven't already installed the LTS, start with [the project introduction](./README.md) instead of this document.
 
-## Getting Started
-##### Sample wrapper test application: [Test.app](lightning-component-tests/test/default/aura/Tests/Tests.app)
-##### Example Lightning component tests: [exampleTests.resource](lightning-component-tests/test/default/staticresources/exampleTests.resource)
-##### Directory containing sample [components](lightning-component-tests/main/default/aura) under test
+## Developer Workflows
 
-## Dev Workflow
+This document provides background on how the LTS works, both by itself, and when used with Salesforce DX. We'll also describe a number of common tasks you might perform while doing development work. You can combine these tasks with each other and with your own developer processes. The workflows enabled by the LTS can significantly improve your overall development lifecycle.  
+
+## LTS Basics and Some Theory of Operation
+
+The LTS consists of two major components:
+
+  * The LTS unmanaged package
+  * The LTS plug-in for Salesforce DX
+
+The unmanaged package includes LTS infrastructure, including a test runner app, and some example tests. Once the package is installed in your org, you can run the example tests by going to the following URL:
+<code><em>yourInstance</em>/c/Tests.app</code>
+
+When you run tests manually in a browser, you're using only the pieces of LTS provided in the package.
+
+![Metadata visualization and runtime flowchart](doc-resources/metadata-visualization-and-runtime-flowchart.png)
+
+For more sophisticated development processes, use the LTS command line tool, a plug-in for Salesforce DX. It allows you to integrate the LTS into your automated testing, continuous integration, and other source-based development processes.
+
+The command line tool automates running your test suites. It opens the same URL you can open manually, and uses WebDriver to observe the test suite as it runs. Then it parses and packages the results for use in command line-based development processes.
+
+## Common Tasks and Workflows
+
+Many of the tasks presented here are common to all Salesforce DX workflows. They're presented here because they're commonly used when you're writing tests, too. For more details, be sure to read the Salesforce DX documentation.
+
 ### Prerequisites
-* SFDX CLI 
-* Environment Hub Setup for SFDX CLI
-* Force IDE 2
 
-### Scratch Org Creation
-* Login to hub org
-<pre><code>
-sfdx force:auth:web:login -d
-</code></pre>
+Make sure you've installed the LTS unmanaged package and the LTS plug-in for Salesforce DX, as described in [the project introduction](./README.md).
 
-* Customize scratch org [config](/config/workspace-scratch-def.json) by specifying company name, email address etc.
+### Create a Scratch Org
 
-* Create a Scratch Org and set it as default
-<pre><code>
-sfdx force:org:create -s -f config/workspace-scratch-def.json -a scratch1
-</code></pre>
+It's usually best to perform automated testing in a clean org, created with consistent settings.
 
-### Pushing Metadata to Scratch Org
-* Push metadata to scratch org
-<pre><code>
-sfdx force:source:push 
-</code></pre>
+  1. Customize your scratch org default settings using a [scratch org configuration file](config/workspace-scratch-def.json). You can use this to specify a company name, email address, and so on.
 
-* Login to scratch org
-<pre><code>
-sfdx force:org:open
-</code></pre>
+  2. Log in to your dev hub org.
+  
+     ```bash
+     sfdx force:auth:web:login -d
+     ```
+  
+  3. Create a scratch org and set it as the default for your workspace.
+  
+     ```bash
+     sfdx force:org:create -s -f config/workspace-scratch-def.json -a scratch1
+     ```
 
-* For a manual run, visit one of the test apps (e.g. /c/Tests.app)
-![sample run](/doc-resources/SampleTestRun.png)
+### Push Metadata to a Scratch Org
 
-* For Automated run, use special purpose sfdx cli command (coming soon) or execute as an integration test,
-<pre><code>
-sfdx force:testrunner:run  -f test/test-runner-config.json -c local -j integration
-</code></pre>
+Your tests are written as JavaScript files saved in archive static resources. When you update your tests locally, you need to push the new static resource to the org you're using for testing.
 
-### [Alternative] Pushing Metadata to Developer Edition Org
-If you do not have environment-hub setup and would like to give this repo a try, it is possible to push the metadata to a developer edition org instead,
-<pre><code>
-sfdx force:auth:web:login -s
-sfdx force:source:push -f
-</code></pre>
+  1. Push local metadata to your scratch org.
+  
+     ```bash
+     sfdx force:source:push
+     ```
+  
+  2. Log in to your scratch org in a web browser. For example, if you need to verify behavior manually.
+  
+     ```bash
+     sfdx force:org:open
+     ```
+
+### [Alternative] Push Metadata to a Developer Edition (DE) Org
+
+Salesforce DX is designed to work with a dev hub org and scratch orgs. If you have a normal DE org you'd like to work with, the commands are slightly different
+
+```bash
+sfdx force:auth:web:login -s     # connect to your DE org
+sfdx force:source:push -f        # push local source to the DE org
+```
+
+The ```-f``` flag forces all local changes to be pushed to the DE org. Be careful with this command! It will overwrite changes you've made in the org without warning you.
+
+### Run Tests
+
+For a manual test run, visit the appropriate test app, for example, <code><em>yourInstance</em>/c/Tests.app</code>.
+
+![Sample test run](doc-resources/SampleTestRun.png)
+
+For automated test runs, use the Salesforce DX CLI tool.
+
+```bash
+sfdx force:lightning:test:run
+```
+
+See the command line help for other useful details.
+
+```bash
+sfdx force:lightning:test:run --help
+```
 
 ### Debugging Tests
-* Browser Dev Tools can be used to debug
-![sample debugging](/doc-resources/SampleDebugging.png)
+
+When a test fails, is it a bug in your software implementation, or a bug in the test itself? Use your standard browser-based JavaScript debugging tools to investigate the behavior of both your production code and your test code.
+
+![Sample debugging session](doc-resources/SampleDebugging.png)

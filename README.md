@@ -89,7 +89,13 @@ Note that the Force.com IDE 2 is a beta version of the Force.com IDE that is onl
 
 ### Installation
 
-[TK: instructions forthcoming]
+Install the pilot version of the LTS plug-in for Salesforce DX by running the following command in your command line shell.
+
+```bash
+sfdx plugins:install salesforcedx@pre-release
+```
+
+This updates your plug-ins from the pre-release channel, which is for versions that being prepared for, but aren't quite certified for, general release. This includes the LTS plug-in. We recommend you install from the pre-release channel only on systems dedicated to testing the LTS pilot release.
 
 Once installed, you can run your tests from the command line using the `sfdx` tool. For example:
 
