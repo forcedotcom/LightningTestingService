@@ -32,7 +32,7 @@ describe("Lightning Component Testing Examples", function(){
             var renderInto = document.getElementById("renderTestComponents");
             // Instantiate and render the c:egRenderElement Lightning component into the renderInto element.
             // The second parameter (empty here) is the list of component attribute values to set.
-            $T.getComponent("c:egRenderElement", {}, renderInto)
+            $T.createComponent("c:egRenderElement", {}, renderInto)
             // The 'component' here is the instance of c:egRenderElement
             .then(function(component) {
                 expect(document.getElementById("content").textContent).toContain("Hello World!");
@@ -52,7 +52,7 @@ describe("Lightning Component Testing Examples", function(){
      */
     describe('c:egComponentMethod', function() {
         it("updates an attribute value when a method is invoked on the component's interface", function(done) {
-            $T.getComponent("c:egComponentMethod", null)
+            $T.createComponent("c:egComponentMethod", null)
             .then(function(component) {
                 component.sampleMethod();
                 expect(component.get("v.status")).toBe("sampleMethod invoked");
@@ -71,7 +71,7 @@ describe("Lightning Component Testing Examples", function(){
     describe('c:egClientSideAction', function(){
         it('adds items to a list when the client-side action is invoked', function(done) {
             var renderInto = document.getElementById("renderTestComponents");
-            $T.getComponent("c:egClientSideAction", {}, renderInto)
+            $T.createComponent("c:egClientSideAction", {}, renderInto)
             .then(function(component){
                 component.set("v.searchString", "salesforce");
                 expect(component.find("accountList").getElement().children.length).toBe(0);
@@ -101,7 +101,7 @@ describe("Lightning Component Testing Examples", function(){
     describe('c:egServerSideActionCallback', function(){
         it('[Discouraged: brittle, slow, side-effects] receives server data when server-side action is invoked', function(done) {
             var renderInto = document.getElementById("renderTestComponents");
-            $T.getComponent("c:egServerSideActionCallback", {}, renderInto)
+            $T.createComponent("c:egServerSideActionCallback", {}, renderInto)
             .then(function(component){
                 component.set("v.searchString", "United");
                 expect(component.find("accountList").getElement().children.length).toBe(0);
@@ -125,7 +125,7 @@ describe("Lightning Component Testing Examples", function(){
     describe('c:egServerSideActionCallback', function() {
         it('updates with provided data when action callback is invoked directly', function(done) {
             var renderInto = document.getElementById("renderTestComponents");
-            $T.getComponent("c:egServerSideActionCallback", {}, renderInto)
+            $T.createComponent("c:egServerSideActionCallback", {}, renderInto)
             .then(function(component){
                 // Mocking out the server-side action response
                 var res = {getState : function(){return "SUCCESS";}, getReturnValue: function(){return [{"Name":"Acct 1"},{"Name":"Acct 2"}];}};
@@ -151,7 +151,7 @@ describe("Lightning Component Testing Examples", function(){
     describe('c:egServerSideActionCallback', function() {
         it('updates with provided data when invoked via a mocked server action using Jasmine spies', function(done) {
             var renderInto = document.getElementById("renderTestComponents");
-            $T.getComponent("c:egServerSideActionCallback", {}, renderInto)
+            $T.createComponent("c:egServerSideActionCallback", {}, renderInto)
             .then(function(component){
                 var res = {getState : function(){return "SUCCESS";}, getReturnValue: function(){return [{"Name":"Acct 1"},{"Name":"Acct 2"}];}};
                 spyOn($A, "enqueueAction").and.callFake(function(action) {
@@ -186,7 +186,7 @@ describe("Lightning Component Testing Examples", function(){
                     objectAtr:{"key1":"value1"}
             };
             var renderInto = document.getElementById("renderTestComponents");
-            $T.getComponent("c:egAttributeTypes", attributes, renderInto)
+            $T.createComponent("c:egAttributeTypes", attributes, renderInto)
             .then(function(component){
                 expect(component.find("stringAtrAuraId").getElement().innerHTML).toContain(attributes.stringAtr);
                 expect(component.get("v.integerAtr")).toBe(attributes.integerAtr);
@@ -206,7 +206,7 @@ describe("Lightning Component Testing Examples", function(){
         var attributes = {"content":"textContent"};
         it('renders the expected content when used as a facet', function(done) {
             var renderInto = document.getElementById("renderTestComponents");
-            $T.getComponent("c:egFacet", attributes, renderInto)
+            $T.createComponent("c:egFacet", attributes, renderInto)
             .then(function(component){
                 expect(component.find("cmpUnderTest").find("AuraComponentAtrId").getElement().innerHTML).toContain(attributes.content);
                 done();
@@ -225,7 +225,7 @@ describe("Lightning Component Testing Examples", function(){
     describe('c:egGlobalValueProvider', function(){
         it('renders a custom label', function(done) {
             var renderInto = document.getElementById("renderTestComponents");
-            $T.getComponent("c:egGlobalValueProvider", {}, renderInto)
+            $T.createComponent("c:egGlobalValueProvider", {}, renderInto)
             .then(function(component){
                 // You can reference a custom label in your spec using standard
                 // Lightning component JavaScript APIs
@@ -245,7 +245,7 @@ describe("Lightning Component Testing Examples", function(){
      */
     describe('c:egConditionalUI', function() {
         it('renders only the "truthy" (conditional) portion of the user interface', function(done) {
-            $T.getComponent("c:egConditionalUI", null)
+            $T.createComponent("c:egConditionalUI", null)
             .then(function(component) {
                 expect(component.find("trueDiv")).toBeTruthy();
                 expect(component.find("falseDiv")).toBeFalsy();
@@ -266,7 +266,7 @@ describe("Lightning Component Testing Examples", function(){
      */
     describe('c:egEventHandling', function() {
         it('handles component- and application-level events', function(done) {
-            $T.getComponent("c:egEventHandling", null)
+            $T.createComponent("c:egEventHandling", null)
             .then(function(component){
                 var cmpEvent = component.getEvent("sampleEvent");
                 cmpEvent.setParams({"data":"component event fired"});

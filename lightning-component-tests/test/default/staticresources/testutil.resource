@@ -46,7 +46,7 @@
      *                            will be pushed in to that elements body.
      * @returns {Promise} component creation or rendering result, depending on whether renderInto is specified
      */
-    $T.getComponent = function(descriptor, attributes, renderInto) {
+    $T.createComponent = function(descriptor, attributes, renderInto) {
         var callback = function(resolve, reject){
             runInsideCallbackClosure(function(){
                 $A.createComponent(descriptor, attributes , function(component, status, error) {
