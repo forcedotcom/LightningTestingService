@@ -62,11 +62,13 @@ Your tests are written as JavaScript files saved in archive static resources. Wh
      sfdx force:source:push
      ```
   
-  2. Log in to your scratch org in a web browser. For example, if you need to verify behavior manually.
+  2. Log in to your scratch org in a web browser. Use the ```-p``` parameter to open your test suite's app directly for manual review.
   
      ```bash
-     sfdx force:org:open
+     sfdx force:org:open -p /c/Tests.app
      ```
+
+  3. Update your code, or your tests, and go to step 1. Repeat until you achieve perfection, or at least 100% passing tests.
 
 ### [Alternative] Push Metadata to a Developer Edition (DE) Org
 
