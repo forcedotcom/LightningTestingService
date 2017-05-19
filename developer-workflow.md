@@ -1,4 +1,4 @@
-# Lightning Testing Service
+# Testing Lightning Components with the Lightning Testing Service
 
 The Lightning Testing Service, or LTS, is a set of tools and services that let you create test suites for your Lightning components using standard JavaScript test frameworks like Jasmine.
 
@@ -13,7 +13,7 @@ This document provides background on how the LTS works, both by itself, and when
 The LTS consists of two major components:
 
   * The LTS unmanaged package
-  * The LTS plug-in for Salesforce DX
+  * The LTS command for the Salesforce CLI
 
 The unmanaged package includes LTS infrastructure, including a test runner app, and some example tests. Once the package is installed in your org, you can run the example tests by going to the following URL:
 <code><em>yourInstance</em>/c/Tests.app</code>
@@ -22,7 +22,7 @@ When you run tests manually in a browser, you're using only the pieces of LTS pr
 
 ![Metadata visualization and runtime flowchart](doc-resources/metadata-visualization-and-runtime-flowchart.png)
 
-For more sophisticated development processes, use the LTS command line tool, a plug-in for Salesforce DX. It allows you to integrate the LTS into your automated testing, continuous integration, and other source-based development processes.
+For more sophisticated development processes, use the LTS commands, included with the salesforcedx CLI plugin. It allows you to integrate the LTS into your automated testing, continuous integration, and other source-based development processes.
 
 The command line tool automates running your test suites. It opens the same URL you can open manually, and uses WebDriver to observe the test suite as it runs. Then it parses and packages the results for use in command line-based development processes.
 
@@ -32,7 +32,7 @@ Many of the tasks presented here are common to all Salesforce DX workflows. They
 
 ### Prerequisites
 
-Make sure you've installed the LTS unmanaged package and the LTS plug-in for Salesforce DX, as described in [the project introduction](./README.md).
+Make sure you've installed the LTS unmanaged package and updated to the latest salesforcedx CLI plugin for Salesforce DX, as described in [the project introduction](./README.md).
 
 ### Create a Scratch Org
 
@@ -40,7 +40,7 @@ It's usually best to perform automated testing in a clean org, created with cons
 
   1. Customize your scratch org default settings using a [scratch org configuration file](config/workspace-scratch-def.json). You can use this to specify a company name, email address, and so on.
 
-  2. Log in to your dev hub org.
+  2. Log in to your Dev Hub.
   
      ```bash
      sfdx force:auth:web:login -d
@@ -72,7 +72,7 @@ Your tests are written as JavaScript files saved in archive static resources. Wh
 
 ### [Alternative] Push Metadata to a Developer Edition (DE) Org
 
-Salesforce DX is designed to work with a dev hub org and scratch orgs. If you have a normal DE org you'd like to work with, the commands are slightly different
+Salesforce DX is designed to work with a Dev Hub and scratch orgs. If you have a normal DE org you'd like to work with, the commands are slightly different
 
 ```bash
 sfdx force:auth:web:login -s     # connect to your DE org
@@ -87,7 +87,7 @@ For a manual test run, visit the appropriate test app, for example, <code><em>yo
 
 ![Sample test run](doc-resources/lts_test_suite_page_success.png)
 
-For automated test runs, use the Salesforce DX CLI tool.
+For automated test runs, use the Salesforce CLI.
 
 ```bash
 sfdx force:lightning:test:run
