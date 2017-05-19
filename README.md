@@ -13,14 +13,15 @@ The LTS pilot is intended to be used with the Summer ’17 release of Salesforce
 
 The LTS supports testing using standard JavaScript test frameworks. During the pilot program we’re providing an easy-to-use wrapper for using [Jasmine](https://jasmine.github.io/). If you’d like to use an alternative test framework, you’ll have to roll it yourself. (See [Next Steps](#next-steps) for some details.) We look forward to your feedback about Jasmine, and other test frameworks you have experience with.
 
-If you’re a part of the official, limited pilot for LTS, please provide feedback through the pilot forum and review meetings. If you’re not a part of the official pilot, we’d still love your feedback. Please log a support case and specify that you’re providing feedback to the LTS pilot.
+If you’re a part of the official, limited pilot for LTS, please provide feedback through the pilot forum and review meetings. If you’re not a part of the official pilot, we’d still love your suggestions. Please log a support case and specify that you’re providing feedback to the LTS pilot.
 
 ## Lightning Testing Service Overview
 
 During the pilot program there are two ways you can use the Lightning Testing Service.
 
  * If you just want to “kick the tires”, install the LTS unmanaged package. The package provides the test service app and an example test suite. It also includes example components that the test suite runs against. You run the test suite by accessing the URL for the LTS app in your org. Everyone should start with this package.
- * If you plan to evaluate or use LTS in more depth, you’ll want to use it with Salesforce DX, which is available as a separate pilot. Once you install the LTS plug-in for Salesforce DX, you can work with your test suite in a variety of ways from the command line. This approach is recommended for systematic automated testing.
+ 
+ * If you plan to evaluate or use LTS in more depth, you’ll want to use it with Salesforce DX, which is available as a separate pilot. Once you install the salesforcedx CLI plugin, you can work with your test suite in a variety of ways from the command line. This approach is recommended for systematic automated testing.
 
 Write your tests using a JavaScript testing framework of your choosing. We provide an easy-to-use wrapper for [Jasmine](https://jasmine.github.io/). A simple Jasmine test looks like the following:
 
@@ -41,14 +42,14 @@ Your test suite is deployed in the form of an archive static resource. Once the 
 
 ## Installing the Lightning Testing Service
 
-There are two stages of installing the LTS. First install the unmanaged package. Then, optionally, install the Salesforce DX plug-in to use the LTS with the sfdx command line tool.
+There are two stages of installing the LTS. First install the unmanaged package. Then, optionally, install the latest salesforcedx CLI plugin to use the LTS with the `sfdx` command line tool.
 
 ### Install the LTS Unmanaged Package
 
 Installing the LTS package is just like [installing any other unmanaged package](https://help.salesforce.com/articleView?id=distribution_installing_packages.htm&language=en&type=0).
 
 1. Log in to your org. We recommend that you create a new DE org for evaluating the LTS.
-2. Go to the package installation URL: [https://login.salesforce.com/packaging/installPackage.apexp?p0=04t460000010zIs](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t460000010zIs)
+2. Go to the project [Releases](https://github.com/forcedotcom/LightningComponentTests/releases) page, and click the package installation URL for the latest release.
 3. Authenticate again with the credentials for your DE org.
 4. Follow the normal package installation prompts. We recommend installing the package for admins only.
 
@@ -73,23 +74,29 @@ You should see a screen that looks something like the following.
 
 This page tells you that the package is correctly installed and LTS is working in your org.
 
-## Install the Lightning Testing Service Plug-In for Salesforce DX
+## Install the Lightning Testing Service for Salesforce DX
 
-The LTS plug-in for Salesforce DX allows you to use the sfdx command line tool to perform automated testing as part of your development process, including automated process such as continuous integration.
+The latest version of the salesforcedx CLI plugin for Salesforce DX allows you to use the `sfdx` command line tool to perform automated testing as part of your development process, including automated process such as continuous integration.
 
 ### Prerequisites
 
-To install and use the LTS plug-in for Salesforce DX, you must first do the following.
+To install and use the LTS with the salesforcedx CLI plugin, you must first do the following.
 
  * Join the Salesforce DX pilot program and install the Salesforce DX command line interface (CLI) tool `sfdx`
- * Configure a dev hub for use with Salesforce DX
+ * Configure a Dev Hub for use with Salesforce DX
  * Recommended: Install the Force.com IDE 2, if you want to use the IDE
 
 Note that the Force.com IDE 2 is a beta version of the Force.com IDE that is only available as part of the Salesforce DX pilot. It's not strictly required for using Salesforce DX or the LTS, but there are some usability improvements that make it nicer for both.
 
 ### Installation
 
-[TK: instructions forthcoming]
+Install the pilot version of the LTS for Salesforce DX by running the following command in your command line shell.
+
+```bash
+sfdx plugins:install salesforcedx@pre-release
+```
+
+This updates your salesforcedx CLI plugin from the pre-release channel, which is for versions that being prepared for, but aren't quite certified for, general release. This version includes the LTS. We recommend you install from the pre-release channel only on systems dedicated to testing the LTS pilot release.
 
 Once installed, you can run your tests from the command line using the `sfdx` tool. For example:
 
@@ -137,7 +144,7 @@ There are three test suites included in the LTS package:
 
  * `helloWorldTests.resource` — A very simple example including one passing and one failing test.
  * `exampleTests.resource` — The example test suite that’s worth your time to review.
- * `lightningDataServiceTests.resource` — Some examples specific to testing LDS-based components.
+ * `lightningDataServiceTests.resource` — Some examples specific to testing Lightning Data Service-based components.
 
 The remainder of the static resources are infrastructure used by the LTS. They're _briefly_ described in [Use Another JavaScript Test Framework](#use-another-javascript-test-framework).
 
