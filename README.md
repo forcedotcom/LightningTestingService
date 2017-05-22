@@ -86,7 +86,7 @@ Before you install and use the LTS with the salesforcedx CLI plugin, you must fi
  * Configure a Dev Hub for use with Salesforce DX
  * Recommended: Install Force.com IDE 2, if you want to use the IDE
 
-Note that Force.com IDE 2 is a beta version that is available only as part of the Salesforce DX pilot. It’s not strictly required for using Salesforce DX or the LTS, but it provies some usability improvements for both.
+Note that Force.com IDE 2 is a beta version that is available only as part of the Salesforce DX pilot. It’s not strictly required for using Salesforce DX or the LTS, but it provides some usability improvements for both.
 
 ### Installation
 
