@@ -101,8 +101,8 @@ This updates your salesforcedx CLI plugin from the pre-release channel, which is
 Once installed, you can run your tests from the command line using the `sfdx` tool. For example:
 
 ```bash
-sfdx force:auth:web:login -s     # connect to your DE org
-sfdx force:source:push           # push local source to the DE org
+sfdx force:auth:web:login -s     # connect to your scratch org
+sfdx force:source:push           # push local source to the scratch org
 sfdx force:lightning:test:run    # run the test suite
 ```
 
