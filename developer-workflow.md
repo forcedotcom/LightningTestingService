@@ -2,11 +2,11 @@
 
 The Lightning Testing Service, or LTS, is a set of tools and services that let you create test suites for your Lightning components using standard JavaScript test frameworks like Jasmine.
 
-If you haven't already installed the LTS, start with [the project introduction](./README.md) instead of this document.
+If you haven’t already installed the LTS, start with [the project introduction](./README.md) instead of this document.
 
 ## Developer Workflows
 
-This document provides background on how the LTS works, both by itself, and when used with Salesforce DX. We'll also describe a number of common tasks you might perform while doing development work. You can combine these tasks with each other and with your own developer processes. The workflows enabled by the LTS can significantly improve your overall development lifecycle.  
+This document provides background on how the LTS works, both by itself and when used with Salesforce DX. We’ll also describe a number of common tasks you might perform while doing development work. You can combine these tasks with each other and with your own developer processes. The workflows enabled by the LTS can significantly improve your overall development lifecycle.  
 
 ## LTS Basics and Some Theory of Operation
 
@@ -18,25 +18,25 @@ The LTS consists of two major components:
 The unmanaged package includes LTS infrastructure, including a test runner app, and some example tests. Once the package is installed in your org, you can run the example tests by going to the following URL:
 <code><em>yourInstance</em>/c/Tests.app</code>
 
-When you run tests manually in a browser, you're using only the pieces of LTS provided in the package.
+When you run tests manually in a browser, you’re using only the pieces of LTS provided in the package.
 
 ![Metadata visualization and runtime flowchart](doc-resources/metadata-visualization-and-runtime-flowchart.png)
 
-For more sophisticated development processes, use the LTS commands, included with the salesforcedx CLI plugin. It allows you to integrate the LTS into your automated testing, continuous integration, and other source-based development processes.
+For more sophisticated development processes, use the LTS commands included with the salesforcedx CLI plugin. The Salesforce CLI allows you to integrate the LTS into your automated testing, continuous integration, and other source-based development processes.
 
 The command line tool automates running your test suites. It opens the same URL you can open manually, and uses WebDriver to observe the test suite as it runs. Then it parses and packages the results for use in command line-based development processes.
 
 ## Common Tasks and Workflows
 
-Many of the tasks presented here are common to all Salesforce DX workflows. They're presented here because they're commonly used when you're writing tests, too. For more details, be sure to read the Salesforce DX documentation.
+Many of the tasks presented here are common to all Salesforce DX workflows. They’re presented here because they’re commonly used when you’re writing tests, too. For more details, be sure to read the Salesforce DX documentation.
 
 ### Prerequisites
 
-Make sure you've installed the LTS unmanaged package and updated to the latest salesforcedx CLI plugin for Salesforce DX, as described in [the project introduction](./README.md).
+Make sure you’ve installed the LTS unmanaged package and updated to the latest salesforcedx CLI plugin for Salesforce DX, as described in [the project introduction](./README.md).
 
 ### Create a Scratch Org
 
-It's usually best to perform automated testing in a clean org, created with consistent settings.
+It’s usually best to perform automated testing in a clean org, created with consistent settings.
 
   1. Customize your scratch org default settings using a [scratch org configuration file](config/workspace-scratch-def.json). You can use this to specify a company name, email address, and so on.
 
@@ -46,7 +46,7 @@ It's usually best to perform automated testing in a clean org, created with cons
      sfdx force:auth:web:login -d
      ```
   
-  3. Create a scratch org and set it as the default for your workspace.
+  3. Create a scratch org and set it as the default for your project workspace.
   
      ```bash
      sfdx force:org:create -s -f config/workspace-scratch-def.json -a scratch1
@@ -54,7 +54,7 @@ It's usually best to perform automated testing in a clean org, created with cons
 
 ### Push Metadata to a Scratch Org
 
-Your tests are written as JavaScript files saved in archive static resources. When you update your tests locally, you need to push the new static resource to the org you're using for testing.
+Your tests are written as JavaScript files saved in archive static resources. When you update your tests locally, you need to push the new static resource to the org you’re using for testing.
 
   1. Push local metadata to your scratch org.
   
@@ -62,7 +62,7 @@ Your tests are written as JavaScript files saved in archive static resources. Wh
      sfdx force:source:push
      ```
   
-  2. Log in to your scratch org in a web browser. Use the ```-p``` parameter to open your test suite's app directly for manual review.
+  2. Log in to your scratch org in a web browser. Use the ```-p``` (```--path```) parameter to open your test suite’s app directly for manual review.
   
      ```bash
      sfdx force:org:open -p /c/Tests.app
@@ -72,14 +72,14 @@ Your tests are written as JavaScript files saved in archive static resources. Wh
 
 ### [Alternative] Push Metadata to a Developer Edition (DE) Org
 
-Salesforce DX is designed to work with a Dev Hub and scratch orgs. If you have a normal DE org you'd like to work with, the commands are slightly different
+Salesforce DX is designed to work with a Dev Hub and scratch orgs. If you have a normal DE org you’d like to work with, the commands are slightly different
 
 ```bash
 sfdx force:auth:web:login -s     # connect to your DE org
 sfdx force:source:push -f        # push local source to the DE org
 ```
 
-The ```-f``` flag forces all local changes to be pushed to the DE org. Be careful with this command! It will overwrite changes you've made in the org without warning you.
+The ```-f``` flag forces all local changes to be pushed to the DE org. Be careful with this flag! It will overwrite changes you’ve made in the org without warning you.
 
 ### Run Tests
 
