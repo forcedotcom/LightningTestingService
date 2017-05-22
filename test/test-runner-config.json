@@ -1,0 +1,78 @@
+{
+    "settings": {
+        "outputDir": "$WORKSPACE/test/artifacts",
+        "selenium": true
+    },
+    "orgs": [
+        {
+            "name": "lts-default",
+            "definition": "config/workspace-scratch-def.json"
+        }
+    ],
+    "commands": [
+        {
+            "name": "setup-phantom",
+            "timeout": 60000,
+            "exec": "bash",            
+            "args": [
+                "$WORKSPACE/test/scripts/phantom.sh",
+                "$outputDir"
+            ]
+        },
+        {
+            "name": "compile-integration-tests",
+            "timeout": 60000,
+            "exec": "bash",
+            "args": [
+                "$WORKSPACE/test/scripts/compile.sh",
+                "$outputDir"
+            ]
+        },
+        {
+            "name": "run-integration-tests",
+            "env": {
+                "SALESFORCE_ACCESS_TOKEN": "$ORG_ACCESSTOKEN",
+                "SALESFORCE_INSTANCE_URL": "$ORG_INSTANCEURL",
+                "PHANTOM_BINARY_PATH": "$outputDir/phantomjs-2.1.1-linux-x86_64/bin/phantomjs"
+            },
+            "type": "spawn",
+            "exec": "java",
+            "args": [
+                "-cp",
+                ".:$outputDir/selenium-2.53.1/*:$outputDir/selenium-2.53.1/libs/*:$outputDir",
+                "$TEST_VAL"
+            ]
+        }
+    ],
+    "contexts": [
+        {
+            "name": "local",
+            "useWorkspaceOrg": true,
+            "pushSource": false
+        }
+    ],
+    "jobs": [
+        {
+            "name": "basic",
+			"orgs": ["lts-default"],
+            "testCommand": "apex",
+            "tests": ["PropertyControllerTest"]
+        },
+        {
+            "name": "integration",
+			"orgs": ["lts-default"],
+            "testCommand": "run-integration-tests",
+            "before": ["compile-integration-tests"],
+			"tests": ["test.integration.IntegrationTest"]
+            
+        },
+        {
+            "name": "master",
+            "default": true,
+            "refs": [
+                "basic",
+                "integration"
+            ]
+        }
+    ]
+}

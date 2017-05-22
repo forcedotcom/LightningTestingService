@@ -1,0 +1,5 @@
+<aura:documentation>
+    <aura:description>
+        <p>A component-level event for use in example components.</p>
+    </aura:description>
+</aura:documentation>

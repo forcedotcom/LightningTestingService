@@ -1,0 +1,6 @@
+<aura:documentation>
+    <aura:description>
+        <p>An example component that's very simple.
+           It renders static text to the DOM.</p>
+    </aura:description>
+</aura:documentation>

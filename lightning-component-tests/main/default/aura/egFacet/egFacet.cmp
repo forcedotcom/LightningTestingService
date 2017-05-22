@@ -1,0 +1,8 @@
+<aura:component >
+    <aura:attribute name="content" type="String" />
+    <c:egAttributeTypes aura:id="cmpUnderTest">
+        <aura:set attribute="AuraComponentAtr">
+            {!v.content}
+        </aura:set>
+    </c:egAttributeTypes>
+</aura:component>

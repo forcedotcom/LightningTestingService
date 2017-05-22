@@ -1,0 +1,42 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader, force:hasRecordId">
+
+    <aura:attribute name="_recordId" type="String" />
+    <aura:attribute name="record" type="Object" />
+    <aura:attribute name="recordTemplate" type="Object" />
+    <aura:attribute name="error" type="Object" />
+    <aura:attribute name="mode" type="String" default="VIEW" />
+    <aura:attribute name="fetch" type="Boolean" default="false" />
+    <aura:attribute name="logMessage" type="String" description="Message to verify/assert for different operations." />
+    <aura:attribute name="isCallbackCalled" type="Boolean" default="false"
+        description="Attribute to determine is action callback is called or not." />
+
+    <aura:method name="getNewRecord" action="{!c.getNewRecord}" description="Method to get a new empty record for the entity using force:recordData" />
+    <aura:method name="reloadRecord" action="{!c.reloadRecord}" description="Method to reload the record using force:recordData" />
+    <aura:method name="saveRecord" action="{!c.saveRecord}" description="Method to save record using force:recordData" />
+    <aura:method name="deleteRecord" action="{!c.deleteRecord}" description="Method to delete record using force:recordData" />
+
+    <h3 class="slds-section__title">Lightning Data Service Example</h3>
+
+    <force:recordData aura:id="recordDataCreate" layoutType="FULL" targetRecord="{!v.recordTemplate}"
+        targetError="{!v.error}" />
+
+    <aura:if isTrue="{!v.fetch}">
+        <force:recordData aura:id="recordDataCmp" recordId="{!v._recordId}" layoutType="FULL" mode="{!v.mode}"
+            targetRecord="{!v.record}" targetError="{!v.error}" recordUpdated="{!c.handleRecordUpdate}" />
+
+        <p> Account Name: <ui:outputText aura:id="accName" value="{!v.record.fields.Name.value}" class="slds-page-header__title slds-truncate slds-align-middle" /></p>
+        <p> Account Industry: <ui:outputText aura:id="accIndustry" value="{!v.record.fields.Industry.value}" class="slds-text-body--small page-header__info" /></p>
+        <p> Account Type: <ui:outputText aura:id="accType" value="{!v.record.fields.Type.value}" class="slds-text-body--small page-header__info" /></p>
+        <br />
+    </aura:if>
+
+    <aura:if isTrue="{! !empty(v.error)}">
+        <div class="slds-box slds-theme--error">
+            <p><ui:outputText value="{!v.error}" /></p>
+        </div>
+    </aura:if>
+    <br />
+    <br />
+    <p><ui:outputText aura:id="logMessage" value="{!v.logMessage}" class="slds-text-heading--small" /></p>
+
+</aura:component>

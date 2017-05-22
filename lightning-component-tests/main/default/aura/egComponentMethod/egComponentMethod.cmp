@@ -1,0 +1,5 @@
+<aura:component>
+    <aura:attribute name="status" type="string" />
+    <aura:method name="sampleMethod" action="{!c.sampleMethodHandler}" />
+    {!v.status}
+</aura:component>

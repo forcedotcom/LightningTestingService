@@ -1,0 +1,26 @@
+<aura:component extensible="true"
+    implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes">
+    <aura:attribute name="testspecs" type="String[]" required="true" default="{!$Resource.jasmineTest}" description="list of test spec files"/>
+
+    <!-- Bring down all the component (and their dependencies) in org's namespace. 
+    Done as an optimization to avoid server round trips when tests try to create components on the fly-->
+    <aura:dependency resource="markup://c:*" />
+    
+    <!-- Placeholder div for jasmine test results  -->
+    <div id="jasmineHtmlTestResults"/>
+
+    <!-- Pull in jasmine, utils and the test specs specified by the consuming wrapper test app  -->
+    <ltng:require scripts="{!join(',', 
+        $Resource.jasmine + '/lib/jasmine-2.6.1/jasmine.js',
+        $Resource.jasmine + '/lib/jasmine-2.6.1/jasmine-html.js',
+        $Resource.jasmineReporter,
+        $Resource.jasmineboot,
+        $Resource.testutil,
+        v.testspecs
+    )}"
+        styles="{!join(',', 
+        $Resource.jasmine + '/lib/jasmine-2.6.1/jasmine.css'
+    )}"
+        afterScriptsLoaded="{!c.runTests}" />
+
+</aura:component>

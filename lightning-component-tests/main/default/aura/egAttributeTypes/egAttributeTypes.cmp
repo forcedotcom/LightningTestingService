@@ -1,0 +1,26 @@
+<aura:component>
+    <aura:attribute name="stringAtr" type="String" />
+    <aura:attribute name="integerAtr" type="Integer" />
+    <aura:attribute name="booleanAtr" type="Boolean" />
+    <aura:attribute name="dateAtr" type="Date" />
+    <aura:attribute name="sobjectAtr" type="Sobject" />
+    <aura:attribute name="accountAtr" type="Account" />
+    <aura:attribute name="objectAtr" type="Object" />
+    <aura:attribute name="objectAtrStringified" type="Object" />
+    <aura:attribute name="AuraComponentAtr" type="Aura.Component[]" />
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+
+    <lightning:card>
+        <aura:set attribute="title">
+            Attribute Values
+        </aura:set>
+        <p aura:id="stringAtrAuraId">String: {!v.stringAtr}</p>
+        <p>Integer: {!v.integerAtr}</p>
+        <p>Boolean: {!v.booleanAtr}</p>
+        <p>Date: {!v.dateAtr}</p>
+        <p>Sobject: {!v.sobjectAtr.sObjectType}</p>
+        <p>Account: {!v.accountAtr.sObjectType},{!v.accountAtr.Name}</p>
+        <p>Object: {!v.objectAtrStringified}</p>
+        <p aura:id="AuraComponentAtrId">Aura.Component[]: {!v.AuraComponentAtr}</p>
+    </lightning:card>
+</aura:component>

@@ -1,0 +1,6 @@
+<aura:documentation>
+    <aura:description>
+        <p>An example component that handles events: one application-level event and
+           one component-level event.</p>
+    </aura:description>
+</aura:documentation>

@@ -1,0 +1,6 @@
+<aura:documentation>
+    <aura:description>
+        <p>An example component that updates the user interface based on processing
+           done by a client-side action.</p>
+    </aura:description>
+</aura:documentation>

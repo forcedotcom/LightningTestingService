@@ -1,0 +1,6 @@
+<aura:documentation>
+    <aura:description>
+        <p>An example component that exposes a method on component's public API.
+           The method updates a component attribute when called.</p>
+    </aura:description>
+</aura:documentation>

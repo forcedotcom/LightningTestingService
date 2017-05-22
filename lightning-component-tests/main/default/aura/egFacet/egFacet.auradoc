@@ -1,0 +1,5 @@
+<aura:documentation>
+    <aura:description>
+        <p>An example component for a test of facets. It passes text content into a facet of the component it wraps (<code>c:egAttributeTypes</code>).</p>
+    </aura:description>
+</aura:documentation>

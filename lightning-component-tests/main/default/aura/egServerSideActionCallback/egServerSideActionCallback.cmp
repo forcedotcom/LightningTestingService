@@ -1,0 +1,22 @@
+<aura:component controller="egServerSideActionController">
+    <aura:attribute name="searchString" type="string"/>
+    <aura:attribute name="accountList" type="account[]"/>
+
+    <aura:handler event="force:closeQuickAction" action="{!closeQuickActionFired}"/>
+
+    <aura:method name="search" action="{!c.search}"/>
+    <aura:method name="searchAccounts" action="{!c.searchCallback}">
+      <aura:attribute name="response" type="Object" />
+    </aura:method>
+
+    <div id="content">
+    <lightning:input label="Account Name" name="search" value="{!v.searchString}"/>
+    <lightning:button label="Search Accounts" onclick="{!c.search}" />
+
+    <ul aura:id="accountList">
+    <aura:iteration items="{!v.accountList}" var="account">
+       <li>{!account.Name}</li>
+    </aura:iteration>
+    </ul>
+    </div>
+</aura:component>

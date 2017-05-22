@@ -1,0 +1,15 @@
+<aura:component>
+    <aura:attribute name="searchString" type="string"/>
+    <aura:attribute name="accountList" type="string[]"/>
+    <aura:method name="searchAccounts" action="{!c.search}" />
+    <div id="content">
+        <lightning:input label="Account Name" name="search" value="{!v.searchString}" />
+        <lightning:button label="Search Accounts" onclick="{!c.search}" />
+
+        <ul aura:id="accountList">
+            <aura:iteration items="{!v.accountList}" var="accountName">
+                <li>{!accountName}</li>
+            </aura:iteration>
+        </ul>
+    </div>
+</aura:component>
