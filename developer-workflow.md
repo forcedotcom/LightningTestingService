@@ -38,7 +38,7 @@ Make sure you’ve installed the LTS unmanaged package and updated to the latest
 
 It’s usually best to perform automated testing in a clean org, created with consistent settings.
 
-  1. Customize your scratch org default settings using a [scratch org configuration file](config/workspace-scratch-def.json). You can use this to specify a company name, email address, and so on.
+  1. Customize your scratch org default settings using a [scratch org configuration file](config/project-scratch-def.json). You can use this to specify a company name, email address, and so on.
 
   2. Log in to your Dev Hub.
   
@@ -49,8 +49,18 @@ It’s usually best to perform automated testing in a clean org, created with co
   3. Create a scratch org and set it as the default for your project workspace.
   
      ```bash
-     sfdx force:org:create -s -f config/workspace-scratch-def.json -a scratch1
+     sfdx force:org:create -s -f config/project-scratch-def.json -a scratch1
      ```
+
+### Install the Lightning Testing Service Package
+
+You can quickly install the LTS unmanaged package into an org with the following command:
+
+```bash
+sfdx force:package:install -i 04t9A000000D25z
+```
+
+> Note that this command installs a specific version of the unmanaged package. Check the [Releases](https://github.com/forcedotcom/LightningComponentTests/releases) tab to ensure you have the ID for the latest version of the LTS package.
 
 ### Push Metadata to a Scratch Org
 
@@ -72,7 +82,7 @@ Your tests are written as JavaScript files saved in archive static resources. Wh
 
 ### [Alternative] Push Metadata to a Developer Edition (DE) Org
 
-Salesforce DX is designed to work with a Dev Hub and scratch orgs. If you have a normal DE org you’d like to work with, the commands are slightly different
+Salesforce DX is designed to work with a Dev Hub and scratch orgs. If you have a normal DE org you’d like to work with, the commands are slightly different.
 
 ```bash
 sfdx force:auth:web:login -s     # connect to your DE org
@@ -103,4 +113,4 @@ sfdx force:lightning:test:run --help
 
 When a test fails, is it a bug in your software implementation, or a bug in the test itself? Use your standard browser-based JavaScript debugging tools to investigate the behavior of both your production code and your test code.
 
-![Sample debugging session](doc-resources/lts_browser_debugging_example.png)
+![Sample debugging session in Chrome DevTools](doc-resources/lts_browser_debugging_example.png)
