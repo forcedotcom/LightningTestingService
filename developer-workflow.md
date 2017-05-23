@@ -72,7 +72,7 @@ Your tests are written as JavaScript files saved in archive static resources. Wh
 
 ### [Alternative] Push Metadata to a Developer Edition (DE) Org
 
-Salesforce DX is designed to work with a Dev Hub and scratch orgs. If you have a normal DE org you’d like to work with, the commands are slightly different
+Salesforce DX is designed to work with a Dev Hub and scratch orgs. If you have a normal DE org you’d like to work with, the commands are slightly different.
 
 ```bash
 sfdx force:auth:web:login -s     # connect to your DE org
@@ -103,4 +103,4 @@ sfdx force:lightning:test:run --help
 
 When a test fails, is it a bug in your software implementation, or a bug in the test itself? Use your standard browser-based JavaScript debugging tools to investigate the behavior of both your production code and your test code.
 
-![Sample debugging session](doc-resources/lts_browser_debugging_example.png)
+![Sample debugging session in Chrome DevTools](doc-resources/lts_browser_debugging_example.png)
