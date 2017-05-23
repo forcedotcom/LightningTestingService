@@ -3,7 +3,7 @@
 
 The Lightning Testing Service, or LTS, is a set of tools and services that let you create test suites for your Lightning components using standard JavaScript test frameworks like Jasmine.
 
-Automated tests are the best way to achieve predictable, repeatable assessments of the quality of your custom code. Writing automated tests for your custom components gives you confidence that they work as designed, and allows you to evaluate the impact of changes, such as refactoring, or new versions of Salesforce or third-party JavaScript libraries.
+Automated tests are the best way to achieve predictable, repeatable assessments of the quality of your custom code. Writing automated tests for your custom components gives you confidence that they work as designed, and allows you to evaluate the impact of changes, such as refactoring, or of new versions of Salesforce or third-party JavaScript libraries.
 
 ## About the Pilot Program
 
@@ -11,7 +11,7 @@ Automated tests are the best way to achieve predictable, repeatable assessments 
 
 The LTS pilot is intended to be used with the Summer ’17 release of Salesforce. You can evaluate LTS prior to rollout to customer instances by [signing up for a Summer ’17 pre-release org](https://www.salesforce.com/form/signup/prerelease-summer-17.jsp).
 
-The LTS supports testing using standard JavaScript test frameworks. During the pilot program we’re providing an easy-to-use wrapper for using [Jasmine](https://jasmine.github.io/). If you’d like to use an alternative test framework, you’ll have to roll it yourself. (See [Next Steps](#next-steps) for some details.) We look forward to your feedback about Jasmine, and other test frameworks you have experience with.
+The LTS supports testing using standard JavaScript test frameworks. During the pilot program we’re providing an easy-to-use wrapper for using [Jasmine](https://jasmine.github.io/). If you’d like to use an alternative test framework, you’ll have to wrap it yourself. (See [Next Steps](#next-steps) for some details.) We look forward to your feedback about Jasmine, and other test frameworks you have experience with.
 
 If you’re a part of the official, limited pilot for LTS, please provide feedback through the pilot forum and review meetings. If you’re not a part of the official pilot, we’d still love your suggestions. Please log a support case and specify that you’re providing feedback to the LTS pilot.
 
@@ -19,7 +19,7 @@ If you’re a part of the official, limited pilot for LTS, please provide feedba
 
 During the pilot program there are two ways you can use the Lightning Testing Service.
 
- * If you just want to “kick the tires”, install the LTS unmanaged package. The package provides the test service app and an example test suite. It also includes example components that the test suite runs against. You run the test suite by accessing the URL for the LTS app in your org. Everyone should start with this package.
+ * If you just want to “kick the tires,” install the LTS unmanaged package. The package provides the test service app and an example test suite. It also includes example components that the test suite runs against. You run the test suite by accessing the URL for the LTS app in your org. Everyone should start with this package.
  
  * If you plan to evaluate or use LTS in more depth, you’ll want to use it with Salesforce DX, which is available as a separate pilot. Once you install the salesforcedx CLI plugin, you can work with your test suite in a variety of ways from the command line. This approach is recommended for systematic automated testing.
 
@@ -80,13 +80,13 @@ The latest version of the salesforcedx CLI plugin for Salesforce DX allows you t
 
 ### Prerequisites
 
-To install and use the LTS with the salesforcedx CLI plugin, you must first do the following.
+Before you install and use the LTS with the salesforcedx CLI plugin, you must first do the following.
 
- * Join the Salesforce DX pilot program and install the Salesforce DX command line interface (CLI) tool `sfdx`
+ * Join the Salesforce DX pilot program and install the Salesforce CLI
  * Configure a Dev Hub for use with Salesforce DX
- * Recommended: Install the Force.com IDE 2, if you want to use the IDE
+ * Recommended: Install Force.com IDE 2, if you want to use the IDE
 
-Note that the Force.com IDE 2 is a beta version of the Force.com IDE that is only available as part of the Salesforce DX pilot. It's not strictly required for using Salesforce DX or the LTS, but there are some usability improvements that make it nicer for both.
+Note that Force.com IDE 2 is a beta version that is available only as part of the Salesforce DX pilot. It’s not strictly required for using Salesforce DX or the LTS, but it provides some usability improvements for both.
 
 ### Installation
 
@@ -96,9 +96,9 @@ Install the pilot version of the LTS for Salesforce DX by running the following 
 sfdx plugins:install salesforcedx@pre-release
 ```
 
-This updates your salesforcedx CLI plugin from the pre-release channel, which is for versions that being prepared for, but aren't quite certified for, general release. This version includes the LTS. We recommend you install from the pre-release channel only on systems dedicated to testing the LTS pilot release.
+This updates your salesforcedx CLI plugin from the pre-release channel, which is for versions that being prepared for, but aren’t quite certified for, general release. This version includes the LTS. We recommend that you install from the pre-release channel only on systems dedicated to testing the LTS pilot release.
 
-Once installed, you can run your tests from the command line using the `sfdx` tool. For example:
+After you install the salesforcedx CLI plugin, you can run your tests from the command line using the `sfdx` tool. For example:
 
 ```bash
 sfdx force:auth:web:login -s     # connect to your scratch org
@@ -114,11 +114,11 @@ This tells you that the command line tools are working, and connected to your de
 
 # Next Steps
 
-Once you have the LTS package installed and working in your org, you’re ready to begin exploring the test code, and even writing your own tests. Here are some next steps for you to take.
+When you have the LTS package installed and working in your org, you’re ready to begin exploring the test code, and even writing your own tests. Here are some next steps for you to take.
 
 ## Explore the Example Test Suite
 
-To dive into the test suite and start learning how to write tests for your Lightning components, explore the tests and the components being tested side-by-side. You’ll want to open the test suite file in one window, and in another window (perhaps in your IDE) the simple components being tested.
+To dive into the test suite and start learning how to write tests for your Lightning components, explore the tests and the components being tested side-by-side. You’ll want to open the test suite file in one window, and in another window (perhaps in your IDE) open the simple components being tested.
 
 Both the components and the test suite included in the unmanaged package are also available in a repository on GitHub:
 
@@ -130,15 +130,15 @@ All of the testable components are named beginning with “eg” (from the abbre
 
  * In the Developer Console
  * In the Force.com IDE, in the `/aura/` directory
- * By pulling your org’s metadata into a local workspace using `sfdx`
+ * By converting your org’s metadata into a format that you can work with locally, using Salesforce DX
 
-You can also explore them directly from the repo. They’re available beginning in the [lightning-component-tests/main/default/aura](https://github.com/forcedotcom/LightningComponentTests/tree/master/lightning-component-tests/main/default/aura) directory.
+You can also explore the components directly from the repo. They’re available in the [lightning-component-tests/main/default/aura](https://github.com/forcedotcom/LightningComponentTests/tree/master/lightning-component-tests/main/default/aura) directory.
 
 There are more than a dozen different components, designed to be used in illustrative tests. Each of the components has a description of its behavior in its `.auradoc` documentation file.
 
 ### Test Suite
 
-The example tests are included in the form of static resources. You can also review them directly in the repo, beginning in the [lightning-component-tests/test/default/staticresources](https://github.com/forcedotcom/LightningComponentTests/tree/master/lightning-component-tests/test/default/staticresources) directory.
+The example tests are included in the form of static resources. You can also review them directly in the repo, in the [lightning-component-tests/test/default/staticresources](https://github.com/forcedotcom/LightningComponentTests/tree/master/lightning-component-tests/test/default/staticresources) directory.
 
 There are three test suites included in the LTS package:
 
@@ -146,7 +146,7 @@ There are three test suites included in the LTS package:
  * `exampleTests.resource` — The example test suite that’s worth your time to review.
  * `lightningDataServiceTests.resource` — Some examples specific to testing Lightning Data Service-based components.
 
-The remainder of the static resources are infrastructure used by the LTS. They're _briefly_ described in [Use Another JavaScript Test Framework](#use-another-javascript-test-framework).
+The remainder of the static resources are infrastructure used by the LTS. They’re _briefly_ described in [Use Another JavaScript Test Framework](#use-another-javascript-test-framework).
 
 The `exampleTests.resource` is a single JavaScript file containing a complete test suite. It’s a single file for convenience in delivery and exploration. Your own test suites can include many such files. `exampleTests.resource` is copiously commented. For the pilot program, the code and comments serve as the official documentation for how to write tests.
 
@@ -156,17 +156,17 @@ A separate document, [Testing Lightning Components with the Lightning Testing Se
 
 ## Use Another JavaScript Test Framework
 
-The Lightning Testing Service provides a way to use standard JavaScript test frameworks with your Lightning components. For the LTS pilot we've provided the example test suite implemented in [Jasmine](https://jasmine.github.io/). Jasmine is one of several well-regarded test frameworks, and if you haven't chosen one already, we recommend you start with it.
+The Lightning Testing Service provides a way to use standard JavaScript test frameworks with your Lightning components. For the LTS pilot we’ve provided the example test suite implemented in [Jasmine](https://jasmine.github.io/). Jasmine is one of several well-regarded test frameworks, and if you haven’t chosen one already, we recommend you start with it.
 
-If you'd prefer to use another test framework, either because you've already selected one, or because you find something more to your taste, you can use it with the LTS instead. During the pilot that's a little more work. Please do tell us which frameworks you're using, so we can consider them for later versions of the LTS.
+If you’d prefer to use another test framework, either because you’ve already selected one, or because you find something more to your taste, you can use it with the LTS instead. During the pilot that’s a little more work. Please do tell us which frameworks you’re using, so we can consider them for later versions of the LTS.
 
-All of the packaged pieces of the LTS are included in the project repository, in the [lightning-component-tests/test/default](https://github.com/forcedotcom/LightningComponentTests/tree/master/lightning-component-tests/test/default) directory. The pieces you'll need to modify or replace are the following items.
+All of the packaged pieces of the LTS are included in the project repository, in the [lightning-component-tests/test/default](https://github.com/forcedotcom/LightningComponentTests/tree/master/lightning-component-tests/test/default) directory. The pieces you’ll need to modify or replace are the following items.
 
- * `Tests.app` -- The front end of the LTS, this simple app includes the test runner component, and a list of test suites to feed it.
- * `BaseTestRunnerCmp` -- The test runner component for Jasmine. It includes references to the required Jasmine library, which it loads along with the test spec resources, and then fires the test runner.
- * `jasmine.resource` -- The Jasmine library, unmodified.
- * `jasmineboot.resource` -- A JavaScript IIFE that launches Jasmine in the LTS context.
- * `jasmineReporter.resource` -- Another JavaScript IIFE used to adapt Jasmine's results into formats expected by LTS and Salesforce DX.
- * `testutil.resource` -- A collection of utilities for use within your test specs. They provide Lightning component-specific functions that make it easier to test your custom components from a test context.
+ * `Tests.app` — The front end of the LTS, this simple app includes the test runner component, and a list of test suites to feed it.
+ * `BaseTestRunnerCmp` — The test runner component for Jasmine. It includes references to the required Jasmine library, which it loads along with the test spec resources, and then fires the test runner.
+ * `jasmine.resource` — The Jasmine library, unmodified.
+ * `jasmineboot.resource` — A JavaScript IIFE that launches Jasmine in the LTS context.
+ * `jasmineReporter.resource` — Another JavaScript IIFE, used to adapt Jasmine’s results into formats expected by LTS and Salesforce DX.
+ * `testutil.resource` — A collection of utilities for use within your test specs. They provide Lightning component-specific functions that make it easier to test your custom components from a test context.
 
-If you're already experienced with setting up another test framework, adapting the pilot Jasmine examples should take you a day or two, but not longer. We'd be thrilled to hear more about your adventures with Mocha and other JavaScript test frameworks!
+If you’re already experienced with setting up another test framework, adapting the pilot Jasmine examples should take you a day or two, but not longer. We’d be thrilled to hear more about your adventures with Mocha and other JavaScript test frameworks!
