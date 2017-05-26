@@ -49,7 +49,7 @@ There are two stages of installing the LTS. First install the unmanaged package.
 Installing the LTS package is just like [installing any other unmanaged package](https://help.salesforce.com/articleView?id=distribution_installing_packages.htm&language=en&type=0).
 
 1. Log in to your org. We recommend that you create a new DE org for evaluating the LTS.
-2. Go to the project [Releases](https://github.com/forcedotcom/LightningComponentTests/releases) page, and click the package installation URL for the latest release.
+2. Go to the project [Releases](https://github.com/forcedotcom/LightningTestingService/releases) page, and click the package installation URL for the latest release.
 3. Authenticate again with the credentials for your DE org.
 4. Follow the normal package installation prompts. We recommend installing the package for admins only.
 
@@ -122,7 +122,7 @@ To dive into the test suite and start learning how to write tests for your Light
 
 Both the components and the test suite included in the unmanaged package are also available in a repository on GitHub:
 
-https://github.com/forcedotcom/LightningComponentTests
+[https://github.com/forcedotcom/LightningTestingService](https://github.com/forcedotcom/LightningTestingService)
 
 ### Components for Testing
 
@@ -132,13 +132,13 @@ All of the testable components are named beginning with “eg” (from the abbre
  * In the Force.com IDE, in the `/aura/` directory
  * By converting your org’s metadata into a format that you can work with locally, using Salesforce DX
 
-You can also explore the components directly from the repo. They’re available in the [lightning-component-tests/main/default/aura](https://github.com/forcedotcom/LightningComponentTests/tree/master/lightning-component-tests/main/default/aura) directory.
+You can also explore the components directly from the repo. They’re available in the [lightning-component-tests/main/default/aura](https://github.com/forcedotcom/LightningTestingService/tree/master/lightning-component-tests/main/default/aura) directory.
 
 There are more than a dozen different components, designed to be used in illustrative tests. Each of the components has a description of its behavior in its `.auradoc` documentation file.
 
 ### Test Suite
 
-The example tests are included in the form of static resources. You can also review them directly in the repo, in the [lightning-component-tests/test/default/staticresources](https://github.com/forcedotcom/LightningComponentTests/tree/master/lightning-component-tests/test/default/staticresources) directory.
+The example tests are included in the form of static resources. You can also review them directly in the repo, in the [lightning-component-tests/test/default/staticresources](https://github.com/forcedotcom/LightningTestingService/tree/master/lightning-component-tests/test/default/staticresources) directory.
 
 There are three test suites included in the LTS package:
 
@@ -160,7 +160,7 @@ The Lightning Testing Service provides a way to use standard JavaScript test fra
 
 If you’d prefer to use another test framework, either because you’ve already selected one, or because you find something more to your taste, you can use it with the LTS instead. During the pilot that’s a little more work. Please do tell us which frameworks you’re using, so we can consider them for later versions of the LTS.
 
-All of the packaged pieces of the LTS are included in the project repository, in the [lightning-component-tests/test/default](https://github.com/forcedotcom/LightningComponentTests/tree/master/lightning-component-tests/test/default) directory. The pieces you’ll need to modify or replace are the following items.
+All of the packaged pieces of the LTS are included in the project repository, in the [lightning-component-tests/test/default](https://github.com/forcedotcom/LightningTestingService/tree/master/lightning-component-tests/test/default) directory. The pieces you’ll need to modify or replace are the following items.
 
  * `Tests.app` — The front end of the LTS, this simple app includes the test runner component, and a list of test suites to feed it.
  * `BaseTestRunnerCmp` — The test runner component for Jasmine. It includes references to the required Jasmine library, which it loads along with the test spec resources, and then fires the test runner.
