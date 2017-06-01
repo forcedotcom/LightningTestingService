@@ -26,9 +26,8 @@ before_script:
 
 script:
   - sfdx force:org:create -s -f config/project-scratch-def.json -a travisciorg
-  - lintout=$(heroku lightning:lint lightning-component-tests/main/default/aura/);if [[ $lintout =~ .*problem.*error.*warning ]]; then echo "$lintout"; exit 1; fi  
+  - lintout=$(heroku lightning:lint lightning-component-tests/main/default/aura/);if [[ $lintout =~ .*problem.*error.*warning ]]; then echo "$lintout"; false; fi  
   - sfdx force:source:push -u travisciorg
   - sleep 300  #Temporary workaround to wait for domain propagation. Fix on the way
-  - sfdx force:lightning:test:run 
+  - runout=$(sfdx force:lightning:test:run); if [[ $? != 0 ]] || ! [[ $runout =~ Failing[[:blank:]]*0 ]]; then echo "$runout"; false; fi 
   - sfdx force:org:delete -u travisciorg -p
-
