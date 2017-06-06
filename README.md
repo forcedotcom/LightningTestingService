@@ -1,4 +1,4 @@
-# Lightning Testing Service (LTS)
+# Lightning Testing Service (LTS) [![Build Status](https://travis-ci.org/forcedotcom/LightningTestingService.svg?branch=master)](https://travis-ci.org/forcedotcom/LightningTestingService)
 ## Pilot Program
 
 The Lightning Testing Service, or LTS, is a set of tools and services that let you create test suites for your Lightning components using standard JavaScript test frameworks, such as Jasmine.
