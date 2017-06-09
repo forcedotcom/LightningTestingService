@@ -1,9 +1,9 @@
 {
-  "company": "My Company",
+  "orgName": "My Company",
   "country": "US",
-  "email": "myEmail@myCompany.com",
+  "adminEmail": "myEmail@myCompany.com",
   "edition": "Developer",
   "orgPreferences" : {
-    "s1DesktopEnabled" : true
+    "enabled": ["S1DesktopEnabled"]
   }
 }
