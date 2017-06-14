@@ -40,6 +40,8 @@ You can write your own wrapper if you prefer a different testing framework. The 
 
 Your test suite is deployed in the form of an archive static resource. Once the LTS is installed and configured (we’ll get to that next), you make changes to your test suite, create the archive, and upload it to your org. Then you run the test suite via one of the two mechanisms outlined.
 
+> **Important:** Don't run tests in your production org. The LTS doesn't provide an isolated test context or transaction. DML operations you perform in your tests won't be rolled back at the end of the test. We recommend that you run your LTS test suites only in scratch orgs using data provided by the test suite itself.
+
 ## Installing the Lightning Testing Service
 
 There are two stages of installing the LTS. First install the unmanaged package. Then, optionally, install the latest salesforcedx CLI plugin to use the LTS with the `sfdx` command line tool.
@@ -152,7 +154,7 @@ The `exampleTests.resource` is a single JavaScript file containing a complete te
 
 ## Write Your Own Tests
 
-A separate document, [Testing Lightning Components with the Lightning Testing Service](developer-workflow.md), describes the flow, or lifecycle, of using the LTS to automate your testing. Once you’ve explored the example tests, use this document to dive into writing a test suite for your own custom components.
+A separate document, [Testing Lightning Components with the Lightning Testing Service](https://github.com/forcedotcom/LightningTestingService/blob/master/developer-workflow.md), describes the flow, or lifecycle, of using the LTS to automate your testing. Once you’ve explored the example tests, use this document to dive into writing a test suite for your own custom components.
 
 ## Use Another JavaScript Test Framework
 
