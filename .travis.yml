@@ -29,5 +29,6 @@ script:
   - sfdx force:org:create -s -f config/project-scratch-def.json -a travisciorg
   - lintout=$(heroku lightning:lint lightning-component-tests/main/default/aura/);if [[ $lintout =~ .*problem.*error.*warning ]]; then echo "$lintout"; false; fi  
   - sfdx force:source:push -u travisciorg
-  - travis_wait runout=$(sfdx force:lightning:test:run); if [[ $? != 0 ]] || ! [[ $runout =~ Failing[[:blank:]]*0 ]]; then echo "$runout"; false; fi 
+  - sfdx force:lightning:test:run
+  #- travis_wait runout=$(sfdx force:lightning:test:run); if [[ $? != 0 ]] || ! [[ $runout =~ Failing[[:blank:]]*0 ]]; then echo "$runout"; false; fi 
   - sfdx force:org:delete -u travisciorg -p
