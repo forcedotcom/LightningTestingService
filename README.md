@@ -40,7 +40,7 @@ You can write your own wrapper if you prefer a different testing framework. The 
 
 Your test suite is deployed in the form of an archive static resource. Once the LTS is installed and configured (we’ll get to that next), you make changes to your test suite, create the archive, and upload it to your org. Then you run the test suite via one of the two mechanisms outlined.
 
-> **Important:** Don't run tests in your production org. The LTS doesn't provide an isolated test context or transaction. DML operations you perform in your tests won't be rolled back at the end of the test. We recommend that you run your LTS test suites only in scratch orgs using data provided by the test suite itself.
+> **Important:** Don't run tests in your production org. The LTS doesn't provide an isolated test context or transaction wrapper. DML operations you perform in your tests won't be rolled back at the end of the test. We recommend that you run your LTS test suites _only_ in scratch orgs, using data provided by the test suite itself.
 
 ## Installing the Lightning Testing Service
 
