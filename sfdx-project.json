@@ -1,4 +1,4 @@
 {
-    "PackageDirectories": [ { "Path" : "lightning-component-tests" } ],
-    "SourceApiVersion" : "40.0"
+    "packageDirectories": [ { "path" : "lightning-component-tests" } ],
+    "sourceApiVersion" : "40.0"
 }
