@@ -20,7 +20,7 @@ before_script:
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3 # give xvfb some time to start
   - heroku plugins:install salesforce-lightning-cli
-  - export SFDX_DISABLE_ENCRYPTION=true
+  - export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
   - export SFDX_DOMAIN_RETRY=300
   - sfdx plugins:install salesforcedx@pre-release
   - sfdx force:auth:jwt:grant --clientid $CONSUMERKEY --jwtkeyfile assets/server.key --username $USERNAME --setdefaultdevhubusername
@@ -29,6 +29,5 @@ script:
   - sfdx force:org:create -s -f config/project-scratch-def.json -a travisciorg
   - lintout=$(heroku lightning:lint lightning-component-tests/main/default/aura/);if [[ $lintout =~ .*problem.*error.*warning ]]; then echo "$lintout"; false; fi  
   - sfdx force:source:push -u travisciorg
-  - travis_wait sfdx force:lightning:test:run
-  #- travis_wait runout=$(sfdx force:lightning:test:run); if [[ $? != 0 ]] || ! [[ $runout =~ Failing[[:blank:]]*0 ]]; then echo "$runout"; false; fi 
+  - sfdx force:lightning:test:run 
   - sfdx force:org:delete -u travisciorg -p
