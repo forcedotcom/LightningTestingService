@@ -26,8 +26,7 @@ before_script:
 
 script:
   - sfdx force:org:create -s -f config/project-scratch-def.json -a travisciorg
-  #Enable after plugin gets updates to include the command
-  #- lintout=$(sfdx force:lightning:lint lightning-component-tests/main/default/aura/);if [[ $lintout =~ .*problem.*error.*warning ]]; then echo "$lintout"; false; fi  
+  - lintout=$(sfdx force:lightning:lint lightning-component-tests/main/default/aura/);if [[ $lintout =~ .*problem.*error.*warning ]]; then echo "$lintout"; false; fi
   - sfdx force:source:push -u travisciorg
   - sfdx force:lightning:test:run 
   - sfdx force:org:delete -u travisciorg -p
