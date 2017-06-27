@@ -3,14 +3,12 @@ sudo: true
 dist: trusty 
 
 env:
-  - URL=https://developer.salesforce.com/media/salesforce-cli/beta/sfdx-v5.7.4-57b4969-linux-amd64.tar.xz
+  - URL=https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
 
 addons:
   chrome: stable
 
 before_install:
-  - wget -qO- https://toolbelt.heroku.com/install.sh | sh
-  - export PATH=/usr/local/heroku/bin:$PATH
   - openssl aes-256-cbc -K $encrypted_64814298f594_key -iv $encrypted_64814298f594_iv -in assets/server.key.enc -out assets/server.key -d  
   - wget -qO- $URL | tar xJf -
   - ./sfdx/install
@@ -20,15 +18,15 @@ before_script:
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3 # give xvfb some time to start
   - heroku plugins:install salesforce-lightning-cli
-  - export SFDX_DISABLE_ENCRYPTION=true
+  - export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
   - export SFDX_DOMAIN_RETRY=300
+  - export SFDX_AUTOUPDATE_DISABLE=true
   - sfdx plugins:install salesforcedx@pre-release
   - sfdx force:auth:jwt:grant --clientid $CONSUMERKEY --jwtkeyfile assets/server.key --username $USERNAME --setdefaultdevhubusername
 
 script:
   - sfdx force:org:create -s -f config/project-scratch-def.json -a travisciorg
-  - lintout=$(heroku lightning:lint lightning-component-tests/main/default/aura/);if [[ $lintout =~ .*problem.*error.*warning ]]; then echo "$lintout"; false; fi  
+  - lintout=$(sfdx force:lightning:lint lightning-component-tests/main/default/aura/);if [[ $lintout =~ .*problem.*error.*warning ]]; then echo "$lintout"; false; fi
   - sfdx force:source:push -u travisciorg
-  - travis_wait sfdx force:lightning:test:run
-  #- travis_wait runout=$(sfdx force:lightning:test:run); if [[ $? != 0 ]] || ! [[ $runout =~ Failing[[:blank:]]*0 ]]; then echo "$runout"; false; fi 
+  - sfdx force:lightning:test:run 
   - sfdx force:org:delete -u travisciorg -p
