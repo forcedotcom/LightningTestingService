@@ -9,11 +9,9 @@ Automated tests are the best way to achieve predictable, repeatable assessments 
 
 > We provide the Lightning Testing Service (LTS) to selected customers through a pilot program that requires agreement to specific terms and conditions. To be nominated to participate in the program, contact Salesforce. Pilot programs are subject to change, and we can’t guarantee acceptance. LTS isn’t generally available unless or until Salesforce announces its general availability in documentation or in press releases or public statements. We can’t guarantee general availability within any particular time frame or at all. Make your purchase decisions only on the basis of generally available products and features.
 
-The LTS pilot is intended to be used with the Summer ’17 release of Salesforce. You can evaluate LTS prior to rollout to customer instances by [signing up for a Summer ’17 pre-release org](https://www.salesforce.com/form/signup/prerelease-summer-17.jsp).
-
 The LTS supports testing with standard JavaScript test frameworks. During the pilot program we’re providing an easy-to-use wrapper for using [Jasmine](https://jasmine.github.io/). If you’d like to use an alternative test framework, you’ll have to wrap it yourself. (See [Next Steps](#next-steps) for some details.) We look forward to your feedback about Jasmine, and other test frameworks you have experience with.
 
-If you’re a part of the official, limited pilot for LTS, please provide feedback through the pilot forum and review meetings. If you’re not a part of the official pilot, we’d still love your suggestions. Please log a support case and specify that you’re providing feedback to the LTS pilot.
+If you’re a part of the official, limited pilot for LTS, please provide feedback through the pilot forum and review meetings. If you’re not a part of the official pilot, we’d still love your suggestions. Please log issues through the GitHub repo.
 
 ## Lightning Testing Service Overview
 
@@ -21,7 +19,7 @@ During the pilot program there are two ways you can use the Lightning Testing Se
 
  * If you just want to “kick the tires,” install the LTS unmanaged package. The package provides the test service app and an example test suite. It also includes example components that the test suite runs against. You run the test suite by accessing the URL for the LTS app in your org. Everyone should start with this package.
  
- * If you plan to evaluate or use LTS in more depth, you’ll want to use it with [Salesforce DX](https://developer.salesforce.com/platform/dx), which is available as a separate pilot. Once you install the salesforcedx CLI plugin, you can work with your test suite in a variety of ways from the command line. This approach is recommended for systematic automated testing.
+ * If you plan to evaluate or use LTS in more depth, you’ll want to use it with [Salesforce DX](https://developer.salesforce.com/platform/dx), which is available as an open beta. Once you install the salesforcedx CLI plugin, you can work with your test suite in a variety of ways from the command line. This approach is recommended for systematic automated testing.
 
 Write your tests using a JavaScript testing framework of your choosing. We provide an easy-to-use wrapper for [Jasmine](https://jasmine.github.io/). A simple Jasmine test looks like the following:
 
@@ -38,7 +36,7 @@ describe("A simple passing test", function() {
 
 You can write your own wrapper if you prefer a different testing framework. The LTS also provides utilities specific to the Lightning Component framework, which let you test behavior specific to Lightning components.
 
-Your test suite is deployed in the form of an archive static resource. Once the LTS is installed and configured (we’ll get to that next), you make changes to your test suite, create the archive, and upload it to your org. Then you run the test suite via one of the two mechanisms outlined.
+Your test suite is deployed in the form of an archive (zip) static resource. Once the LTS is installed and configured (we’ll get to that next), you make changes to your test suite, create the archive, and upload it to your org. Then you run the test suite via one of the two mechanisms outlined.
 
 > **Important:** Don't run tests in your production org. The LTS doesn't provide an isolated test context or transaction wrapper. DML operations you perform in your tests won't be rolled back at the end of the test. We recommend that you run your LTS test suites _only_ in scratch orgs, using data provided by the test suite itself.
 
@@ -78,27 +76,25 @@ This page tells you that the package is correctly installed and LTS is working i
 
 ## Install the Lightning Testing Service for Salesforce DX
 
-The latest version of the salesforcedx CLI plugin for Salesforce DX allows you to use the `sfdx` command line tool to perform automated testing as part of your development process, including automated process, such as continuous integration.
+The salesforcedx CLI plugin for Salesforce DX allows you to use the `sfdx` command line tool to perform automated testing as part of your development process, including automated process, such as continuous integration.
 
 ### Prerequisites
 
 Before you install and use the LTS with the salesforcedx CLI plugin, you must first do the following.
 
- * Join the [Salesforce DX](https://developer.salesforce.com/platform/dx) pilot program and install the Salesforce CLI
+ * Join the [Salesforce DX](https://developer.salesforce.com/platform/dx) open beta and install the Salesforce CLI
  * Configure a Dev Hub for use with Salesforce DX
  * Recommended: Install Force.com IDE 2, if you want to use the IDE
     
-    Note that Force.com IDE 2 is a beta version that is available only as part of the Salesforce DX pilot. It’s not strictly required for using Salesforce DX or the LTS, but it provides some usability improvements for both.
+    Note that Force.com IDE 2 is a beta version that is available only as part of the Salesforce DX open beta. It’s not strictly required for using Salesforce DX or the LTS, but it provides usability improvements for both.
 
 ### Installation
 
 Install the pilot version of the LTS for Salesforce DX by running the following command in your command line shell.
 
 ```bash
-sfdx plugins:install salesforcedx@pre-release
+sfdx plugins:install salesforcedx
 ```
-
-This updates your salesforcedx CLI plugin from the pre-release channel, which is for versions being prepared for, but aren’t certified for, general release. This version includes the LTS. We recommend that you install from the pre-release channel only on systems dedicated to testing the LTS pilot release.
 
 After you install the salesforcedx CLI plugin, you can run your tests from the command line using the `sfdx` tool. For example:
 
@@ -171,4 +167,4 @@ All of the packaged pieces of the LTS are included in the project repository, in
  * `jasmineReporter.resource` — Another JavaScript IIFE, used to adapt Jasmine’s results into formats expected by LTS and Salesforce DX.
  * `testutil.resource` — A collection of utilities for use within your test specs. They provide Lightning component-specific functions that make it easier to test your custom components from a test context.
 
-If you’re already experienced with setting up another test framework, adapting the pilot Jasmine examples should take you a day or two, but not longer. We’d be thrilled to hear more about your adventures with Mocha and other JavaScript test frameworks!
+If you’re already experienced with setting up another test framework, adapting the pilot Jasmine examples should take you a day or so, but not longer. We’d be thrilled to hear more about your adventures with Mocha and other JavaScript test frameworks!
