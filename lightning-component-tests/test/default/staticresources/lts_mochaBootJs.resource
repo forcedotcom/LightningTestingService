@@ -1,1 +1,3 @@
-mocha.setup({ ui: 'bdd'});
+(function (global) {
+  mocha.setup({ ui: 'bdd' });
+})(this);
