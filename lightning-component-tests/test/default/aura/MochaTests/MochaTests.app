@@ -1,6 +1,6 @@
 <aura:application >
     <c:lts_mochaRunner testspecs="{!join(',', 
-    	$Resource.lts_mochaExampleTests
+    	$Resource.mochaExampleTests
     )}" />
 
     <!--  placeholder div which example test specs use to render components under test -->
