@@ -100,7 +100,7 @@ For a manual test run, visit the appropriate test app, for example, <code><em>yo
 For automated test runs, use the Salesforce CLI.
 
 ```bash
-sfdx force:lightning:test:run
+sfdx force:lightning:test:run -a jasmineTests.app
 ```
 
 See the command line help for other useful details.

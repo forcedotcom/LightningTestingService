@@ -42,11 +42,11 @@
      * 
      * @param {string} descriptor The descriptor of the component to be rendered.
      * @param {Object.<string, Object>} attributes The attributes to be set to the component.
-     * @param {string} renderInto An optional DOM element. If present, newly created component 
-     *                            will be pushed in to that elements body.
+     * @param {boolean} requiresRendering If component rendering is required. Optional.
      * @returns {Promise} component creation or rendering result, depending on whether renderInto is specified
      */
-    $T.createComponent = function (descriptor, attributes, renderInto) {
+    $T.createComponent = function (descriptor, attributes, requiresRendering) {
+        var renderInto = requiresRendering ? document.getElementById("renderTestComponents") : null;
         var callback = function (resolve, reject) {
             runInsideCallbackClosure(function () {
                 $A.createComponent(descriptor, attributes, function (component, status, error) {
@@ -125,6 +125,9 @@
         contexualRunner = fn;
     }
 
+    /**
+     * [Internal Only] used by test runner component to prepare test results for sfdx extraction.
+     */
     $T._sfdxReportForJasmine = function (jasmine) {
         var run_results_full = { "tests": [] };
         var suiteDescription = '';
@@ -174,6 +177,9 @@
         jasmine.getEnv().addReporter(sfdxReporter);
     }
 
+    /**
+     * [Internal Only] used by test runner component to prepare test results for sfdx extraction.
+     */
     $T._sfdxReportForMocha = function (mochaRunner) {
         var run_results_full = { "tests": [] };
         mochaRunner.on('test end', function (test) {

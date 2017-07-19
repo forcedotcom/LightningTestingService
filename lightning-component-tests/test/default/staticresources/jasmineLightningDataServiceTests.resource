@@ -24,8 +24,7 @@ describe('The Lightning Data Service Examples', function(){
 
             // Create a record in advance, for use with the Save, Reload and Delete actions
             var that = this;
-            var renderInto = document.getElementById("renderTestComponents");
-            $T.createComponent("c:egLdsView", {}, renderInto)
+            $T.createComponent("c:egLdsView", {}, true)
             .then(function(component){
                 that.component = component;
                 component.set("v.isCallbackCalled", false); // the callback function will set this to true once it's called

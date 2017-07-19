@@ -101,10 +101,10 @@ After you install the salesforcedx CLI plugin, you can run your tests from the c
 ```bash
 sfdx force:auth:web:login -s     # connect to your scratch org
 sfdx force:source:push           # push local source to the scratch org
-sfdx force:lightning:test:run    # run the test suite
+sfdx force:lightning:test:run -a jasmineTests.app   # run the test suite
 ```
 
-When you run the `force:lightning:test:run` command in a connected workspace you should see something like the following:
+When you run the `force:lightning:test:run -a jasmineTests.app` command in a connected workspace you should see something like the following:
 
 ![Console output from a successful test suite execution using sfdx](doc-resources/lts_sfdx_test_run_output.png)
 
