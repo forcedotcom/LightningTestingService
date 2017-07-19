@@ -125,6 +125,55 @@
         contexualRunner = fn;
     }
 
+    $T._sfdxReportForJasmine = function (jasmine) {
+        var run_results_full = { "tests": [] };
+        var suiteDescription = '';
+        var specStartTime = 0;
+
+        var sfdxReporter = {
+            suiteStarted: function(suite) {
+                suiteDescription = suite.description;
+            },
+            specStarted: function(spec) {
+                specStartTime = Date.now();
+            },
+            specDone: function(spec) {
+                var fullReport = {};
+                var failedStr = '';
+                fullReport.FullName =  suiteDescription + ' : ' + spec.description;
+                fullReport.Outcome = 'Pass';
+                fullReport.RunTime = Date.now() - specStartTime;
+
+                if ('passed' === spec.status) {
+                    console.log('passed!', fullReport.FullName, fullReport.RunTime);
+                } else if ('failed' === spec.status) {
+                    for (var i = 0, failure; i < spec.failedExpectations.length; i++) {
+                        failureMessage = spec.failedExpectations[i].message;
+                        failureMessage.replace(/^\s+/, "" ).replace(/\s+$/, "" );
+                        failedStr += '\n  ' + failureMessage;
+                    }
+
+                    fullReport.Outcome = 'Fail';
+                    fullReport.Message = failedStr;
+                    console.log('failed!', fullReport.FullName, fullReport.RunTime);
+                } else if ('pending' === spec.status) {
+                    fullReport.Outcome = 'Skip';
+                    fullReport.Message = ' # SKIP disabled by xit or similar';
+                    console.log('pending!', fullReport.FullName, fullReport.RunTime);
+                } else if ('disabled' === spec.status) {
+                    fullReport.Outcome = 'Disabled';
+                    console.log('disabled!', fullReport.FullName, fullReport.RunTime);
+                }
+                run_results_full.tests.push(fullReport);
+            },
+            jasmineDone: function(result) {
+                setHiddenDivContent("run_results_full", JSON.stringify(run_results_full));
+            }
+        };
+
+        jasmine.getEnv().addReporter(sfdxReporter);
+    }
+
     $T._sfdxReportForMocha = function (mochaRunner) {
         var run_results_full = { "tests": [] };
         mochaRunner.on('test end', function (test) {
@@ -135,7 +184,6 @@
             fullReport.RunTime = test.duration;
 
             if ('passed' === test.state) {
-                fullReport.Outcome = 'Pass';
                 console.log('passed!', test.title, test.duration)
             } else if (test.pending) {
                 fullReport.Outcome = 'Skip';
@@ -147,10 +195,9 @@
                 fullReport.Message = test.err.message;
             }
             run_results_full.tests.push(fullReport);
-        })
-            .on('end', function (suite) {
-                setHiddenDivContent("run_results_full", JSON.stringify(run_results_full));
-            });
+        }).on('end', function (suite) {
+            setHiddenDivContent("run_results_full", JSON.stringify(run_results_full));
+        });
     }
 
     var setHiddenDivContent = function (id, content) {
@@ -159,7 +206,6 @@
         if (!aDiv) {
             aDiv = document.createElement("div");
             aDiv.id = id;
-            //aDiv.style = "display:none;";
             aDiv.style.display = "none";
             document.body.appendChild(aDiv);
         }
