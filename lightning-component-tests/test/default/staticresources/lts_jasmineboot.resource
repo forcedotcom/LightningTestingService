@@ -86,7 +86,7 @@
     });
 
     /**
-     * The `jsApiReporter` also receives spec results, and is used by any environment that needs to extract the results  from JavaScript.
+     * The `jsApiReporter` also receives spec results, and is used by any environment that needs to extract the results from JavaScript.
      */
     env.addReporter(jasmineInterface.jsApiReporter);
     env.addReporter(htmlReporter);
@@ -115,7 +115,6 @@
     window.jasmine.lightningIntegration = {
             execute : function(){
                 htmlReporter.initialize();
-                jasmine.getEnv().addReporter(new jasmineReporters.Reporter());
                 jasmine.getEnv().execute();
             }
     };

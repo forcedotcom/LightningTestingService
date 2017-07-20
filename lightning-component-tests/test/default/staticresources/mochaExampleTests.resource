@@ -1,3 +1,6 @@
+const expect = chai.expect;
+var sandbox = sinon.sandbox.create();
+
 /**
  * This test suite contains examples that illustrate reusable patterns for testing
  * your custom Lightning components.
@@ -14,6 +17,7 @@ describe("Lightning Component Testing Examples", function(){
         // Each spec (test) renders its components into the same div,
         // so we need to clear that div out at the end of each spec.
         $T.clearRenderedTestComponents();
+        sandbox.restore();
     });
 
     /**
@@ -27,20 +31,18 @@ describe("Lightning Component Testing Examples", function(){
         // We encourage you to have the code for c:egRenderElement side by side
         // when reading through this spec.
         it('renders specific static text', function(done) {
-            // Define where the component should be rendered during the test.
-            // You can update Tests.app to define your own DOM element.
-            var renderInto = document.getElementById("renderTestComponents");
-            // Instantiate and render the c:egRenderElement Lightning component into the renderInto element.
+            // Instantiate and render the c:egRenderElement Lightning component.
             // The second parameter (empty here) is the list of component attribute values to set.
-            $T.createComponent("c:egRenderElement", {}, renderInto)
+            // The third parameter, requiresRendering, is set to true.
+            $T.createComponent("c:egRenderElement", {}, true)
             // The 'component' here is the instance of c:egRenderElement
             .then(function(component) {
-                expect(document.getElementById("content").textContent).toContain("Hello World!");
+                expect(document.getElementById("content").textContent).to.include("Hello World!");
                 // end this spec successfully
                 done();
             }).catch(function(e) {
                 // end this spec as a failure
-                done.fail(e);
+                done(e);
             });
         });
     });
@@ -55,10 +57,10 @@ describe("Lightning Component Testing Examples", function(){
             $T.createComponent("c:egComponentMethod", null)
             .then(function(component) {
                 component.sampleMethod();
-                expect(component.get("v.status")).toBe("sampleMethod invoked");
+                expect(component.get("v.status")).to.equal("sampleMethod invoked");
                 done();
             }).catch(function(e) {
-                done.fail(e);
+                done(e);
             });
         });
     });
@@ -70,22 +72,21 @@ describe("Lightning Component Testing Examples", function(){
      */
     describe('c:egClientSideAction', function(){
         it('adds items to a list when the client-side action is invoked', function(done) {
-            var renderInto = document.getElementById("renderTestComponents");
-            $T.createComponent("c:egClientSideAction", {}, renderInto)
+            $T.createComponent("c:egClientSideAction", {}, true)
             .then(function(component){
                 component.set("v.searchString", "salesforce");
-                expect(component.find("accountList").getElement().children.length).toBe(0);
+                expect(component.find("accountList").getElement().children.length).to.equal(0);
                 // Invoke function in component's client-side controller through aura:method
                 component.searchAccounts();
                 // Assert results of using the component's function (public interface)
-                expect(component.get("v.accountList").length).toBe(10);
-                expect(component.get("v.accountList")[0]).toContain("salesforce");
+                expect(component.get("v.accountList").length).to.equal(10);
+                expect(component.get("v.accountList")[0]).to.include("salesforce");
                 // Assert results by checking DOM element owned by the namespace
-                expect(component.find("accountList").getElement().children.length).toBe(10);
+                expect(component.find("accountList").getElement().children.length).to.equal(10);
                 done();
 
             }).catch(function(e) {
-                done.fail(e);
+                done(e);
             });
         });
     });
@@ -100,11 +101,10 @@ describe("Lightning Component Testing Examples", function(){
      */
     describe('c:egServerSideActionCallback', function(){
         it('[Discouraged: brittle, slow, side-effects] receives server data when server-side action is invoked', function(done) {
-            var renderInto = document.getElementById("renderTestComponents");
-            $T.createComponent("c:egServerSideActionCallback", {}, renderInto)
+            $T.createComponent("c:egServerSideActionCallback", {}, true)
             .then(function(component){
                 component.set("v.searchString", "United");
-                expect(component.find("accountList").getElement().children.length).toBe(0);
+                expect(component.find("accountList").getElement().children.length).to.equal(0);
                 component.search();
                 return $T.waitFor(function(){
                     return component.get("v.accountList").length === 3;
@@ -112,7 +112,7 @@ describe("Lightning Component Testing Examples", function(){
             }).then(function() {
                 done();
             }).catch(function(e) {
-                done.fail(e);
+                done(e);
             });
         });
     });
@@ -124,20 +124,19 @@ describe("Lightning Component Testing Examples", function(){
      */
     describe('c:egServerSideActionCallback', function() {
         it('updates with provided data when action callback is invoked directly', function(done) {
-            var renderInto = document.getElementById("renderTestComponents");
-            $T.createComponent("c:egServerSideActionCallback", {}, renderInto)
+            $T.createComponent("c:egServerSideActionCallback", {}, true)
             .then(function(component){
                 // Mocking out the server-side action response
                 var res = {getState : function(){return "SUCCESS";}, getReturnValue: function(){return [{"Name":"Acct 1"},{"Name":"Acct 2"}];}};
                 component.searchAccounts(res);
                 // Assert using components interface
-                expect(component.get("v.accountList").length).toBe(2);
-                expect(component.get("v.accountList")[0]['Name']).toContain("Acct 1");
+                expect(component.get("v.accountList").length).to.equal(2);
+                expect(component.get("v.accountList")[0]['Name']).to.include("Acct 1");
                 // Assert using DOM element owned by the namespace
-                expect(component.find("accountList").getElement().children.length).toBe(2);
+                expect(component.find("accountList").getElement().children.length).to.equal(2);
                 done();
             }).catch(function(e) {
-                done.fail(e);
+                done(e);
             });
         });
     });
@@ -150,23 +149,22 @@ describe("Lightning Component Testing Examples", function(){
      */
     describe('c:egServerSideActionCallback', function() {
         it('updates with provided data when invoked via a mocked server action using Jasmine spies', function(done) {
-            var renderInto = document.getElementById("renderTestComponents");
-            $T.createComponent("c:egServerSideActionCallback", {}, renderInto)
+            $T.createComponent("c:egServerSideActionCallback", {}, true)
             .then(function(component){
                 var res = {getState : function(){return "SUCCESS";}, getReturnValue: function(){return [{"Name":"Acct 1"},{"Name":"Acct 2"}];}};
-                spyOn($A, "enqueueAction").and.callFake(function(action) {
+                sandbox.stub($A, "enqueueAction").callsFake(function(action) {
                     var cb = action.getCallback("SUCCESS")
                     cb.fn.apply(cb.s, [res]);
                 });
                 component.search();
                 // Assert using components interface
-                expect(component.get("v.accountList").length).toBe(2);
-                expect(component.get("v.accountList")[0]['Name']).toContain("Acct 1");
+                expect(component.get("v.accountList").length).to.equal(2);
+                expect(component.get("v.accountList")[0]['Name']).to.include("Acct 1");
                 // Assert using DOM element owned by the namespace
-                expect(component.find("accountList").getElement().children.length).toBe(2);
+                expect(component.find("accountList").getElement().children.length).to.equal(2);
                 done();
             }).catch(function(e) {
-                done.fail(e);
+                done(e);
             });
         });
     });
@@ -185,15 +183,14 @@ describe("Lightning Component Testing Examples", function(){
                     accountAtr:{"sObjectType":"Account", "Name":"salesforce"},
                     objectAtr:{"key1":"value1"}
             };
-            var renderInto = document.getElementById("renderTestComponents");
-            $T.createComponent("c:egAttributeTypes", attributes, renderInto)
+            $T.createComponent("c:egAttributeTypes", attributes, true)
             .then(function(component){
-                expect(component.find("stringAtrAuraId").getElement().innerHTML).toContain(attributes.stringAtr);
-                expect(component.get("v.integerAtr")).toBe(attributes.integerAtr);
-                expect(component.get("v.objectAtrStringified")).toBe(JSON.stringify(attributes.objectAtr));
+                expect(component.find("stringAtrAuraId").getElement().innerHTML).to.include(attributes.stringAtr);
+                expect(component.get("v.integerAtr")).to.equal(attributes.integerAtr);
+                expect(component.get("v.objectAtrStringified")).to.equal(JSON.stringify(attributes.objectAtr));
                 done();
             }).catch(function(e) {
-                done.fail(e);
+                done(e);
             });
         });
     });
@@ -205,13 +202,12 @@ describe("Lightning Component Testing Examples", function(){
     describe('c:egFacet', function(){
         var attributes = {"content":"textContent"};
         it('renders the expected content when used as a facet', function(done) {
-            var renderInto = document.getElementById("renderTestComponents");
-            $T.createComponent("c:egFacet", attributes, renderInto)
+            $T.createComponent("c:egFacet", attributes, true)
             .then(function(component){
-                expect(component.find("cmpUnderTest").find("AuraComponentAtrId").getElement().innerHTML).toContain(attributes.content);
+                expect(component.find("cmpUnderTest").find("AuraComponentAtrId").getElement().innerHTML).to.include(attributes.content);
                 done();
             }).catch(function(e) {
-                done.fail(e);
+                done(e);
             });
         });
     });
@@ -224,17 +220,16 @@ describe("Lightning Component Testing Examples", function(){
      */
     describe('c:egGlobalValueProvider', function(){
         it('renders a custom label', function(done) {
-            var renderInto = document.getElementById("renderTestComponents");
-            $T.createComponent("c:egGlobalValueProvider", {}, renderInto)
+            $T.createComponent("c:egGlobalValueProvider", {}, true)
             .then(function(component){
                 // You can reference a custom label in your spec using standard
                 // Lightning component JavaScript APIs
                 var greetingLabelVal = $A.get("$Label.c.greeting");
-                expect(greetingLabelVal).toBeTruthy(greetingLabelVal);
-                expect(component.find("greeting").getElement().textContent).toBe(greetingLabelVal);
+                //expect(greetingLabelVal).to.equal(greetingLabelVal);
+                expect(component.find("greeting").getElement().textContent).to.equal(greetingLabelVal);
                 done();
             }).catch(function(e) {
-                done.fail(e);
+                done(e);
             });
         });
     });
@@ -247,14 +242,14 @@ describe("Lightning Component Testing Examples", function(){
         it('renders only the "truthy" (conditional) portion of the user interface', function(done) {
             $T.createComponent("c:egConditionalUI", null)
             .then(function(component) {
-                expect(component.find("trueDiv")).toBeTruthy();
-                expect(component.find("falseDiv")).toBeFalsy();
+                expect(component.find("trueDiv")).to.be.ok;
+                expect(component.find("falseDiv")).to.not.be.ok;
                 component.find("toggleButton").getEvent("press").fire();
-                expect(component.find("trueDiv")).toBeFalsy();
-                expect(component.find("falseDiv")).toBeTruthy();
+                expect(component.find("trueDiv")).to.not.be.ok;
+                expect(component.find("falseDiv")).to.be.ok;
                 done();
             }).catch(function(e) {
-                done.fail(e);
+                done(e);
             });
         });
     });
@@ -271,12 +266,12 @@ describe("Lightning Component Testing Examples", function(){
                 var cmpEvent = component.getEvent("sampleEvent");
                 cmpEvent.setParams({"data":"component event fired"});
                 cmpEvent.fire()
-                expect(component.get("v.message")).toBe("component event fired");
+                expect(component.get("v.message")).to.equal("component event fired");
                 $T.fireApplicationEvent("c:egApplicationEvent", {"data":"application event fired"});
-                expect(component.get("v.message")).toBe("application event fired");
+                expect(component.get("v.message")).to.equal("application event fired");
                 done();
             }).catch(function(e) {
-                done.fail(e);
+                done(e);
             });
         });
     });

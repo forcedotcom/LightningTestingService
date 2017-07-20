@@ -1,0 +1,3 @@
+<aura:documentation>
+	<aura:description>An example test application that passes mocha test spec files to LTS test Runner</aura:description>
+</aura:documentation>

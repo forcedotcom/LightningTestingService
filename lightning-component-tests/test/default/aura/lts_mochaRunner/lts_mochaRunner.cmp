@@ -1,0 +1,26 @@
+<aura:component extensible="true">
+    <aura:attribute name="testFiles" type="String[]" required="true" description="list of test spec files"/>
+
+    <!-- Bring down all the component (and their dependencies) in org's namespace. 
+    Done as an optimization to avoid server round trips when tests try to create components on the fly-->
+    <aura:dependency resource="markup://c:*" />
+
+    <!--  placeholder div which example test specs use to render components under test -->
+    <div aura:id="renderTestComponents" id="renderTestComponents"></div>
+
+    <!-- Placeholder div for mocha test results  -->
+    <div id="mocha"/>
+    
+    <!-- Pull in mocha, utils and the test specs specified by the consuming wrapper test app  -->
+    <ltng:require scripts="{!join(',', 
+        $Resource.lts_mochaJs,
+        $Resource.lts_mochaBootJs, 
+        $Resource.lts_chai,
+        $Resource.lts_sinon, 
+        $Resource.lts_testutil,
+        v.testFiles
+    )}"
+        styles="{!$Resource.lts_mochaCss}"
+        afterScriptsLoaded="{!c.runTests}" />
+
+</aura:component>

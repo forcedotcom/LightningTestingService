@@ -16,7 +16,7 @@ The LTS consists of two major components:
   * The LTS command for the Salesforce CLI
 
 The unmanaged package includes LTS infrastructure, including a test runner app, and some example tests. Once the package is installed in your org, you can run the example tests by going to the following URL:
-<code><em>yourInstance</em>/c/Tests.app</code>
+<code><em>yourInstance</em>/c/jasmineTests.app</code>
 
 When you run tests manually in a browser, you’re using only the pieces of LTS provided in the package.
 
@@ -75,7 +75,7 @@ Your tests are written as JavaScript files saved in archive static resources. Wh
   2. Log in to your scratch org in a web browser. Use the ```-p``` (```--path```) parameter to open your test suite’s app directly for manual review.
   
      ```bash
-     sfdx force:org:open -p /c/Tests.app
+     sfdx force:org:open -p /c/jasmineTests.app
      ```
 
   3. Update your code, or your tests, and go to step 1. Repeat until you achieve perfection, or at least 100% passing tests.
@@ -93,14 +93,14 @@ The ```-f``` flag forces all local changes to be pushed to the DE org. Be carefu
 
 ### Run Tests
 
-For a manual test run, visit the appropriate test app, for example, <code><em>yourInstance</em>/c/Tests.app</code>.
+For a manual test run, visit the appropriate test app, for example, <code><em>yourInstance</em>/c/jasmineTests.app</code>.
 
 ![Sample test run](doc-resources/lts_test_suite_page_success.png)
 
 For automated test runs, use the Salesforce CLI.
 
 ```bash
-sfdx force:lightning:test:run
+sfdx force:lightning:test:run -a jasmineTests.app
 ```
 
 See the command line help for other useful details.
