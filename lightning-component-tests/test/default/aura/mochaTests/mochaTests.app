@@ -1,6 +1,6 @@
 <aura:application >
 
-    <c:lts_mochaRunner testspecs="{!join(',', 
+    <c:lts_mochaRunner testFiles="{!join(',', 
     	$Resource.mochaExampleTests
     )}" />
 

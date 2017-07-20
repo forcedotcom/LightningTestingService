@@ -148,8 +148,16 @@
                 fullReport.RunTime = Date.now() - specStartTime;
 
                 if ('passed' === spec.status) {
-                    console.log('passed!', fullReport.FullName, fullReport.RunTime);
-                } else if ('failed' === spec.status) {
+                    console.log('passed!', fullReport.FullName, '- ' + fullReport.RunTime + 'ms');
+                } else if ('pending' === spec.status) {
+                    console.log('pending!', fullReport.FullName, '- ' + fullReport.RunTime + 'ms');
+                    fullReport.Outcome = 'Skip';
+                    fullReport.Message = ' # SKIP disabled by xit or similar';
+                } else if ('disabled' === spec.status) {
+                    console.log('disabled!', fullReport.FullName, '- ' + fullReport.RunTime + 'ms');
+                    fullReport.Outcome = 'Disabled';
+                } else {
+                    console.log('failed!', fullReport.FullName, '- ' + fullReport.RunTime + 'ms');
                     for (var i = 0, failure; i < spec.failedExpectations.length; i++) {
                         failureMessage = spec.failedExpectations[i].message;
                         failureMessage.replace(/^\s+/, "" ).replace(/\s+$/, "" );
@@ -158,14 +166,6 @@
 
                     fullReport.Outcome = 'Fail';
                     fullReport.Message = failedStr;
-                    console.log('failed!', fullReport.FullName, fullReport.RunTime);
-                } else if ('pending' === spec.status) {
-                    fullReport.Outcome = 'Skip';
-                    fullReport.Message = ' # SKIP disabled by xit or similar';
-                    console.log('pending!', fullReport.FullName, fullReport.RunTime);
-                } else if ('disabled' === spec.status) {
-                    fullReport.Outcome = 'Disabled';
-                    console.log('disabled!', fullReport.FullName, fullReport.RunTime);
                 }
                 run_results_full.tests.push(fullReport);
             },
@@ -190,13 +190,13 @@
             fullReport.RunTime = test.duration;
 
             if ('passed' === test.state) {
-                console.log('passed!', test.title, test.duration)
+                console.log('passed!', test.title, '- ' + fullReport.RunTime + 'ms')
             } else if (test.pending) {
+                console.log('pending!', test.title, '- ' + fullReport.RunTime + 'ms')
                 fullReport.Outcome = 'Skip';
                 fullReport.Message = ' # SKIP disabled by xit or similar';
-                console.log('pending!', test.title, test.duration)
             } else {
-                console.log('fail!', test.title, test.duration)
+                console.log('fail!', test.title, '- ' + fullReport.RunTime + 'ms')
                 fullReport.Outcome = 'Fail';
                 fullReport.Message = test.err.message;
             }

@@ -1,5 +1,5 @@
 <aura:component extensible="true">
-    <aura:attribute name="testspecs" type="String[]" required="true" description="list of test spec files"/>
+    <aura:attribute name="testFiles" type="String[]" required="true" description="list of test spec files"/>
 
     <!-- Bring down all the component (and their dependencies) in org's namespace. 
     Done as an optimization to avoid server round trips when tests try to create components on the fly-->
@@ -18,7 +18,7 @@
         $Resource.lts_chai,
         $Resource.lts_sinon, 
         $Resource.lts_testutil,
-        v.testspecs
+        v.testFiles
     )}"
         styles="{!$Resource.lts_mochaCss}"
         afterScriptsLoaded="{!c.runTests}" />
