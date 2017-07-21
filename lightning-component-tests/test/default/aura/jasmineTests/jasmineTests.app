@@ -1,4 +1,4 @@
-<aura:application extends="force:slds" description="Sample wrapper test app">
+<aura:application>
 
     <c:lts_jasmineRunner testFiles="{!join(',', 
     	$Resource.jasmineHelloWorldTests,
