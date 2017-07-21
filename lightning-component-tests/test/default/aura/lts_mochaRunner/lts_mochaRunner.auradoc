@@ -1,0 +1,6 @@
+<aura:documentation>
+    <aura:description>
+	Base Component that pulls in mocha, test reporters and test specs and manages the test run. 
+	Test applications can be created by using this component.  
+	</aura:description>
+</aura:documentation>

@@ -66,11 +66,11 @@ The LTS package installs the following items:
      - Wrapper test app
 
 Once installed, you can run the example test suite by going to the following URL in your org:
-<code>https://<em>&lt;myServer&gt;</em>/c/Tests.app</code>
+<code>https://<em>&lt;myServer&gt;</em>/c/jasmineTests.app</code>
 
 You should see a screen that looks something like the following.
 
-![Successful execution of the Tests.app tests](doc-resources/lts_package_app_success.png)
+![Successful execution of the jasmineTests.app tests](doc-resources/lts_package_app_success.png)
 
 This page tells you that the package is correctly installed and LTS is working in your org.
 
@@ -101,10 +101,10 @@ After you install the salesforcedx CLI plugin, you can run your tests from the c
 ```bash
 sfdx force:auth:web:login -s     # connect to your scratch org
 sfdx force:source:push           # push local source to the scratch org
-sfdx force:lightning:test:run    # run the test suite
+sfdx force:lightning:test:run -a jasmineTests.app   # run the test suite
 ```
 
-When you run the `force:lightning:test:run` command in a connected workspace you should see something like the following:
+When you run the `force:lightning:test:run -a jasmineTests.app` command in a connected workspace you should see something like the following:
 
 ![Console output from a successful test suite execution using sfdx](doc-resources/lts_sfdx_test_run_output.png)
 
@@ -160,7 +160,7 @@ If you’d prefer to use another test framework, either because you’ve already
 
 All of the packaged pieces of the LTS are included in the project repository, in the [lightning-component-tests/test/default](https://github.com/forcedotcom/LightningTestingService/tree/master/lightning-component-tests/test/default) directory. The pieces you’ll need to modify or replace are the following items.
 
- * `Tests.app` — The front end of the LTS, this simple app includes the test runner component, and a list of test suites to feed it.
+ * `jasmineTests.app` — The front end of the LTS, this simple app includes the test runner component, and a list of test suites to feed it.
  * `BaseTestRunnerCmp` — The test runner component for Jasmine. It includes references to the required Jasmine library, which it loads along with the test spec resources, and then fires the test runner.
  * `jasmine.resource` — The Jasmine library, unmodified.
  * `jasmineboot.resource` — A JavaScript IIFE that launches Jasmine in the LTS context.
