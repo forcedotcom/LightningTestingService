@@ -159,7 +159,7 @@
                 } else {
                     console.log('failed!', fullReport.FullName, '- ' + fullReport.RunTime + 'ms');
                     for (var i = 0, failure; i < spec.failedExpectations.length; i++) {
-                        failureMessage = spec.failedExpectations[i].message;
+                        var failureMessage = spec.failedExpectations[i].message;
                         failureMessage.replace(/^\s+/, "" ).replace(/\s+$/, "" );
                         failedStr += '\n  ' + failureMessage;
                     }
