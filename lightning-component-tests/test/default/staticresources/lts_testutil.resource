@@ -119,6 +119,14 @@
     }
 
     /**
+     * @param {function} fn Function to execute inside callback context set by test runner 
+     * component via $A.getCallback()
+     */
+    $T.run = function(fn){
+        runInsideCallbackClosure(fn);
+    }
+
+    /**
      * [Internal Only] used by test runner component to allow execution of test code within a closure
      */
     $T._setContexualRunner = function (fn) {
@@ -229,5 +237,5 @@
             throw new Error("callback is not set");
         }
         contexualRunner(fn);
-    }
+    };
 })(this);

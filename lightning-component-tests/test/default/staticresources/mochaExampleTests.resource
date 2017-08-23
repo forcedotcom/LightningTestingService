@@ -105,7 +105,7 @@ describe("Lightning Component Testing Examples", function(){
             .then(function(component){
                 component.set("v.searchString", "United");
                 expect(component.find("accountList").getElement().children.length).to.equal(0);
-                component.search();
+                $T.run(component.search);
                 return $T.waitFor(function(){
                     return component.get("v.accountList").length === 3;
                 })
