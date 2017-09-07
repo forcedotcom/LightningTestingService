@@ -1,17 +1,4 @@
 # Lightning Testing Service (LTS) [![Build Status](https://travis-ci.org/forcedotcom/LightningTestingService.svg?branch=master)](https://travis-ci.org/forcedotcom/LightningTestingService) [![CircleCI](https://circleci.com/gh/forcedotcom/LightningTestingService/tree/master.svg?style=shield)](https://circleci.com/gh/forcedotcom/LightningTestingService/tree/master)
-## Pilot Program
-
-The Lightning Testing Service, or LTS, is a set of tools and services that let you create test suites for your Lightning components using standard JavaScript test frameworks, such as Jasmine.
-
-Automated tests are the best way to achieve predictable, repeatable assessments of the quality of your custom code. Writing automated tests for your custom components gives you confidence that they work as designed, and allows you to evaluate the impact of changes, such as refactoring, or of new versions of Salesforce or third-party JavaScript libraries.
-
-## About the Pilot Program
-
-> We provide the Lightning Testing Service (LTS) to selected customers through a pilot program that requires agreement to specific terms and conditions. To be nominated to participate in the program, contact Salesforce. Pilot programs are subject to change, and we can’t guarantee acceptance. LTS isn’t generally available unless or until Salesforce announces its general availability in documentation or in press releases or public statements. We can’t guarantee general availability within any particular time frame or at all. Make your purchase decisions only on the basis of generally available products and features.
-
-The LTS supports testing with standard JavaScript test frameworks. During the pilot program we’re providing an easy-to-use wrapper for using [Jasmine](https://jasmine.github.io/). If you’d like to use an alternative test framework, you’ll have to wrap it yourself. (See [Next Steps](#next-steps) for some details.) We look forward to your feedback about Jasmine, and other test frameworks you have experience with.
-
-If you’re a part of the official, limited pilot for LTS, please provide feedback through the pilot forum and review meetings. If you’re not a part of the official pilot, we’d still love your suggestions. Please log issues through the GitHub repo.
 
 ## Lightning Testing Service Overview
 
