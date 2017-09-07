@@ -2,7 +2,7 @@
 
 ## Lightning Testing Service Overview
 
-During the pilot program there are two ways you can use the Lightning Testing Service.
+There are two ways you can use the Lightning Testing Service.
 
  * If you just want to “kick the tires,” install the LTS unmanaged package. The package provides the test service app and an example test suite. It also includes example components that the test suite runs against. You run the test suite by accessing the URL for the LTS app in your org. Everyone should start with this package.
  
@@ -77,7 +77,7 @@ Before you install and use the LTS with the salesforcedx CLI plugin, you must fi
 
 ### Installation
 
-Install the pilot version of the LTS for Salesforce DX by running the following command in your command line shell.
+Install the LTS for Salesforce DX by running the following command in your command line shell.
 
 ```bash
 sfdx plugins:install salesforcedx
@@ -133,7 +133,7 @@ There are three test suites included in the LTS package:
 
 The remainder of the static resources are infrastructure used by the LTS. They’re _briefly_ described in [Use Another JavaScript Test Framework](#use-another-javascript-test-framework).
 
-The `exampleTests.resource` is a single JavaScript file containing a complete test suite. It’s a single file for convenience in delivery and exploration. Your own test suites can include many such files. `exampleTests.resource` is copiously commented. For the pilot program, the code and comments serve as the official documentation for how to write tests.
+The `exampleTests.resource` is a single JavaScript file containing a complete test suite. It’s a single file for convenience in delivery and exploration. Your own test suites can include many such files. `exampleTests.resource` is copiously commented. The code and comments serve as the official documentation for how to write tests.
 
 ## Write Your Own Tests
 
@@ -141,9 +141,9 @@ A separate document, [Testing Lightning Components with the Lightning Testing Se
 
 ## Use Another JavaScript Test Framework
 
-The Lightning Testing Service provides a way to use standard JavaScript test frameworks with your Lightning components. For the LTS pilot we’ve provided the example test suite implemented in [Jasmine](https://jasmine.github.io/). Jasmine is one of several well-regarded test frameworks, and if you haven’t chosen one already, we recommend you start with it.
+The Lightning Testing Service provides a way to use standard JavaScript test frameworks with your Lightning components. We’ve provided the example test suite implemented in [Jasmine](https://jasmine.github.io/). Jasmine is one of several well-regarded test frameworks, and if you haven’t chosen one already, we recommend you start with it.
 
-If you’d prefer to use another test framework, either because you’ve already selected one, or because you find something more to your taste, you can use it with the LTS instead. During the pilot that’s a little more work. Please do tell us which frameworks you’re using, so we can consider them for later versions of the LTS.
+If you’d prefer to use another test framework, either because you’ve already selected one, or because you find something more to your taste, you can use it with the LTS instead.
 
 All of the packaged pieces of the LTS are included in the project repository, in the [lightning-component-tests/test/default](https://github.com/forcedotcom/LightningTestingService/tree/master/lightning-component-tests/test/default) directory. The pieces you’ll need to modify or replace are the following items.
 
@@ -154,4 +154,4 @@ All of the packaged pieces of the LTS are included in the project repository, in
  * `jasmineReporter.resource` — Another JavaScript IIFE, used to adapt Jasmine’s results into formats expected by LTS and Salesforce DX.
  * `testutil.resource` — A collection of utilities for use within your test specs. They provide Lightning component-specific functions that make it easier to test your custom components from a test context.
 
-If you’re already experienced with setting up another test framework, adapting the pilot Jasmine examples should take you a day or so, but not longer. We’d be thrilled to hear more about your adventures with Mocha and other JavaScript test frameworks!
+If you’re already experienced with setting up another test framework, adapting the Jasmine examples should take you a day or so, but not longer. We’d be thrilled to hear more about your adventures with Mocha and other JavaScript test frameworks!
