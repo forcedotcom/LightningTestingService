@@ -25,6 +25,7 @@ before_script:
   - sfdx force:auth:jwt:grant --clientid $CONSUMERKEY --jwtkeyfile assets/server.key --username $USERNAME --setdefaultdevhubusername
 
 script:
+  - sfdx force:config:set apiVersion='41.0' --global
   - sfdx force:org:create -s -f config/project-scratch-def.json -a travisciorg
   - lintout=$(sfdx force:lightning:lint lightning-component-tests/main/default/aura/);if [[ $lintout =~ .*problem.*error.*warning ]]; then echo "$lintout"; false; fi
   - sfdx force:source:push -u travisciorg
