@@ -7,7 +7,7 @@ machine:
   pre:
     - wget -qO- https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz | tar xJf -
     - ./sfdx/install
-    - sfdx plugins:install salesforcedx@pre-release
+    - sfdx plugins:install salesforcedx
 
 test:
   override:

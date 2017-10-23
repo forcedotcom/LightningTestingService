@@ -21,7 +21,7 @@ before_script:
   - export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
   - export SFDX_DOMAIN_RETRY=300
   - export SFDX_AUTOUPDATE_DISABLE=true
-  - sfdx plugins:install salesforcedx@pre-release
+  - sfdx plugins:install salesforcedx
   - sfdx force:auth:jwt:grant --clientid $CONSUMERKEY --jwtkeyfile assets/server.key --username $USERNAME --setdefaultdevhubusername
 
 script:
