@@ -29,6 +29,6 @@ script:
   - sfdx force:org:create -s -f config/project-scratch-def.json -a travisciorg
   - lintout=$(sfdx force:lightning:lint lightning-component-tests/main/default/aura/);if [[ $lintout =~ .*problem.*error.*warning ]]; then echo "$lintout"; false; fi
   - sfdx force:source:push -u travisciorg
-  - sfdx force:lightning:test:run -a jasmineTests.app
-  - sfdx force:lightning:test:run -a mochaTests.app
+  - sfdx force:lightning:test:run -f config/lts-config.json -a jasmineTests.app
+  - sfdx force:lightning:test:run -f config/lts-config.json -a mochaTests.app
   - sfdx force:org:delete -u travisciorg -p
