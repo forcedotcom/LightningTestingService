@@ -57,10 +57,10 @@ It’s usually best to perform automated testing in a clean org, created with co
 You can quickly install the LTS unmanaged package into an org with the following command:
 
 ```bash
-sfdx force:package:install -i 04t9A000000D25z
+sfdx force:lightning:test:install -t jasmine
 ```
 
-> Note that this command installs a specific version of the unmanaged package. Check the [Releases](https://github.com/forcedotcom/LightningComponentTests/releases) tab to ensure you have the ID for the latest version of the LTS package.
+> Note that this command installs the jasmine version of LTS unmanaged package into your org, enabling you to create wrapper test applications and author jasmine tests.
 
 ### Push Metadata to a Scratch Org
 
