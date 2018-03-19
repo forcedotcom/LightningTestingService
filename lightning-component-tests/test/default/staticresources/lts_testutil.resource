@@ -195,10 +195,14 @@
         }).on('fail', function (test) {
             run_results_full.tests.push(convertMochaTestEventToSfdxTestResult(test));
         }).on('pending', function (test) {
-            test.err = {
-                message: ' # SKIP disabled by xit or similar'
-            }
-            run_results_full.tests.push(convertMochaTestEventToSfdxTestResult(test));
+            var pendingTest = Object.assign({}, test, {
+                err: {
+                    message: ' # SKIP disabled by xit or similar'
+                },
+                duration: 0,
+                state: 'pending'
+            });
+            run_results_full.tests.push(convertMochaTestEventToSfdxTestResult(pendingTest));
         }).on('end', function (suite) {
             setHiddenDivContent("run_results_full", JSON.stringify(run_results_full));
         });
@@ -211,10 +215,16 @@
         console.log(test.state + '!', test.title, '-' + test.duration + 'ms');
         return {
             FullName: test.parent.title + ' : ' + test.title,
-            Outcome: test.state,
+            Outcome: mochaStateToOutcome[test.state],
             RunTime: test.duration,
-            Message: test.err ? test.err.message : null
+            Message: test.err ? test.err.message : undefined
         };
+    };
+
+    var mochaStateToOutcome = {
+        'passed': 'Pass',
+        'failed': 'Failed',
+        'pending': 'Skip'
     };
 
     var setHiddenDivContent = function (id, content) {
