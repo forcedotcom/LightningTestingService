@@ -190,29 +190,32 @@
      */
     $T._sfdxReportForMocha = function (mochaRunner) {
         var run_results_full = { "tests": [] };
-        mochaRunner.on('test end', function (test) {
-
-            var fullReport = {};
-            fullReport.FullName = test.parent.title + ' : ' + test.title;
-            fullReport.Outcome = 'Pass';
-            fullReport.RunTime = test.duration;
-
-            if ('passed' === test.state) {
-                console.log('passed!', test.title, '- ' + fullReport.RunTime + 'ms')
-            } else if (test.pending) {
-                console.log('pending!', test.title, '- ' + fullReport.RunTime + 'ms')
-                fullReport.Outcome = 'Skip';
-                fullReport.Message = ' # SKIP disabled by xit or similar';
-            } else {
-                console.log('fail!', test.title, '- ' + fullReport.RunTime + 'ms')
-                fullReport.Outcome = 'Fail';
-                fullReport.Message = test.err.message;
+        mochaRunner.on('pass', function (test) {
+            run_results_full.tests.push(convertMochaTestEventToSfdxTestResult(test));
+        }).on('fail', function (test) {
+            run_results_full.tests.push(convertMochaTestEventToSfdxTestResult(test));
+        }).on('pending', function (test) {
+            test.err = {
+                message: ' # SKIP disabled by xit or similar'
             }
-            run_results_full.tests.push(fullReport);
+            run_results_full.tests.push(convertMochaTestEventToSfdxTestResult(test));
         }).on('end', function (suite) {
             setHiddenDivContent("run_results_full", JSON.stringify(run_results_full));
         });
     }
+
+    /**
+     * Turns a mocha test event into a sfdx test result
+     */
+    var convertMochaTestEventToSfdxTestResult = function (test) {
+        console.log(test.state + '!', test.title, '-' + test.duration + 'ms');
+        return {
+            FullName: test.parent.title + ' : ' + test.title,
+            Outcome: test.state,
+            RunTime: test.duration,
+            Message: test.err ? test.err.message : null
+        };
+    };
 
     var setHiddenDivContent = function (id, content) {
         var aDiv = document.getElementById(id);
