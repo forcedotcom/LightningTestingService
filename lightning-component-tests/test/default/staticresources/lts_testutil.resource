@@ -138,12 +138,15 @@
      */
     $T._sfdxReportForJasmine = function (jasmine) {
         var run_results_full = { "tests": [] };
-        var suiteDescription = '';
+        var suiteDescription = [];
         var specStartTime = 0;
 
         var sfdxReporter = {
             suiteStarted: function(suite) {
-                suiteDescription = suite.description;
+                suiteDescription.push(suite.description);
+            },
+            suiteDone: function(suite) {
+                suiteDescription.pop();
             },
             specStarted: function(spec) {
                 specStartTime = Date.now();
@@ -151,7 +154,7 @@
             specDone: function(spec) {
                 var fullReport = {};
                 var failedStr = '';
-                fullReport.FullName =  suiteDescription + ' : ' + spec.description;
+                fullReport.FullName =  suiteDescription.join(' : ') + ' : ' + spec.description;
                 fullReport.Outcome = 'Pass';
                 fullReport.RunTime = Date.now() - specStartTime;
 
@@ -168,7 +171,6 @@
                     console.log('failed!', fullReport.FullName, '- ' + fullReport.RunTime + 'ms');
                     for (var i = 0, failure; i < spec.failedExpectations.length; i++) {
                         var failureMessage = spec.failedExpectations[i].message;
-                        failureMessage.replace(/^\s+/, "" ).replace(/\s+$/, "" );
                         failedStr += '\n  ' + failureMessage;
                     }
 
@@ -214,12 +216,21 @@
     var convertMochaTestEventToSfdxTestResult = function (test) {
         console.log(test.state + '!', test.title, '-' + test.duration + 'ms');
         return {
-            FullName: test.parent.title + ' : ' + test.title,
+            FullName: generateMochaTestTitleForSfdx(test),
             Outcome: mochaStateToOutcome[test.state],
             RunTime: test.duration,
             Message: test.err ? test.err.message : undefined
         };
     };
+
+    var generateMochaTestTitleForSfdx = function (test) {
+        var sfdxTitle = test.title;
+        while (!test.parent.root) {
+            sfdxTitle = test.parent.title + ' : ' + sfdxTitle;
+            test = test.parent;
+        }
+        return sfdxTitle.replace(/["]/g, "'");
+    }
 
     var mochaStateToOutcome = {
         'passed': 'Pass',
