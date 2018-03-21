@@ -138,12 +138,15 @@
      */
     $T._sfdxReportForJasmine = function (jasmine) {
         var run_results_full = { "tests": [] };
-        var suiteDescription = '';
+        var suiteDescription = [];
         var specStartTime = 0;
 
         var sfdxReporter = {
             suiteStarted: function(suite) {
-                suiteDescription = suite.description;
+                suiteDescription.push(suite.description);
+            },
+            suiteDone: function(suite) {
+                suiteDescription.pop();
             },
             specStarted: function(spec) {
                 specStartTime = Date.now();
@@ -151,7 +154,7 @@
             specDone: function(spec) {
                 var fullReport = {};
                 var failedStr = '';
-                fullReport.FullName =  suiteDescription + ' : ' + spec.description;
+                fullReport.FullName =  suiteDescription.join(' : ') + ' : ' + spec.description;
                 fullReport.Outcome = 'Pass';
                 fullReport.RunTime = Date.now() - specStartTime;
 
@@ -168,7 +171,6 @@
                     console.log('failed!', fullReport.FullName, '- ' + fullReport.RunTime + 'ms');
                     for (var i = 0, failure; i < spec.failedExpectations.length; i++) {
                         var failureMessage = spec.failedExpectations[i].message;
-                        failureMessage.replace(/^\s+/, "" ).replace(/\s+$/, "" );
                         failedStr += '\n  ' + failureMessage;
                     }
 
@@ -190,29 +192,51 @@
      */
     $T._sfdxReportForMocha = function (mochaRunner) {
         var run_results_full = { "tests": [] };
-        mochaRunner.on('test end', function (test) {
-
-            var fullReport = {};
-            fullReport.FullName = test.parent.title + ' : ' + test.title;
-            fullReport.Outcome = 'Pass';
-            fullReport.RunTime = test.duration;
-
-            if ('passed' === test.state) {
-                console.log('passed!', test.title, '- ' + fullReport.RunTime + 'ms')
-            } else if (test.pending) {
-                console.log('pending!', test.title, '- ' + fullReport.RunTime + 'ms')
-                fullReport.Outcome = 'Skip';
-                fullReport.Message = ' # SKIP disabled by xit or similar';
-            } else {
-                console.log('fail!', test.title, '- ' + fullReport.RunTime + 'ms')
-                fullReport.Outcome = 'Fail';
-                fullReport.Message = test.err.message;
-            }
-            run_results_full.tests.push(fullReport);
+        mochaRunner.on('pass', function (test) {
+            run_results_full.tests.push(convertMochaTestEventToSfdxTestResult(test));
+        }).on('fail', function (test) {
+            run_results_full.tests.push(convertMochaTestEventToSfdxTestResult(test));
+        }).on('pending', function (test) {
+            var pendingTest = Object.assign({}, test, {
+                err: {
+                    message: ' # SKIP disabled by xit or similar'
+                },
+                duration: 0,
+                state: 'pending'
+            });
+            run_results_full.tests.push(convertMochaTestEventToSfdxTestResult(pendingTest));
         }).on('end', function (suite) {
             setHiddenDivContent("run_results_full", JSON.stringify(run_results_full));
         });
     }
+
+    /**
+     * Turns a mocha test event into a sfdx test result
+     */
+    var convertMochaTestEventToSfdxTestResult = function (test) {
+        console.log(test.state + '!', test.title, '-' + test.duration + 'ms');
+        return {
+            FullName: generateMochaTestTitleForSfdx(test),
+            Outcome: mochaStateToOutcome[test.state],
+            RunTime: test.duration,
+            Message: test.err ? test.err.message : undefined
+        };
+    };
+
+    var generateMochaTestTitleForSfdx = function (test) {
+        var sfdxTitle = test.title;
+        while (!test.parent.root) {
+            sfdxTitle = test.parent.title + ' : ' + sfdxTitle;
+            test = test.parent;
+        }
+        return sfdxTitle.replace(/["]/g, "'");
+    }
+
+    var mochaStateToOutcome = {
+        'passed': 'Pass',
+        'failed': 'Failed',
+        'pending': 'Skip'
+    };
 
     var setHiddenDivContent = function (id, content) {
         var aDiv = document.getElementById(id);
