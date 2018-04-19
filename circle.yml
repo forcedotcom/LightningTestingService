@@ -1,4 +1,6 @@
 machine:
+  node:
+    version: 8.4.0
   environment:
     SFDX_AUTOUPDATE_DISABLE: true
     SFDX_USE_GENERIC_UNIX_KEYCHAIN: true
