@@ -181,6 +181,7 @@
             },
             jasmineDone: function(result) {
                 setHiddenDivContent("run_results_full", JSON.stringify(run_results_full));
+                setHiddenDivContent("coverage_results_full", JSON.stringify(window.__coverage__));
             }
         };
 
@@ -207,6 +208,7 @@
             run_results_full.tests.push(convertMochaTestEventToSfdxTestResult(pendingTest));
         }).on('end', function (suite) {
             setHiddenDivContent("run_results_full", JSON.stringify(run_results_full));
+            setHiddenDivContent("coverage_results_full", JSON.stringify(window.__coverage__));
         });
     }
 
