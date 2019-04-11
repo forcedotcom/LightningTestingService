@@ -2,7 +2,9 @@
 
 ## Lightning Testing Service Overview
 
-The Lightning Testing Service, or LTS, is a set of tools and services that let you create test suites for your Lightning components using standard JavaScript test frameworks, such as Jasmine and Mocha.
+The Lightning Testing Service, or LTS, is a set of tools and services that let you create test suites for your Aura components using standard JavaScript test frameworks, such as Jasmine and Mocha.
+
+**Note:** *As of Spring '19, the Lightning Component framework has two programming models, Lightning Web Components, and Aura Components, the original model. Use LTS to test Aura components.*
 
 Automated tests are the best way to achieve predictable, repeatable assessments of the quality of your custom code. Writing automated tests for your custom components gives you confidence that they work as designed, and allows you to evaluate the impact of changes, such as refactoring, or of new versions of Salesforce or third-party JavaScript libraries.
 
@@ -47,7 +49,7 @@ describe('Test the nature of truth', function() {
 
 You can write your own wrapper if you prefer a different testing framework. It's not hard, but plan on half a day to a day of work.
 
-The LTS also provides utilities specific to the Lightning Component framework, which let you test behavior specific to Lightning components. Details are explained in comments in the example tests.
+The LTS also provides utilities specific to the Lightning Component framework, which let you test behavior specific to Aura components. Details are explained in comments in the example tests.
 
 Your test suite is deployed in the form of an archive (zip) static resource. Once the LTS is installed and configured, you make changes to your test suite, create the archive, and upload it to your org. Once uploaded you can run the test suite via the command line or via URL.
 
@@ -135,7 +137,7 @@ When you have the LTS package installed and working in your org, you’re ready 
 
 ### Explore the Example Test Suites
 
-To dive into the test suites and start learning how to write tests for your Lightning components, explore the tests and the components being tested side-by-side. You’ll want to open the test suite file in one window, and in another window (perhaps in your IDE) open the simple components being tested.
+To dive into the test suites and start learning how to write tests for your Aura components, explore the tests and the components being tested side-by-side. You’ll want to open the test suite file in one window, and in another window (perhaps in your IDE) open the simple components being tested.
 
 Both the components and the test suites included in the unmanaged package are also available in a repository on GitHub:
 
@@ -143,7 +145,7 @@ Both the components and the test suites included in the unmanaged package are al
 
 #### Components for Testing
 
-All of the testable components are named beginning with “eg” (from the abbreviation “e.g.”, meaning _for example_). The components provided in the package can be accessed as you would any Lightning component.
+All of the testable components are named beginning with “eg” (from the abbreviation “e.g.”, meaning _for example_). The components provided in the package can be accessed as you would any Aura component.
 
  * In the Developer Console
  * In the Force.com IDE, in the `/aura/` directory
@@ -174,7 +176,7 @@ A separate document, [Testing Lightning Components with the Lightning Testing Se
 
 ### Use Another JavaScript Test Framework
 
-The Lightning Testing Service provides a way to use standard JavaScript test frameworks with your Lightning components. We’ve provided the example test suites implemented in [Jasmine](https://jasmine.github.io/) and [Mocha](http://mochajs.org/). These are well-regarded test frameworks, and if you haven’t chosen one already, we recommend you start with one of them.
+The Lightning Testing Service provides a way to use standard JavaScript test frameworks with your Aura components. We’ve provided the example test suites implemented in [Jasmine](https://jasmine.github.io/) and [Mocha](http://mochajs.org/). These are well-regarded test frameworks, and if you haven’t chosen one already, we recommend you start with one of them.
 
 If you’d prefer to use another test framework, either because you’ve already selected one, or because you find something more to your taste, you can use it with the LTS instead.
 
