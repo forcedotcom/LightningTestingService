@@ -7,8 +7,7 @@ addons:
 
 before_install:
   - openssl aes-256-cbc -K $encrypted_64814298f594_key -iv $encrypted_64814298f594_iv -in assets/server.key.enc -out assets/server.key -d  
-  - nvm install --lts
-  - npm install -g sfdx-cli
+  - npm install -g sfdx-cli 
 
 before_script:
   - "export DISPLAY=:99.0"
@@ -17,6 +16,7 @@ before_script:
   - export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
   - export SFDX_DOMAIN_RETRY=300
   - export SFDX_AUTOUPDATE_DISABLE=true
+  - nvm install --lts
   - sfdx force:auth:jwt:grant --clientid $CONSUMERKEY --jwtkeyfile assets/server.key --username $USERNAME --setdefaultdevhubusername
 
 script:
