@@ -1,0 +1,52 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/forcedotcom/LightningTestingService
+    docker:
+      - image: circleci/node:10.15.3-browsers
+    environment:
+      CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
+      CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
+      SFDX_AUTOUPDATE_DISABLE: true
+      SFDX_USE_GENERIC_UNIX_KEYCHAIN: true
+      SFDX_DOMAIN_RETRY: 300
+    steps:
+      - checkout
+      # Prepare for artifact and test results  collection equivalent to how it was done on 1.0.
+      # In many cases you can simplify this from what is generated here.
+      # 'See docs on artifact collection here https://circleci.com/docs/2.0/artifacts/'
+      - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS
+      # Dependencies
+      #   This would typically go in either a build or a build-and-test job when using workflows
+      # Restore the dependency cache
+      - restore_cache:
+          keys:
+            # This branch if available
+            - v1-dep-{{ .Branch }}-
+            # Default branch if not
+            - v1-dep-master-
+            # Any branch if there are none on the default branch - this should be unnecessary if you have your default branch configured correctly
+            - v1-dep-
+      - run: sudo chown -R circleci /usr/local/lib/node_modules
+      - run: sudo npm install -g sfdx-cli
+      - run: sudo apt-get update
+      - run: sudo apt-get install vim-common
+      # Test
+      - run: echo $SERVER_KEY_HEX | xxd -r -ps >> assets/server.key
+      - run: sfdx force:auth:jwt:grant --clientid $CONSUMERKEY --jwtkeyfile assets/server.key --username $USERNAME --setdefaultdevhubusername
+      - run: lintout=$(sfdx force:lightning:lint lightning-component-tests/main/default/aura/);if [[ $lintout =~ .*problem.*error.*warning ]]; then echo "$lintout"; false; fi
+      - run: sfdx force:org:create -s -f config/project-scratch-def.json -a travisciorg
+      - run: sfdx force:source:push -u travisciorg
+      - run: sudo chown -R circleci /usr/local/lib/node_modules
+      - run: sfdx force:lightning:test:run -a jasmineTests.app
+      - run: sfdx force:lightning:test:run -a mochaTests.app
+      - run: sfdx force:org:delete -u travisciorg -p
+      # Teardown
+      # Save test results
+      - store_test_results:
+          path: /tmp/circleci-test-results
+      # Save artifacts
+      - store_artifacts:
+          path: /tmp/circleci-artifacts
+      - store_artifacts:
+          path: /tmp/circleci-test-results
