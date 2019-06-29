@@ -6,6 +6,7 @@ addons:
   chrome: stable
 
 before_install:
+  - nvm install --lts
   - openssl aes-256-cbc -K $encrypted_64814298f594_key -iv $encrypted_64814298f594_iv -in assets/server.key.enc -out assets/server.key -d  
   - npm install -g sfdx-cli 
 
