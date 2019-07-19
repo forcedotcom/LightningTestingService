@@ -10,7 +10,7 @@
 
     /**
      * Waits for the function to finish executing.
-     * 
+     *
      * @param {function} fn The function to be executed.
      * @param {?number} timeout The total timeout for the wait.
      * @param {?number} interval The interval.
@@ -39,7 +39,7 @@
     /**
      * Creates the Lightning component, adds it to the list of components to be cleared,
      * and render it into the specified DOM element.
-     * 
+     *
      * @param {string} descriptor The descriptor of the component to be rendered.
      * @param {Object.<string, Object>} attributes The attributes to be set to the component.
      * @param {boolean} requiresRendering If component rendering is required. Optional.
@@ -89,7 +89,7 @@
      * Fire an application level event. Takes care of lightning lifecycle related setup needed to successfully interact (e.g. accessChecks) with an application event.
      * @param {string} eventName Name of application event (e.g. c:myAppEvt)
      * @param {Object.<string, Object>} eventArgs The event attributes
-     * 
+     *
      * @returns {Boolean} A boolean value indicating whether an application level event with specified name was found and fired or not
      */
     $T.fireApplicationEvent = function (eventName, eventArgs) {
@@ -119,7 +119,7 @@
     }
 
     /**
-     * @param {function} fn Function to execute inside callback context set by test runner 
+     * @param {function} fn Function to execute inside callback context set by test runner
      * component via $A.getCallback()
      */
     $T.run = function(fn){
@@ -154,7 +154,7 @@
             specDone: function(spec) {
                 var fullReport = {};
                 var failedStr = '';
-                fullReport.FullName =  suiteDescription.join(' : ') + ' : ' + spec.description;
+                fullReport.FullName =  (suiteDescription.join(' : ') + ' : ' + spec.description).replace(/["]/g, "'");
                 fullReport.Outcome = 'Pass';
                 fullReport.RunTime = Date.now() - specStartTime;
 
@@ -255,8 +255,8 @@
     };
 
     /**
-     * Runs provided function within a closure to allow interaction with lightning API (e.g. avoid accessCheck errors) 
-     * with proper context   
+     * Runs provided function within a closure to allow interaction with lightning API (e.g. avoid accessCheck errors)
+     * with proper context
      */
     var runInsideCallbackClosure = function (fn) {
         if (!contexualRunner) {
