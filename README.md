@@ -63,6 +63,8 @@ There are two ways you can install the LTS. The simplest is to use the Salesforc
 
 Salesforce DX includes a one line command for automatically installing the LTS unmanaged package. The Salesforce DX CLI also allows you to use the `sfdx` command line tool to perform automated testing as part of your development process, including automated process, such as continuous integration.
 
+> NOTICE: When installing the CLI Plugin, an external request is made to `https://api.github.com/repos/forcedotcom/LightningTestingService/releases/` in order to download supporting files for the plugin. If this URL is blocked by your firewall, the installation of the plugin will fail.
+
 1. If you haven't already, install the Salesforce DX CLI by following the instructions for your operating system: 
     
     [Install the Salesforce DX CLI](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_install_cli.htm) in the _Salesforce DX Setup Guide_
