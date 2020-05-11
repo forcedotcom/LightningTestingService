@@ -1,4 +1,4 @@
-# Lightning Testing Service (LTS) [![Build Status](https://travis-ci.org/forcedotcom/LightningTestingService.svg?branch=master)](https://travis-ci.org/forcedotcom/LightningTestingService) [![CircleCI](https://circleci.com/gh/forcedotcom/LightningTestingService/tree/master.svg?style=shield)](https://circleci.com/gh/forcedotcom/LightningTestingService/tree/master)
+# Lightning Testing Service (LTS) [![CircleCI](https://circleci.com/gh/forcedotcom/LightningTestingService/tree/master.svg?style=shield)](https://circleci.com/gh/forcedotcom/LightningTestingService/tree/master)
 
 ## Lightning Testing Service Overview
 
