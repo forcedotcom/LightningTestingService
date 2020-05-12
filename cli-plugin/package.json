@@ -1,5 +1,5 @@
 {
-  "name": "aura-test",
+  "name": "lightning-testing-service",
   "description": "SFDX Pluging for Lightning Test Service",
   "version": "0.0.0",
   "author": "Nathan Totten @ntotten",
