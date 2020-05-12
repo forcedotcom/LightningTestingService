@@ -1,0 +1,8 @@
+{
+    "webdriverio": {
+        "desiredCapabilities": {
+            "browserName": "chrome"
+        }
+    },
+    "outputDivId": "run_results_full"
+}

@@ -1,0 +1,11 @@
+{
+  "commandDescription": "install Lightning Testing Service unmanaged package in your org",
+  "commandDescriptionLong": "Installs a Lightning Testing Service (LTS) unmanaged package into your org.",
+  "waitFlagDescription": "number of minutes to wait for installation status",
+  "waitFlagDescriptionLong": "Maximum number of minutes to wait for installation status.",
+  "releaseversionFlagDescription": "release version of Lightning Testing Service",
+  "releaseversionFlagDescriptionLong": "The release version of LTS unmanaged package you want to install.",
+  "packagetypeFlagDescription": "type of unmanaged package. 'full' option contains both jasmine and mocha, plus examples",
+  "packagetypeFlagDescriptionLong": "Type of LTS unmanaged package to install. 'jasmine' and 'mocha' contains the essentials for development, 'full' contains both, and adds sample components and tests in the package. 'full' is best for 'kicking the tires' of LTS.",
+  "commandHelp": "Examples:\n   $ sfdx force:lightning:test:install\n   $ sfdx force:lightning:test:install -w 0 -r v1.0\n   $ sfdx force:lightning:test:install -t jasmine"
+}
