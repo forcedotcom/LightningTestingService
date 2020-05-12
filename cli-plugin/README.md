@@ -3,29 +3,25 @@
 SFDX Pluging for Lightning Test Service
 
 <!-- toc -->
-
-- [Debugging your plugin](#debugging-your-plugin)
-  <!-- tocstop -->
+* [Lightning Testing Service CLI Plugin](#lightning-testing-service-cli-plugin)
+<!-- tocstop -->
   <!-- install -->
   <!-- usage -->
-
 ```sh-session
-$ npm install -g aura-test
+$ npm install -g lightning-testing-service
 $ sfdx COMMAND
 running command...
 $ sfdx (-v|--version|version)
-aura-test/0.0.0 darwin-x64 node-v12.10.0
+lightning-testing-service/0.0.0 darwin-x64 node-v12.10.0
 $ sfdx --help [COMMAND]
 USAGE
   $ sfdx COMMAND
 ...
 ```
-
 <!-- usagestop -->
 <!-- commands -->
-
-- [`sfdx force2:lightning:test:install [-r <string>] [-t] [-w <number>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-force2lightningtestinstall--r-string--t--w-number--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
-- [`sfdx force2:lightning:test:run [-r <string>] [-a <string>] [-d <filepath>] [-f <filepath>] [-o] [-t <number>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-force2lightningtestrun--r-string--a-string--d-filepath--f-filepath--o--t-number--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx force2:lightning:test:install [-r <string>] [-t] [-w <number>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-force2lightningtestinstall--r-string--t--w-number--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+* [`sfdx force2:lightning:test:run [-r <string>] [-a <string>] [-d <filepath>] [-f <filepath>] [-o] [-t <number>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-force2lightningtestrun--r-string--a-string--d-filepath--f-filepath--o--t-number--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 
 ## `sfdx force2:lightning:test:install [-r <string>] [-t] [-w <number>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -33,7 +29,7 @@ install Lightning Testing Service unmanaged package in your org
 
 ```
 USAGE
-  $ sfdx force2:lightning:test:install [-r <string>] [-t] [-w <number>] [-u <string>] [--apiversion <string>] [--json]
+  $ sfdx force2:lightning:test:install [-r <string>] [-t] [-w <number>] [-u <string>] [--apiversion <string>] [--json] 
   [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
 
 OPTIONS
@@ -72,8 +68,8 @@ invoke Aura component tests
 
 ```
 USAGE
-  $ sfdx force2:lightning:test:run [-r <string>] [-a <string>] [-d <filepath>] [-f <filepath>] [-o] [-t <number>] [-u
-  <string>] [--apiversion <string>] [--json] [--loglevel
+  $ sfdx force2:lightning:test:run [-r <string>] [-a <string>] [-d <filepath>] [-f <filepath>] [-o] [-t <number>] [-u 
+  <string>] [--apiversion <string>] [--json] [--loglevel 
   trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
 
 OPTIONS
@@ -113,5 +109,4 @@ EXAMPLES
 ```
 
 _See code: [lib/commands/force2/lightning/test/run.js](https://github.com/forcedotcom/LightningTestService/blob/v0.0.0/lib/commands/force2/lightning/test/run.js)_
-
 <!-- commandsstop -->

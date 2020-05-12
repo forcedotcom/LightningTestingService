@@ -8,7 +8,7 @@ Messages.importMessagesDirectory(__dirname);
 
 // Load the specific messages for this file. Messages from @salesforce/command, @salesforce/core,
 // or any library that is using the messages framework can also be loaded this way.
-const messages = Messages.loadMessages('aura-test', 'install');
+const messages = Messages.loadMessages('lightning-testing-service', 'install');
 
 export default class Install extends SfdxCommand {
   public static description = messages.getMessage('commandDescription');
