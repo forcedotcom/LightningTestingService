@@ -29,6 +29,10 @@ jobs:
             - v1-dep-
       - run: sudo chown -R circleci /usr/local/lib/node_modules
       - run: sudo npm install -g sfdx-cli
+      - run: sudo mkdir ~/.config
+      - run: sudo mkdir ~/.config/sfdx
+      - run: sudo echo "[\"plugin-lightning-testing-service\"]" >> ~/.config/sfdx/unsignedPluginWhiteList.json
+      - run: sfdx plugins:install plugin-lightning-testing-service
       - run: sudo apt-get update
       - run: sudo apt-get install vim-common
       # Test
@@ -38,9 +42,6 @@ jobs:
       - run: sfdx force:org:create -s -f config/project-scratch-def.json -a travisciorg
       - run: sfdx force:source:push -u travisciorg
       - run: sudo chown -R circleci /usr/local/lib/node_modules
-      - run: sudo mkdir ~/.config/sfdx
-      - run: sudo echo "[\"plugin-lightning-testing-service\"]" >> ~/.config/sfdx/unsignedPluginWhiteList.json
-      - run: sfdx plugins:install plugin-lightning-testing-service
       - run: sfdx aura-test:run -a jasmineTests.app
       - run: sfdx aura-test:run -a mochaTests.app
       - run: sfdx force:org:delete -u travisciorg -p
