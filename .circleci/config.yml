@@ -33,7 +33,7 @@ jobs:
       - run: sudo mkdir ~/.config/sfdx
       - run: sudo chown -R circleci ~/.config
       - run: sudo echo "[\"plugin-lightning-testing-service\"]" >> ~/.config/sfdx/unsignedPluginWhiteList.json
-      - run: sfdx plugins:install plugin-lightning-testing-service
+      - run: true | sfdx plugins:install plugin-lightning-testing-service
       - run: sudo apt-get update
       - run: sudo apt-get install vim-common
       # Test
