@@ -31,6 +31,7 @@ jobs:
       - run: sudo npm install -g sfdx-cli
       - run: sudo mkdir ~/.config
       - run: sudo mkdir ~/.config/sfdx
+      - run: sudo chown -R circleci ~/.config
       - run: sudo echo "[\"plugin-lightning-testing-service\"]" >> ~/.config/sfdx/unsignedPluginWhiteList.json
       - run: sfdx plugins:install plugin-lightning-testing-service
       - run: sudo apt-get update
