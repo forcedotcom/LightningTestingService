@@ -59,9 +59,9 @@ Your test suite is deployed in the form of an archive (zip) static resource. Onc
 
 There are two ways you can install the LTS. The simplest is to use the Salesforce DX CLI. If you're not using Salesforce DX, you can manually install the unmanaged package. 
 
-### Install the Lightning Testing Service with Salesforce DX
+### Install the Lightning Testing Service with the Salesforce CLI
 
-Salesforce DX includes a one line command for automatically installing the LTS unmanaged package. The Salesforce DX CLI also allows you to use the `sfdx` command line tool to perform automated testing as part of your development process, including automated process, such as continuous integration.
+The Salesforce CLI includes a one line command for automatically installing the LTS unmanaged package. The Salesforce DX CLI also allows you to use the `sfdx` command line tool to perform automated testing as part of your development process, including automated process, such as continuous integration.
 
 > NOTICE: When installing the CLI Plugin, an external request is made to `https://api.github.com/repos/forcedotcom/LightningTestingService/releases/` in order to download supporting files for the plugin. If this URL is blocked by your firewall, the installation of the plugin will fail.
 
