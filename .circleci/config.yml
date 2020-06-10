@@ -38,7 +38,9 @@ jobs:
       - run: sfdx force:org:create -s -f config/project-scratch-def.json -a travisciorg
       - run: sfdx force:source:push -u travisciorg
       - run: sudo chown -R circleci /usr/local/lib/node_modules
-      - run: echo 'y' | sfdx plugins:install plugin-lightning-testing-service
+      - run: sudo mkdir ~/.config/sfdx
+      - run: sudo echo "[\"plugin-lightning-testing-service\"]" >> ~/.config/sfdx/unsignedPluginWhiteList.json
+      - run: sfdx plugins:install plugin-lightning-testing-service
       - run: sfdx aura-test:run -a jasmineTests.app
       - run: sfdx aura-test:run -a mochaTests.app
       - run: sfdx force:org:delete -u travisciorg -p
