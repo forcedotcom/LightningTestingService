@@ -4,7 +4,7 @@
 
 The Lightning Testing Service, or LTS, is a set of tools and services that let you create test suites for your Aura components using standard JavaScript test frameworks, such as Jasmine and Mocha.
 
-**Note:** *As of Spring '19, the Lightning Component framework has two programming models, Lightning Web Components, and Aura Components, the original model. Use LTS to test Aura components.*
+**Note:** _As of Spring '19, the Lightning Component framework has two programming models, Lightning Web Components, and Aura Components, the original model. Use LTS to test Aura components._
 
 Automated tests are the best way to achieve predictable, repeatable assessments of the quality of your custom code. Writing automated tests for your custom components gives you confidence that they work as designed, and allows you to evaluate the impact of changes, such as refactoring, or of new versions of Salesforce or third-party JavaScript libraries.
 
@@ -12,11 +12,11 @@ The LTS supports testing with standard JavaScript test frameworks. We provide ea
 
 ## Getting Started with Lightning Testing Service
 
-LTS and [Salesforce DX](https://developer.salesforce.com/platform/dx) are two great tastes that taste great together. Installing the LTS is a one line command in the Salesforce DX CLI. Once installed, you can work with your test suite in a variety of ways from the command line. This approach also facilitates systematic automated testing.
+LTS and [Salesforce CLI](https://developer.salesforce.com/platform/dx) are two great tastes that taste great together. Installing the LTS is a one line command in the Salesforce CLI. Once installed, you can work with your test suite in a variety of ways from the command line. This approach also facilitates systematic automated testing.
 
 > **Note:** If you just want to “kick the tires,” that's cool, too. You can manually install the LTS unmanaged package. The package provides the test service app and an example test suite. It also includes example components that the test suite runs against. You run the test suite by accessing the URL for the LTS app in your org.
 
-Write your tests using a JavaScript testing framework of your choosing. We provide easy-to-use wrappers for [Jasmine](https://jasmine.github.io/) and [Mocha](http://mochajs.org/). 
+Write your tests using a JavaScript testing framework of your choosing. We provide easy-to-use wrappers for [Jasmine](https://jasmine.github.io/) and [Mocha](http://mochajs.org/).
 
 A simple Jasmine test spec looks like the following:
 
@@ -24,10 +24,10 @@ A simple Jasmine test spec looks like the following:
 /**
  * This is a 'hello world' Jasmine test spec
  */
-describe("A simple passing test", function() {
-    it("checks that true is always true", function() {
-        expect(true).toBe(true);
-    });
+describe("A simple passing test", function () {
+  it("checks that true is always true", function () {
+    expect(true).toBe(true);
+  });
 });
 ```
 
@@ -35,15 +35,15 @@ A similar Mocha test looks, well, similar:
 
 ```js
 /**
- * This is a 'hello world' Mocha test 
+ * This is a 'hello world' Mocha test
  */
-var assert = require('assert');
-describe('Test the nature of truth', function() {
-    describe('A simple passing test', function() {
-        it('checks that true is always true', function() {
-            assert.equal(true, true);
-        });
+var assert = require("assert");
+describe("Test the nature of truth", function () {
+  describe("A simple passing test", function () {
+    it("checks that true is always true", function () {
+      assert.equal(true, true);
     });
+  });
 });
 ```
 
@@ -57,42 +57,49 @@ Your test suite is deployed in the form of an archive (zip) static resource. Onc
 
 ## Installing the Lightning Testing Service
 
-There are two ways you can install the LTS. The simplest is to use the Salesforce DX CLI. If you're not using Salesforce DX, you can manually install the unmanaged package. 
+There are two ways you can install the LTS. The simplest is to use the Salesforce CLI. If you're not using the Salesforce CLI, you can manually install the unmanaged package.
 
 ### Install the Lightning Testing Service with the Salesforce CLI
 
-The Salesforce CLI includes a one line command for automatically installing the LTS unmanaged package. The Salesforce DX CLI also allows you to use the `sfdx` command line tool to perform automated testing as part of your development process, including automated process, such as continuous integration.
+The Salesforce CLI includes a one line command for automatically installing the LTS unmanaged package. The Salesforce CLI also allows you to use the `sfdx` command line tool to perform automated testing as part of your development process, including automated process, such as continuous integration.
 
 > NOTICE: When installing the CLI Plugin, an external request is made to `https://api.github.com/repos/forcedotcom/LightningTestingService/releases/` in order to download supporting files for the plugin. If this URL is blocked by your firewall, the installation of the plugin will fail.
 
-1. If you haven't already, install the Salesforce DX CLI by following the instructions for your operating system: 
-    
-    [Install the Salesforce DX CLI](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_install_cli.htm) in the _Salesforce DX Setup Guide_
+1. If you haven't already, install the Salesforce CLI by following the instructions for your operating system:
 
-2. Verify that the Salesforce DX CLI plug-in is installed and updated by running the following command in your shell or terminal application:
-    
-    ```bash
-    sfdx update
-    ```
-    
-    Additional verification details are available in [Verify Your Installation and Install the Plug-In](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_install_cli_verify.htm) in the _Salesforce DX Setup Guide._
+   [Install the Salesforce CLI](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_install_cli.htm) in the _Salesforce CLI Setup Guide_
 
-3. Install the LTS package with the following command:
-    ```bash
-    sfdx force:lightning:test:install
-    ```
-    
-    This installs the latest version of the LTS package into your default SFDX org. See the help for the `install` command for additional options.
+2. Verify that the Salesforce CLI plug-in is installed and updated by running the following command in your shell or terminal application:
+
+   ```bash
+   sfdx update
+   ```
+
+   Additional verification details are available in [Verify Your Installation and Install the Plug-In](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_install_cli_verify.htm) in the _Salesforce CLI Setup Guide._
+
+3. Install the [LTS CLI Plugin](https://github.com/forcedotcom/plugin-lightning-test-service) with the following command:
+
+   ```bash
+   sfdx plugins:install plugin-lightning-testing-service
+   ```
+
+4. Install the LTS package with the following command:
+
+   ```bash
+   sfdx aura-test:install
+   ```
+
+   This installs the latest version of the LTS package into your default SFDX org. See the help for the `install` command for additional options.
 
 After you install LTS, you can run your tests from the command line using the `sfdx` tool. For example:
 
 ```bash
 sfdx force:auth:web:login -s     # connect to your scratch org
 sfdx force:source:push           # push local source to the scratch org
-sfdx force:lightning:test:run -a jasmineTests.app   # run the test suite
+sfdx aura-test:run -a jasmineTests.app   # run the test suite
 ```
 
-When you run the `force:lightning:test:run -a jasmineTests.app` command in a connected workspace you should see something like the following:
+When you run the `aura-test:run -a jasmineTests.app` command in a connected workspace you should see something like the following:
 
 ![Console output from a successful test suite execution using sfdx](doc-resources/lts_sfdx_test_run_output.png)
 
@@ -100,7 +107,7 @@ This tells you that the command line tools are working, and connected to your de
 
 ### Install the Lightning Testing Service Unmanaged Package Manually
 
-If you're not using Salesforce DX, you're missing out on a lot, but you can still use LTS. Installing the LTS package is just like [installing any other unmanaged package](https://help.salesforce.com/articleView?id=distribution_installing_packages.htm&language=en&type=0).
+If you're not using the Salesforce CLI, you're missing out on a lot, but you can still use LTS. Installing the LTS package is just like [installing any other unmanaged package](https://help.salesforce.com/articleView?id=distribution_installing_packages.htm&language=en&type=0).
 
 1. Log in to your org. We recommend that you create a new DE org for evaluating the LTS.
 2. Go to the project [Releases](https://github.com/forcedotcom/LightningTestingService/releases) page, and click the package installation URL for the latest release.
@@ -111,17 +118,17 @@ If you're not using Salesforce DX, you're missing out on a lot, but you can stil
 
 However you install it, the LTS package includes the following items:
 
- * Example test suites
-     - Jasmine JavaScript files in archive static resources
-     - Mocha JavaScript files in archive static resources
- * Example components to be tested
-     - Components, an Apex class, and a custom label
- * LTS infrastructure
-     - Jasmine framework and wrapper
-     - Mocha framework and wrapper
-     - LTS test utilities
-     - Test runner component
-     - Wrapper test app
+- Example test suites
+  - Jasmine JavaScript files in archive static resources
+  - Mocha JavaScript files in archive static resources
+- Example components to be tested
+  - Components, an Apex class, and a custom label
+- LTS infrastructure
+  - Jasmine framework and wrapper
+  - Mocha framework and wrapper
+  - LTS test utilities
+  - Test runner component
+  - Wrapper test app
 
 Once installed, you can run the example test suite by going to the following URL in your org:
 <code>https://<em>&lt;myServer&gt;</em>/c/jasmineTests.app</code> (Jasmine)
@@ -149,9 +156,9 @@ Both the components and the test suites included in the unmanaged package are al
 
 All of the testable components are named beginning with “eg” (from the abbreviation “e.g.”, meaning _for example_). The components provided in the package can be accessed as you would any Aura component.
 
- * In the Developer Console
- * In the Force.com IDE, in the `/aura/` directory
- * By converting your org’s metadata into a format that you can work with locally, using Salesforce DX
+- In the Developer Console
+- In the Force.com IDE, in the `/aura/` directory
+- By converting your org’s metadata into a format that you can work with locally, using Salesforce CLI
 
 You can also explore the components directly from the repo. They’re available in the [lightning-component-tests/main/default/aura](https://github.com/forcedotcom/LightningTestingService/tree/master/lightning-component-tests/main/default/aura) directory.
 
@@ -163,10 +170,10 @@ The example tests are included in the form of static resources. You can also rev
 
 There are four test suites included in the LTS package, three for Jasmine and one for Mocha:
 
- * `jasmineHelloWorldTests.resource` — A very simple Jasmine example including one passing and one failing test.
- * `jasmineExampleTests.resource` — The main Jasmine example test suite.
- * `jasmineLightningDataServiceTests.resource` — Some Jasmine examples specific to testing Lightning Data Service-based components.
- * `mochaExampleTests.resource` — The Mocha example test suite, which provides examples parallel to the main Jasmine test suite.
+- `jasmineHelloWorldTests.resource` — A very simple Jasmine example including one passing and one failing test.
+- `jasmineExampleTests.resource` — The main Jasmine example test suite.
+- `jasmineLightningDataServiceTests.resource` — Some Jasmine examples specific to testing Lightning Data Service-based components.
+- `mochaExampleTests.resource` — The Mocha example test suite, which provides examples parallel to the main Jasmine test suite.
 
 The remainder of the static resources are infrastructure used by the LTS. They’re _briefly_ described in [Use Another JavaScript Test Framework](#use-another-javascript-test-framework).
 
@@ -184,11 +191,11 @@ If you’d prefer to use another test framework, either because you’ve already
 
 All of the packaged pieces of the LTS are included in the project repository, in the [lightning-component-tests/test/default](https://github.com/forcedotcom/LightningTestingService/tree/master/lightning-component-tests/test/default) directory. The pieces you’ll need to modify or replace are the following items, drawn from the Jasmine wrapper.
 
- * `aura/jasmineTests` — The front end of the LTS, this simple app includes the test runner component, and a list of test suites to feed it.
- * `aura/lts_jasmineRunner` — The test runner component for Jasmine. It includes references to the required Jasmine library, which it loads along with the test spec resources, and then fires the test runner.
- * `lts_jasmine.resource` — The Jasmine library, unmodified.
- * `lts_jasmineboot.resource` — A JavaScript IIFE that launches Jasmine in the LTS context.
-  * `lts_testutil.resource` — A collection of utilities for use within your test specs, and by the test framework wrappers. They provide Lightning component-specific functions that make it easier to test your custom components from a test context.
+- `aura/jasmineTests` — The front end of the LTS, this simple app includes the test runner component, and a list of test suites to feed it.
+- `aura/lts_jasmineRunner` — The test runner component for Jasmine. It includes references to the required Jasmine library, which it loads along with the test spec resources, and then fires the test runner.
+- `lts_jasmine.resource` — The Jasmine library, unmodified.
+- `lts_jasmineboot.resource` — A JavaScript IIFE that launches Jasmine in the LTS context.
+- `lts_testutil.resource` — A collection of utilities for use within your test specs, and by the test framework wrappers. They provide Lightning component-specific functions that make it easier to test your custom components from a test context.
 
 The Mocha version of the framework wrapper provides similar files. You might find the similarities and differences instructive in creating your own adapter for other frameworks.
 
