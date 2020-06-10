@@ -2,7 +2,7 @@
 
 ## Lightning Testing Service Overview
 
-**NOTICE: This tool is in a maintenance only state. No additional work is planned for this tool. We recommend if you want to use this tool, that you treat it as an example and create your own fork of it to use in your build process**
+**NOTICE: This tool is no longer supported and no additional work is planned for this tool. We recommend if you want to use this tool, that you treat it as an example and create your own fork of it to use in your build process**
 
 The Lightning Testing Service, or LTS, is a set of tools and services that let you create test suites for your Aura components using standard JavaScript test frameworks, such as Jasmine and Mocha.
 
